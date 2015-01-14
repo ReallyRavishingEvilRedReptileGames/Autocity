@@ -16,17 +16,7 @@ public class PlacementValidator {
 
     public void validateSettlement(Settlement settlement, int x, int y) throws WorldObjectConflictException {
         for (int i = x - requiredSettlementFreeRadius; i < x + requiredSettlementFreeRadius; i++) {
-            if (i < 0 || i > this.map.getWidth()) {
-                // Past the edge of the world
-                continue;
-            }
-
             for (int j = y - requiredSettlementFreeRadius; j < y + requiredSettlementFreeRadius; j++) {
-                if (j < 0 || j > this.map.getHeight()) {
-                    // Past the edge of the world
-                    continue;
-                }
-
                 try {
                     Tile tile = map.getTile(i, j);
 

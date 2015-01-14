@@ -26,7 +26,7 @@ public class WorldBuilder {
                 settlement.generateStarter();
                 this.map.addSettlement(settlement);
             } catch (PlacementAttemptsExceededException e) {
-
+                //
             }
         }
     }
