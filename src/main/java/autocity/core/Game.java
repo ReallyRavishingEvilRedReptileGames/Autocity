@@ -3,7 +3,8 @@ package autocity.core;
 public class Game extends Thread {
     private Map map;
     private boolean isRunning = true;
-    private int tickrate = 1000;
+    private long lastloop = System.nanoTime();
+    private double delta = 0;
 
     public Game() {
         System.out.println("Generating map...");
@@ -20,14 +21,14 @@ public class Game extends Thread {
      */
     private void main() {
         while (isRunning) {
-            try {
-                Thread.sleep(tickrate);
-            } catch (InterruptedException e) {
-                // Not important at all
+            long now = System.nanoTime();
+            long updateLength = now - lastloop;
+            delta += ((double) updateLength / 1000000000);
+            lastloop = now;
+            if (delta >= 1) {
+                System.out.println("Main game loop.");
+                delta = 0;
             }
-
-            System.out.println("Main game loop.");
-
             // Do stuff
         }
 
@@ -37,8 +38,7 @@ public class Game extends Thread {
     /**
      * Things to do on game exit
      */
-    private void onClose()
-    {
+    private void onClose() {
 
     }
 }
