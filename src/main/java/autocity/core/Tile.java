@@ -1,7 +1,6 @@
 package autocity.core;
 
 import autocity.core.tiles.WorldObject;
-import autocity.core.tiles.buildings.prefabs.Building;
 import autocity.enums.ETerrainType;
 
 public class Tile {
@@ -49,5 +48,13 @@ public class Tile {
 
     public void setTerrainType(ETerrainType terrainType) {
         this.terrainType = terrainType;
+    }
+
+    public char getCharacter() {
+        if (this.occupyingObject == null) {
+            return '.';
+        }
+
+        return '#';
     }
 }

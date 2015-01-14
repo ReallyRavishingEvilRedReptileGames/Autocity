@@ -46,4 +46,8 @@ public class Map {
     public void addSettlement(Settlement settlement) {
         this.settlements.add(settlement);
     }
+
+    public ArrayList<Settlement> getSettlements() {
+        return this.settlements;
+    }
 }

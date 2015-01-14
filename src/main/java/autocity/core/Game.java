@@ -6,6 +6,10 @@ public class Game extends Thread {
     private long lastloop = System.nanoTime();
     private double delta = 0;
 
+    public Map getMap() {
+        return this.map;
+    }
+
     public Game() {
         System.out.println("Generating map...");
         WorldBuilder builder = new WorldBuilder();
@@ -25,10 +29,12 @@ public class Game extends Thread {
             long updateLength = now - lastloop;
             delta += ((double) updateLength / 1000000000);
             lastloop = now;
+
             if (delta >= 1) {
                 System.out.println("Main game loop.");
                 delta = 0;
             }
+
             // Do stuff
         }
 

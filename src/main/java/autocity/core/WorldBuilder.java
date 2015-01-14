@@ -9,7 +9,7 @@ public class WorldBuilder {
      * Generates a map.
      */
     public Map generate() {
-        this.map = new Map(128, 128);
+        this.map = new Map(48, 48);
 
         this.generateTerrain();
         this.generateSettlements();
