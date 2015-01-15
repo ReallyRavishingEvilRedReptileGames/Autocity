@@ -37,7 +37,7 @@ public class PlacementValidator {
         for (int i = x; i < x + width; i++) {
             for (int j = y; j < y + height; j++) {
                 if (this.map.getTile(i, j).getOccupyingObject() != null) {
-
+                    throw new WorldObjectConflictException(this.map.getTile(i, j).getOccupyingObject());
                 }
             }
         }

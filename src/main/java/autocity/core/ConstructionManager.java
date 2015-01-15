@@ -27,6 +27,7 @@ public class ConstructionManager {
 
         try {
             validator.validateBuilding(this.building, 1, 1);
+            this.map.getTile(1, 1).setOccupyingObject(this.building);
         } catch (WorldObjectConflictException e) {
             System.out.println("Could not place building - conflicts with " + e.getWorldObject());
         } catch (TerrainConflictException e) {

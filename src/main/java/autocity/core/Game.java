@@ -31,7 +31,7 @@ public class Game extends Thread {
             lastloop = now;
 
             if (delta >= 1) {
-                System.out.println("Main game loop.");
+                this.onTick();
                 delta = 0;
             }
 
@@ -45,6 +45,13 @@ public class Game extends Thread {
      * Things to do on game exit
      */
     private void onClose() {
+
+    }
+
+    /**
+     * Things to do on every game tick
+     */
+    private void onTick() {
 
     }
 }
