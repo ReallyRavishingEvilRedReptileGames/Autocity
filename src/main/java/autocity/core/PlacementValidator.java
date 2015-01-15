@@ -1,10 +1,11 @@
 package autocity.core;
 
+import autocity.core.exceptions.BuildingConflictException;
 import autocity.core.exceptions.TerrainConflictException;
 import autocity.core.exceptions.TileOutOfBoundsException;
 import autocity.core.exceptions.WorldObjectConflictException;
-import autocity.core.tiles.WorldObject;
-import autocity.core.tiles.buildings.prefabs.Building;
+import autocity.core.world.WorldObject;
+import autocity.core.world.buildings.prefabs.Building;
 
 public class PlacementValidator {
     private World world;
@@ -14,14 +15,16 @@ public class PlacementValidator {
         this.world = world;
     }
 
-    public void validateSettlement(Settlement settlement, int x, int y) throws WorldObjectConflictException {
+    public void validateSettlement(Settlement settlement, int x, int y) throws BuildingConflictException {
         for (int i = x - requiredSettlementFreeRadius; i < x + requiredSettlementFreeRadius; i++) {
             for (int j = y - requiredSettlementFreeRadius; j < y + requiredSettlementFreeRadius; j++) {
                 try {
                     Tile tile = world.getTile(i, j);
 
-                    if (tile.getOccupyingObject() != null) {
-                        throw new WorldObjectConflictException(tile.getOccupyingObject());
+                    WorldObject worldObject = tile.getOccupyingObject();
+
+                    if (worldObject != null && worldObject instanceof Building) {
+                        throw new BuildingConflictException((Building) worldObject);
                     }
                 } catch (TileOutOfBoundsException expected) {
                     // Not a problem

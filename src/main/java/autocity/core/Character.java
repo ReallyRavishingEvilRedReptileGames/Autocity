@@ -2,7 +2,7 @@ package autocity.core;
 
 import autocity.core.character.Sex;
 import autocity.core.generators.PersonName;
-import autocity.core.tiles.WorldObject;
+import autocity.core.world.WorldObject;
 
 import java.util.ArrayList;
 
@@ -11,7 +11,6 @@ public abstract class Character implements Comparable<Character> {
     protected int maxHealth = 100;
     protected ArrayList<Thought> thoughts;
     protected String name;
-    protected Settlement settlement;
     protected WorldObject location;
     protected Sex sex;
 
@@ -39,19 +38,6 @@ public abstract class Character implements Comparable<Character> {
 
     public ArrayList<Thought> getThoughts() {
         return thoughts;
-    }
-
-    public Settlement getSettlement() {
-        return settlement;
-    }
-
-    public void setSettlement(Settlement settlement) {
-        if (this.settlement != null) {
-            this.settlement.removeCitizen(this);
-        }
-
-        this.settlement = settlement;
-        this.settlement.addCitizen(this);
     }
 
     public int compareTo(Character character) {

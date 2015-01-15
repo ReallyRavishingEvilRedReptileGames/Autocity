@@ -2,7 +2,7 @@ package autocity.core.generators;
 
 import autocity.core.Settlement;
 import autocity.core.exceptions.TileOutOfBoundsException;
-import autocity.core.tiles.paths.Road;
+import autocity.core.world.paths.Road;
 
 public class RoadBuilder {
     private Settlement settlement;

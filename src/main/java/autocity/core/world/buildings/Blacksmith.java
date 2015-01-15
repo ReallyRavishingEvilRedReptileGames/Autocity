@@ -1,6 +1,6 @@
-package autocity.core.tiles.buildings;
+package autocity.core.world.buildings;
 
-import autocity.core.tiles.buildings.prefabs.Store;
+import autocity.core.world.buildings.prefabs.Store;
 
 public class Blacksmith extends Store {
     public String getName() {

@@ -1,6 +1,6 @@
 import autocity.core.Thought;
-import autocity.core.tiles.buildings.Hut;
-import autocity.core.civilians.Villager;
+import autocity.core.world.buildings.Hut;
+import autocity.core.civilians.prefabs.Villager;
 import autocity.core.enumeration.EThoughtType;
 import org.junit.Test;
 

@@ -1,8 +1,9 @@
 package autocity.core;
 
 import autocity.core.enumeration.ETerrainType;
-import autocity.core.tiles.WorldObject;
-import autocity.core.tiles.paths.Road;
+import autocity.core.world.WorldObject;
+import autocity.core.world.paths.Road;
+import autocity.core.world.resources.Tree;
 
 public class Tile {
     private WorldObject occupyingObject;
@@ -58,6 +59,10 @@ public class Tile {
 
         if (this.occupyingObject instanceof Road) {
             return '=';
+        }
+
+        if (this.occupyingObject instanceof Tree) {
+            return 'T';
         }
 
         return '#';

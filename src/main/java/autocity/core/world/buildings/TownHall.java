@@ -1,6 +1,6 @@
-package autocity.core.tiles.buildings;
+package autocity.core.world.buildings;
 
-import autocity.core.tiles.buildings.prefabs.Civic;
+import autocity.core.world.buildings.prefabs.Civic;
 
 public class TownHall extends Civic {
     public String getName() {

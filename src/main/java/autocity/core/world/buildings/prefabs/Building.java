@@ -1,9 +1,9 @@
-package autocity.core.tiles.buildings.prefabs;
+package autocity.core.world.buildings.prefabs;
 
 import autocity.core.Character;
 import autocity.core.Settlement;
 import autocity.core.enumeration.EBuildingStyle;
-import autocity.core.tiles.WorldObject;
+import autocity.core.world.WorldObject;
 
 public abstract class Building extends WorldObject {
     protected int constructionSpeed = 1;

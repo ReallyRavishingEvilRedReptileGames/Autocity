@@ -4,7 +4,7 @@ import autocity.core.exceptions.PlacementAttemptsExceededException;
 import autocity.core.exceptions.TerrainConflictException;
 import autocity.core.exceptions.TileOutOfBoundsException;
 import autocity.core.exceptions.WorldObjectConflictException;
-import autocity.core.tiles.buildings.prefabs.Building;
+import autocity.core.world.buildings.prefabs.Building;
 
 public class ConstructionManager {
     private World world;

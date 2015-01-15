@@ -4,12 +4,13 @@ import autocity.core.ConstructionManager;
 import autocity.core.PlacementValidator;
 import autocity.core.Settlement;
 import autocity.core.World;
+import autocity.core.exceptions.BuildingConflictException;
 import autocity.core.exceptions.PlacementAttemptsExceededException;
 import autocity.core.exceptions.WorldObjectConflictException;
 import autocity.core.generators.RoadBuilder;
-import autocity.core.tiles.buildings.Hut;
-import autocity.core.tiles.buildings.TownHall;
-import autocity.core.tiles.buildings.prefabs.Building;
+import autocity.core.world.buildings.Hut;
+import autocity.core.world.buildings.TownHall;
+import autocity.core.world.buildings.prefabs.Building;
 
 import java.util.Random;
 
@@ -55,8 +56,8 @@ public class SettlementFactory {
                 placed = true;
                 System.out.println("Placed settlement at (" + settlement.getOriginX() + "," + settlement.getOriginY() + ")");
                 break;
-            } catch (WorldObjectConflictException e) {
-                System.out.println("Settlement conflicts with " + e.getWorldObject());
+            } catch (BuildingConflictException e) {
+                System.out.println("Settlement conflicts with " + e.getBuilding());
                 // Settlement placement will conflict with a building
             }
         }

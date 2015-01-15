@@ -1,6 +1,6 @@
-package autocity.core.tiles.paths;
+package autocity.core.world.paths;
 
-import autocity.core.tiles.paths.prefabs.Path;
+import autocity.core.world.paths.prefabs.Path;
 
 public class Road extends Path {
     public String toString() {

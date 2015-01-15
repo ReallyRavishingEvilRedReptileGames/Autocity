@@ -1,5 +1,5 @@
 package autocity.core.enumeration;
 
 public enum ETerrainType {
-    Grass, Sand, Water, Dirt
+    Grass, Sand, Water, Clay, Rock, Marsh
 }

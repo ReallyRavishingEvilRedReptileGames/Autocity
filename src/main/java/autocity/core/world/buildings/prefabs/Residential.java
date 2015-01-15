@@ -1,4 +1,4 @@
-package autocity.core.tiles.buildings.prefabs;
+package autocity.core.world.buildings.prefabs;
 
 import autocity.core.Character;
 

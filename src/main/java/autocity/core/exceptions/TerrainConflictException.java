@@ -1,7 +1,7 @@
 package autocity.core.exceptions;
 
 import autocity.core.enumeration.ETerrainType;
-import autocity.core.tiles.WorldObject;
+import autocity.core.world.WorldObject;
 
 public class TerrainConflictException extends Exception {
     private WorldObject worldObject;

@@ -15,8 +15,6 @@ public class Simulation {
     public void onTick() {
         HashSet<Settlement> settlements = this.game.getWorld().getSettlements();
 
-        System.out.println("hi");
-
         for (Settlement settlement : settlements) {
             settlement.getPopulation().update();
         }

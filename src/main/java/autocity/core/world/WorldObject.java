@@ -1,4 +1,4 @@
-package autocity.core.tiles;
+package autocity.core.world;
 
 import autocity.core.Character;
 import autocity.core.Tile;

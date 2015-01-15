@@ -1,6 +1,6 @@
 import autocity.core.Character;
-import autocity.core.civilians.Villager;
-import autocity.core.tiles.buildings.TownHall;
+import autocity.core.civilians.prefabs.Villager;
+import autocity.core.world.buildings.TownHall;
 import org.junit.Test;
 
 public class VisitorTest {

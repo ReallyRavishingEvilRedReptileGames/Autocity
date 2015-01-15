@@ -1,22 +1,24 @@
 package autocity.core;
 
-import autocity.core.exceptions.PlacementAttemptsExceededException;
+import autocity.core.civilians.prefabs.Villager;
 import autocity.core.exceptions.TileOutOfBoundsException;
-import autocity.core.exceptions.WorldObjectConflictException;
 import autocity.core.simulation.Population;
-import autocity.core.tiles.buildings.prefabs.Building;
+import autocity.core.world.buildings.prefabs.Building;
 
 import java.util.HashSet;
-import java.util.Random;
 
 public class Settlement {
     private HashSet<Building> buildings;
-    private HashSet<Character> citizens;
+    private HashSet<Villager> citizens;
     private World world;
     private int originX;
     private int originY;
     private Player owner;
     private Population population;
+
+    public double getBirthRate() {
+        return 0.1;
+    }
 
     public Settlement(World world, int originX, int originY) {
         this.initialize(world);
@@ -39,12 +41,16 @@ public class Settlement {
         return this.population;
     }
 
-    public void addCitizen(Character character) {
-        this.citizens.add(character);
+    public void addCitizen(Villager villager) {
+        this.citizens.add(villager);
     }
 
-    public void removeCitizen(Character character) {
-        this.citizens.remove(character);
+    public void removeCitizen(Villager villager) {
+        this.citizens.remove(villager);
+    }
+
+    public HashSet<Villager> getCitizens() {
+        return this.citizens;
     }
 
     public void addBuilding(Building building) {

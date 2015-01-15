@@ -1,6 +1,6 @@
 package autocity.core.exceptions;
 
-import autocity.core.tiles.WorldObject;
+import autocity.core.world.WorldObject;
 
 public class WorldObjectConflictException extends Exception {
     private WorldObject worldObject;

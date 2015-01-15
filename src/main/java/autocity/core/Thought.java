@@ -1,7 +1,7 @@
 package autocity.core;
 
 import autocity.core.enumeration.EThoughtType;
-import autocity.core.tiles.buildings.prefabs.Building;
+import autocity.core.world.buildings.prefabs.Building;
 
 public class Thought {
     private EThoughtType type;
