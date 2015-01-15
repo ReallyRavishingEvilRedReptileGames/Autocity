@@ -10,6 +10,7 @@ public class Tile {
     private ETerrainType terrainType = ETerrainType.Grass;
     private int x;
     private int y;
+    private int height;
 
     public Tile(int x, int y) {
         this.x = x;
@@ -38,6 +39,14 @@ public class Tile {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 
     public String toString() {

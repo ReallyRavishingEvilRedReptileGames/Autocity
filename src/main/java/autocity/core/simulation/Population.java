@@ -1,10 +1,6 @@
 package autocity.core.simulation;
 
-import autocity.core.Character;
 import autocity.core.Settlement;
-import autocity.core.civilians.prefabs.Villager;
-
-import java.util.HashSet;
 import java.util.Random;
 
 /**
