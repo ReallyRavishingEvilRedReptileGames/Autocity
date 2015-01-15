@@ -1,5 +1,6 @@
-package autocity.core;
+package autocity.core.generators;
 
+import autocity.core.Settlement;
 import autocity.core.tiles.paths.Road;
 import autocity.exceptions.TileOutOfBoundsException;
 

@@ -1,5 +1,6 @@
 package autocity.core;
 
+import autocity.core.generators.RoadBuilder;
 import autocity.core.tiles.buildings.Shack;
 import autocity.core.tiles.buildings.TownHall;
 import autocity.core.tiles.buildings.prefabs.Building;
@@ -16,6 +17,15 @@ public class Settlement {
     private Map map;
     private int originX;
     private int originY;
+    private Player owner;
+
+    public Player getOwner() {
+        return this.owner;
+    }
+
+    public void setOwner(Player owner) {
+        this.owner = owner;
+    }
 
     public Settlement(Map map, int originX, int originY) {
         this.buildings = new ArrayList<>();

@@ -40,6 +40,8 @@ public class Thought {
                 return "%1s %2s";
             case ConstructingBuilding:
                 return "I'm going to build that %1s.";
+            case PrivilegeChecked:
+                return "I've checked my privilege today.";
         }
     }
 }

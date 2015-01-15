@@ -1,5 +1,7 @@
-package autocity.core;
+package autocity.core.generators;
 
+import autocity.core.Map;
+import autocity.core.Settlement;
 import autocity.exceptions.PlacementAttemptsExceededException;
 
 public class WorldBuilder {

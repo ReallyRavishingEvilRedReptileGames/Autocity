@@ -1,5 +1,7 @@
 package autocity.core;
 
+import autocity.core.generators.WorldBuilder;
+
 public class Game extends Thread {
     private Map map;
     private boolean isRunning = true;
