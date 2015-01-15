@@ -12,6 +12,9 @@ public class SimpleUI extends Thread {
     private boolean isRunning = true;
     private long lastloop = System.nanoTime();
     private double delta = 0;
+    private int targetfps = 60;
+    private double targettime = 2 / (double) targetfps;
+
 
     private Game game;
     private UIFrame uiFrame;
@@ -31,8 +34,7 @@ public class SimpleUI extends Thread {
             long updateLength = now - lastloop;
             delta += ((double) updateLength / 1000000000);
             lastloop = now;
-
-            if (delta >= 1) {
+            if (delta >= targettime) {
                 this.redraw();
                 delta = 0;
             }
