@@ -6,8 +6,8 @@ import java.util.Random;
  * Implements the diamond-square algorithm.
  */
 public class Fractal {
-    private double roughness = 0.1;
-    private int size = 8;
+    private double roughness = 0.01;
+    private int size = 16;
     private Random random;
     private Double[][] map;
 
@@ -39,10 +39,10 @@ public class Fractal {
         map = new Double[size + 1][size + 1];
 
         // Set the values of each corner to 1 minus our variation
-        map[0][0] = 1.0 - getDeviation();
-        map[0][size] = 1.0 - getDeviation();
-        map[size][0] = 1.0 - getDeviation();
-        map[size][size] = 1.0 - getDeviation();
+        map[0][0] = 0.5 - getDeviation();
+        map[0][size] = 0.5 - getDeviation();
+        map[size][0] = 0.5 - getDeviation();
+        map[size][size] = 0.5 - getDeviation();
 
         this.divide(size);
 
@@ -75,22 +75,38 @@ public class Fractal {
     }
 
     private void square(int x, int y, int sub, double offset) {
-        double average = (this.get(x+sub, y-sub) + this.get(x-sub, y+sub) + this.get(x-sub, y-sub) + this.get(x+sub, y+sub)) / 4;
+        Double[] averages = {this.get(x+sub, y-sub), this.get(x-sub, y+sub), this.get(x-sub, y-sub), this.get(x+sub, y+sub)};
 
-        map[x][y] = average + offset;
+        map[x][y] = this.average(averages) + offset;
     }
 
     private void diamond(int x, int y, int sub, double offset) {
-        double average = (this.get(x, y-sub) + this.get(x, y+sub) + this.get(x-sub, y) + this.get(x+sub, y)) / 4;
+        Double[] averages = {this.get(x, y-sub), this.get(x, y+sub), this.get(x-sub, y), this.get(x+sub, y)};
 
-        map[x][y] = average + offset;
+        map[x][y] = this.average(averages) + offset;
     }
 
-    private double get(int x, int y) {
+    private double average(Double[] nums) {
+        double sum = 0;
+        int count = 0;
+
+        for (Double num : nums) {
+            if (num == null) {
+                continue;
+            }
+
+            sum += num;
+            count++;
+        }
+
+        return sum / count;
+    }
+
+    private Double get(int x, int y) {
         try {
             return map[x][y];
         } catch (ArrayIndexOutOfBoundsException e) {
-            return 0;
+            return null;
         }
     }
 
