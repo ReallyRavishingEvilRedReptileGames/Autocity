@@ -1,6 +1,7 @@
 package autocity.core;
 
 import autocity.core.tiles.WorldObject;
+import autocity.core.tiles.paths.Road;
 import autocity.enums.ETerrainType;
 
 public class Tile {
@@ -53,6 +54,10 @@ public class Tile {
     public char getCharacter() {
         if (this.occupyingObject == null) {
             return '.';
+        }
+
+        if (this.occupyingObject instanceof Road) {
+            return '=';
         }
 
         return '#';

@@ -1,6 +1,5 @@
 package autocity.core;
 
-import autocity.core.tiles.WorldObject;
 import autocity.core.tiles.buildings.prefabs.Building;
 import autocity.exceptions.*;
 
@@ -32,7 +31,7 @@ public class ConstructionManager {
             System.out.println("Could not place building - conflicts with " + e.getWorldObject());
         } catch (TerrainConflictException e) {
             System.out.println("Could not place building - conflicts with terrain " + e.getTerrainType());
-        } catch (OutOfBoundsException e) {
+        } catch (TileOutOfBoundsException e) {
             System.out.println("Could not place building - out of bounds");
         }
     }

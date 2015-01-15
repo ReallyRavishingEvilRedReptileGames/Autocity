@@ -3,7 +3,7 @@ package autocity.core;
 import autocity.core.tiles.buildings.Shack;
 import autocity.core.tiles.buildings.TownHall;
 import autocity.core.tiles.buildings.prefabs.Building;
-import autocity.exceptions.OutOfBoundsException;
+import autocity.exceptions.TileOutOfBoundsException;
 import autocity.exceptions.WorldObjectConflictException;
 import autocity.exceptions.PlacementAttemptsExceededException;
 
@@ -70,7 +70,7 @@ public class Settlement {
     /**
      * Generates entities for a basic town.
      */
-    public void generateStarter() {
+    public void found() {
         this.addRoads();
         this.addBuilding(new Shack());
         this.addBuilding(new TownHall());
@@ -78,7 +78,8 @@ public class Settlement {
     }
 
     private void addRoads() {
-
+        RoadBuilder builder = new RoadBuilder(this);
+        builder.generateStartingRoads();
     }
 
     private void addBuilding(Building building) {
@@ -115,5 +116,9 @@ public class Settlement {
 
     public Map getMap() {
         return map;
+    }
+
+    public Tile getOriginTile() throws TileOutOfBoundsException {
+        return this.map.getTile(this.originX, this.originY);
     }
 }

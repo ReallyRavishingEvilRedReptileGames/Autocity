@@ -1,7 +1,7 @@
 package autocity.core;
 
 import java.util.ArrayList;
-import autocity.exceptions.OutOfBoundsException;
+import autocity.exceptions.TileOutOfBoundsException;
 
 public class Map {
     private int width;
@@ -35,9 +35,9 @@ public class Map {
         return width;
     }
 
-    public Tile getTile(int x, int y) throws OutOfBoundsException {
+    public Tile getTile(int x, int y) throws TileOutOfBoundsException {
         if (x < 0 || x >= this.width || y < 0 || y >= this.height) {
-            throw new OutOfBoundsException();
+            throw new TileOutOfBoundsException();
         }
 
         return this.tiles[x][y];

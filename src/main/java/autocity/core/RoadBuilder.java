@@ -1,14 +1,22 @@
 package autocity.core;
 
-public class RoadBuilder {
-    private Map map;
+import autocity.core.tiles.paths.Road;
+import autocity.exceptions.TileOutOfBoundsException;
 
-    public RoadBuilder(Map map) {
-        this.map = map;
+public class RoadBuilder {
+    private Settlement settlement;
+
+    public RoadBuilder(Settlement settlement) {
+        this.settlement = settlement;
     }
 
-    public void createSettlementRoads(Settlement settlement) {
-        int originX = settlement.getOriginX();
-        int originY = settlement.getOriginY();
+    public void generateStartingRoads() {
+        Road road = new Road();
+
+        try {
+            this.settlement.getOriginTile().setOccupyingObject(road);
+        } catch (TileOutOfBoundsException e) {
+            // Not expected
+        }
     }
 }

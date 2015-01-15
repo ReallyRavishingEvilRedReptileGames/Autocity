@@ -3,7 +3,7 @@ package autocity.simpleui;
 import autocity.core.Game;
 import autocity.core.Map;
 import autocity.core.Tile;
-import autocity.exceptions.OutOfBoundsException;
+import autocity.exceptions.TileOutOfBoundsException;
 
 /**
  * Warning: only supports Windows because Consolas
@@ -79,7 +79,7 @@ public class SimpleUI extends Thread {
                     Tile tile = map.getTile(i, j);
 
                     sb.append(tile.getCharacter());
-                } catch (OutOfBoundsException e) {
+                } catch (TileOutOfBoundsException e) {
                     //not going to happen but we'll specify a case for this anyway.
                     sb.append('X');
                 }

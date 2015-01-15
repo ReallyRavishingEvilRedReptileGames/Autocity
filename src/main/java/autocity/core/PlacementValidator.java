@@ -2,7 +2,7 @@ package autocity.core;
 
 import autocity.core.tiles.WorldObject;
 import autocity.core.tiles.buildings.prefabs.Building;
-import autocity.exceptions.OutOfBoundsException;
+import autocity.exceptions.TileOutOfBoundsException;
 import autocity.exceptions.WorldObjectConflictException;
 import autocity.exceptions.TerrainConflictException;
 
@@ -23,14 +23,14 @@ public class PlacementValidator {
                     if (tile.getOccupyingObject() != null) {
                         throw new WorldObjectConflictException(tile.getOccupyingObject());
                     }
-                } catch (OutOfBoundsException expected) {
+                } catch (TileOutOfBoundsException expected) {
                     // Not a problem
                 }
             }
         }
     }
 
-    public void validateWorldObject(WorldObject worldObject, int x, int y) throws WorldObjectConflictException, OutOfBoundsException {
+    public void validateWorldObject(WorldObject worldObject, int x, int y) throws WorldObjectConflictException, TileOutOfBoundsException {
         int width = worldObject.getWidth();
         int height = worldObject.getHeight();
 
@@ -43,7 +43,7 @@ public class PlacementValidator {
         }
     }
 
-    public void validateBuilding(Building building, int x, int y) throws WorldObjectConflictException, OutOfBoundsException, TerrainConflictException {
+    public void validateBuilding(Building building, int x, int y) throws WorldObjectConflictException, TileOutOfBoundsException, TerrainConflictException {
         this.validateWorldObject(building, x, y);
     }
 }

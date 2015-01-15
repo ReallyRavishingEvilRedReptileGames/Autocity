@@ -23,7 +23,7 @@ public class WorldBuilder {
 
             try {
                 settlement.autoPlace();
-                settlement.generateStarter();
+                settlement.found();
                 this.map.addSettlement(settlement);
             } catch (PlacementAttemptsExceededException e) {
                 //
