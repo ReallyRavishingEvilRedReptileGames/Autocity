@@ -1,19 +1,19 @@
 package autocity.core;
 
 import autocity.core.generators.RoadBuilder;
-import autocity.core.tiles.buildings.Shack;
+import autocity.core.tiles.buildings.Hut;
 import autocity.core.tiles.buildings.TownHall;
 import autocity.core.tiles.buildings.prefabs.Building;
 import autocity.exceptions.TileOutOfBoundsException;
 import autocity.exceptions.WorldObjectConflictException;
 import autocity.exceptions.PlacementAttemptsExceededException;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Random;
 
 public class Settlement {
-    private ArrayList<Building> buildings;
-    private ArrayList<Civilian> civilians;
+    private HashSet<Building> buildings;
+    private HashSet<Person> persons;
     private Map map;
     private int originX;
     private int originY;
@@ -28,16 +28,16 @@ public class Settlement {
     }
 
     public Settlement(Map map, int originX, int originY) {
-        this.buildings = new ArrayList<>();
-        this.civilians = new ArrayList<>();
+        this.buildings = new HashSet<>();
+        this.persons = new HashSet<>();
         this.map = map;
         this.originX = originX;
         this.originY = originY;
     }
 
     public Settlement(Map map) {
-        this.buildings = new ArrayList<>();
-        this.civilians = new ArrayList<>();
+        this.buildings = new HashSet<>();
+        this.persons = new HashSet<>();
         this.map = map;
     }
 
@@ -82,9 +82,9 @@ public class Settlement {
      */
     public void found() {
         this.addRoads();
-        this.addBuilding(new Shack());
+        this.addBuilding(new Hut());
         this.addBuilding(new TownHall());
-        this.addBuilding(new Shack());
+        this.addBuilding(new Hut());
     }
 
     private void addRoads() {

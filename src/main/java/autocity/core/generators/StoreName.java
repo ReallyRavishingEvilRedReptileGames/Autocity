@@ -3,11 +3,7 @@ package autocity.core.generators;
 import autocity.core.tiles.buildings.prefabs.Store;
 
 public class StoreName {
-    public StoreName(Store store) {
-
-    }
-
-    public String getString() {
+    public static String getString(Store store) {
         return "Dragon Dildo Emporium";
     }
 }

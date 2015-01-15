@@ -6,12 +6,12 @@ import autocity.enums.EThoughtType;
 public class Thought {
     private EThoughtType type;
     private Building building;
-    private Civilian civilian;
+    private Person person;
 
-    public Thought(EThoughtType type, Building building, Civilian civilian) {
+    public Thought(EThoughtType type, Building building, Person person) {
         this.type = type;
         this.building = building;
-        this.civilian = civilian;
+        this.person = person;
     }
 
     public Thought(EThoughtType type, Building building) {
@@ -19,9 +19,9 @@ public class Thought {
         this.building = building;
     }
 
-    public Thought(EThoughtType type, Civilian civilian) {
+    public Thought(EThoughtType type, Person person) {
         this.type = type;
-        this.civilian = civilian;
+        this.person = person;
     }
 
     public Thought(EThoughtType type) {
@@ -29,7 +29,7 @@ public class Thought {
     }
 
     public String toString() {
-        return String.format(this.getFormatString(this.type), this.building, this.civilian);
+        return String.format(this.getFormatString(this.type), this.building, this.person);
     }
 
     public String getFormatString(EThoughtType type) {

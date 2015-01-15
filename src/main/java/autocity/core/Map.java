@@ -1,18 +1,19 @@
 package autocity.core;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+
 import autocity.exceptions.TileOutOfBoundsException;
 
 public class Map {
     private int width;
     private int height;
     private Tile[][] tiles;
-    private ArrayList<Settlement> settlements;
+    private HashSet<Settlement> settlements;
 
     public Map(int width, int height) {
         this.width = width;
         this.height = height;
-        this.settlements = new ArrayList<>();
+        this.settlements = new HashSet<>();
 
         this.addTiles();
     }
@@ -47,7 +48,7 @@ public class Map {
         this.settlements.add(settlement);
     }
 
-    public ArrayList<Settlement> getSettlements() {
+    public HashSet<Settlement> getSettlements() {
         return this.settlements;
     }
 }
