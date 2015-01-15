@@ -1,8 +1,11 @@
 package autocity.core.factories;
 
 import autocity.core.ConstructionManager;
+import autocity.core.PlacementValidator;
 import autocity.core.Settlement;
+import autocity.core.World;
 import autocity.core.exceptions.PlacementAttemptsExceededException;
+import autocity.core.exceptions.WorldObjectConflictException;
 import autocity.core.generators.RoadBuilder;
 import autocity.core.tiles.buildings.Hut;
 import autocity.core.tiles.buildings.TownHall;
@@ -11,49 +14,81 @@ import autocity.core.tiles.buildings.prefabs.Building;
 import java.util.Random;
 
 public class SettlementFactory {
-    private Settlement settlement;
+    private static int placementAttempts = 5;
 
-    public SettlementFactory(Settlement settlement) {
-        this.settlement = settlement;
-    }
+    public static Settlement generate(World world) throws PlacementAttemptsExceededException {
+        Settlement settlement = new Settlement(world);
 
-    public void generate() {
-        this.addRoads();
-
-        this.addBuilding(new TownHall());
+        place(settlement);
+        addRoads(settlement);
+        addBuilding(settlement, new TownHall());
 
         // Add 2-4 huts
         int hutCount = new Random().nextInt(2) + 2;
 
         for (int i = 0; i < hutCount; i++) {
-            this.addBuilding(new Hut());
+            addBuilding(settlement, new Hut());
         }
 
-        this.addPopulation();
+        addPopulation(settlement);
+
+        return settlement;
     }
 
-    private void addRoads() {
-        RoadBuilder builder = new RoadBuilder(this.settlement);
+    public static void place(Settlement settlement) throws PlacementAttemptsExceededException {
+        int width = settlement.getWorld().getWidth();
+        int height = settlement.getWorld().getHeight();
+        boolean placed = false;
+
+        Random rand = new Random();
+
+        PlacementValidator validator = new PlacementValidator(settlement.getWorld());
+
+        for (int i = 0; i < placementAttempts; i++) {
+            int nextX = rand.nextInt(width);
+            int nextY = rand.nextInt(height);
+
+            try {
+                validator.validateSettlement(settlement, nextX, nextY);
+                settlement.setOriginX(nextX);
+                settlement.setOriginY(nextY);
+                placed = true;
+                System.out.println("Placed settlement at (" + settlement.getOriginX() + "," + settlement.getOriginY() + ")");
+                break;
+            } catch (WorldObjectConflictException e) {
+                System.out.println("Settlement conflicts with " + e.getWorldObject());
+                // Settlement placement will conflict with a building
+            }
+        }
+
+        if (!placed) {
+            System.out.println("Unable to place settlement, cancelling.");
+            throw new PlacementAttemptsExceededException();
+        }
+    }
+
+    private static void addRoads(Settlement settlement) {
+        RoadBuilder builder = new RoadBuilder(settlement);
         builder.generateStartingRoads();
     }
 
-    private void addBuilding(Building building) {
-        building.setSettlement(this.settlement);
+    private static void addBuilding(Settlement settlement, Building building) {
+        building.setSettlement(settlement);
 
-        ConstructionManager manager = new ConstructionManager(this.settlement.getWorld(), building);
+        ConstructionManager manager = new ConstructionManager(settlement.getWorld(), building);
 
-        manager.setSettlement(this.settlement);
+        manager.setSettlement(settlement);
         manager.setBuilding(building);
 
         try {
             manager.construct();
-            this.settlement.addBuilding(building);
+            settlement.addBuilding(building);
         } catch (PlacementAttemptsExceededException e) {
             //
         }
     }
 
-    private void addPopulation() {
+    private static void addPopulation(Settlement settlement) {
 
     }
 }

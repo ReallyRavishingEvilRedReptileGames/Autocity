@@ -3,7 +3,6 @@ package autocity.core;
 import autocity.core.exceptions.PlacementAttemptsExceededException;
 import autocity.core.exceptions.TileOutOfBoundsException;
 import autocity.core.exceptions.WorldObjectConflictException;
-import autocity.core.factories.SettlementFactory;
 import autocity.core.simulation.Population;
 import autocity.core.tiles.buildings.prefabs.Building;
 
@@ -62,50 +61,6 @@ public class Settlement {
 
     public void setOwner(Player owner) {
         this.owner = owner;
-    }
-
-    /**
-     * Find a location for this settlement and place it there.
-     */
-    public void autoPlace() throws PlacementAttemptsExceededException {
-        int width = this.world.getWidth();
-        int height = this.world.getHeight();
-        int placementAttempts = 5;
-        boolean placed = false;
-
-        Random rand = new Random();
-
-        PlacementValidator validator = new PlacementValidator(this.world);
-
-        for (int i = 0; i < placementAttempts; i++) {
-            int nextX = rand.nextInt(width);
-            int nextY = rand.nextInt(height);
-
-            try {
-                validator.validateSettlement(this, nextX, nextY);
-                this.originX = nextX;
-                this.originY = nextY;
-                placed = true;
-                System.out.println("Placed settlement at (" + this.originX + "," + this.originY + ")");
-                break;
-            } catch (WorldObjectConflictException e) {
-                System.out.println("Settlement conflicts with " + e.getWorldObject());
-                // Settlement placement will conflict with a building
-            }
-        }
-
-        if (!placed) {
-            System.out.println("Unable to place settlement, cancelling.");
-            throw new PlacementAttemptsExceededException();
-        }
-    }
-
-    /**
-     * Generates entities for a basic town.
-     */
-    public void found() {
-        SettlementFactory settlementFactory = new SettlementFactory(this);
-        settlementFactory.generate();
     }
 
     public int getOriginX() {

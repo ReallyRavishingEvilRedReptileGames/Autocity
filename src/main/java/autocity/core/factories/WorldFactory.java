@@ -16,11 +16,8 @@ public class WorldFactory {
 
     public static void generateSettlements(World world) {
         for (int i = 0; i < 5; i++) {
-            Settlement settlement = new Settlement(world);
-
             try {
-                settlement.autoPlace();
-                settlement.found();
+                Settlement settlement = SettlementFactory.generate(world);
                 world.addSettlement(settlement);
             } catch (PlacementAttemptsExceededException e) {
                 //
