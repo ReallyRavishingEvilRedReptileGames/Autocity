@@ -1,21 +1,24 @@
 package autocity.core;
 
-import autocity.core.generators.WorldBuilder;
+import autocity.core.factories.WorldFactory;
+import autocity.core.simulation.Simulation;
 
 public class Game extends Thread {
-    private Map map;
+    private World world;
     private boolean isRunning = true;
     private long lastloop = System.nanoTime();
     private double delta = 0;
-
-    public Map getMap() {
-        return this.map;
-    }
+    private Simulation simulation;
 
     public Game() {
         System.out.println("Generating map...");
-        WorldBuilder builder = new WorldBuilder();
-        this.map = builder.generate();
+        WorldFactory builder = new WorldFactory();
+        this.world = builder.generate();
+        this.simulation = new Simulation(this);
+    }
+
+    public World getWorld() {
+        return this.world;
     }
 
     public void run() {
@@ -54,6 +57,6 @@ public class Game extends Thread {
      * Things to do on every game tick
      */
     private void onTick() {
-
+        this.simulation.onTick();
     }
 }

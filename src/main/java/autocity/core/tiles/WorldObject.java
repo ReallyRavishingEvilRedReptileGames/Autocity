@@ -1,6 +1,6 @@
 package autocity.core.tiles;
 
-import autocity.core.Person;
+import autocity.core.Character;
 import autocity.core.Tile;
 
 import java.util.HashSet;
@@ -10,22 +10,23 @@ public abstract class WorldObject implements Comparable<WorldObject> {
     protected int height = 1;
     protected String customName;
 
-    protected HashSet<Person> visitors;
+    protected HashSet<Character> visitors;
+    protected HashSet<Tile> tiles;
 
     public WorldObject() {
         this.visitors = new HashSet<>();
     }
 
-    public HashSet<Person> getVisitors() {
+    public HashSet<Character> getVisitors() {
         return visitors;
     }
 
-    public void addVisitor(Person person) {
-        this.visitors.add(person);
+    public void addVisitor(Character character) {
+        this.visitors.add(character);
     }
 
-    public void removeVisitor(Person person) {
-        this.visitors.remove(person);
+    public void removeVisitor(Character character) {
+        this.visitors.remove(character);
     }
 
     public int getWidth() {
@@ -35,8 +36,6 @@ public abstract class WorldObject implements Comparable<WorldObject> {
     public int getHeight() {
         return height;
     }
-
-    protected HashSet<Tile> tiles;
 
     public int compareTo(WorldObject worldObject) {
         return 0;

@@ -1,7 +1,7 @@
 import autocity.core.Thought;
 import autocity.core.tiles.buildings.Hut;
 import autocity.core.civilians.Villager;
-import autocity.enums.EThoughtType;
+import autocity.core.enumeration.EThoughtType;
 import org.junit.Test;
 
 public class ThoughtTest {

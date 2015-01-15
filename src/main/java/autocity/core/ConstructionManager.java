@@ -1,15 +1,18 @@
 package autocity.core;
 
+import autocity.core.exceptions.PlacementAttemptsExceededException;
+import autocity.core.exceptions.TerrainConflictException;
+import autocity.core.exceptions.TileOutOfBoundsException;
+import autocity.core.exceptions.WorldObjectConflictException;
 import autocity.core.tiles.buildings.prefabs.Building;
-import autocity.exceptions.*;
 
 public class ConstructionManager {
-    private Map map;
+    private World world;
     private Building building;
     private Settlement settlement;
 
-    public ConstructionManager(Map map, Building building) {
-        this.map = map;
+    public ConstructionManager(World world, Building building) {
+        this.world = world;
         this.building = building;
     }
 
@@ -22,11 +25,11 @@ public class ConstructionManager {
     }
 
     public void construct() throws PlacementAttemptsExceededException {
-        PlacementValidator validator = new PlacementValidator(this.map);
+        PlacementValidator validator = new PlacementValidator(this.world);
 
         try {
             validator.validateBuilding(this.building, 1, 1);
-            this.map.getTile(1, 1).setOccupyingObject(this.building);
+            this.world.getTile(1, 1).setOccupyingObject(this.building);
         } catch (WorldObjectConflictException e) {
             System.out.println("Could not place building - conflicts with " + e.getWorldObject());
         } catch (TerrainConflictException e) {

@@ -1,24 +1,24 @@
 package autocity.core;
 
+import autocity.core.exceptions.TerrainConflictException;
+import autocity.core.exceptions.TileOutOfBoundsException;
+import autocity.core.exceptions.WorldObjectConflictException;
 import autocity.core.tiles.WorldObject;
 import autocity.core.tiles.buildings.prefabs.Building;
-import autocity.exceptions.TileOutOfBoundsException;
-import autocity.exceptions.WorldObjectConflictException;
-import autocity.exceptions.TerrainConflictException;
 
 public class PlacementValidator {
-    private Map map;
+    private World world;
     private int requiredSettlementFreeRadius = 10;
 
-    public PlacementValidator(Map map) {
-        this.map = map;
+    public PlacementValidator(World world) {
+        this.world = world;
     }
 
     public void validateSettlement(Settlement settlement, int x, int y) throws WorldObjectConflictException {
         for (int i = x - requiredSettlementFreeRadius; i < x + requiredSettlementFreeRadius; i++) {
             for (int j = y - requiredSettlementFreeRadius; j < y + requiredSettlementFreeRadius; j++) {
                 try {
-                    Tile tile = map.getTile(i, j);
+                    Tile tile = world.getTile(i, j);
 
                     if (tile.getOccupyingObject() != null) {
                         throw new WorldObjectConflictException(tile.getOccupyingObject());
@@ -36,8 +36,8 @@ public class PlacementValidator {
 
         for (int i = x; i < x + width; i++) {
             for (int j = y; j < y + height; j++) {
-                if (this.map.getTile(i, j).getOccupyingObject() != null) {
-                    throw new WorldObjectConflictException(this.map.getTile(i, j).getOccupyingObject());
+                if (this.world.getTile(i, j).getOccupyingObject() != null) {
+                    throw new WorldObjectConflictException(this.world.getTile(i, j).getOccupyingObject());
                 }
             }
         }

@@ -1,25 +1,25 @@
 package autocity.core.tiles.buildings.prefabs;
 
-import autocity.core.Person;
+import autocity.core.Character;
 
 import java.util.HashSet;
 
 public abstract class Residential extends Building {
-    protected HashSet<Person> residents;
+    protected HashSet<Character> residents;
 
     public Residential() {
         this.residents = new HashSet<>();
     }
 
-    public HashSet<Person> getResidents() {
+    public HashSet<Character> getResidents() {
         return this.residents;
     }
 
-    public void addResident(Person person) {
-        this.residents.add(person);
+    public void addResident(Character character) {
+        this.residents.add(character);
     }
 
-    public void removeResident(Person person) {
-        this.residents.remove(person);
+    public void removeResident(Character character) {
+        this.residents.remove(character);
     }
 }

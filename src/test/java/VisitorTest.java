@@ -1,4 +1,4 @@
-import autocity.core.Person;
+import autocity.core.Character;
 import autocity.core.civilians.Villager;
 import autocity.core.tiles.buildings.TownHall;
 import org.junit.Test;
@@ -15,8 +15,8 @@ public class VisitorTest {
 
         System.out.println("Listing visitors...");
 
-        for (Person person : townHall.getVisitors()) {
-            System.out.println(person);
+        for (Character character : townHall.getVisitors()) {
+            System.out.println(character);
         }
     }
 }

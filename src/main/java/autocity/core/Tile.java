@@ -1,14 +1,19 @@
 package autocity.core;
 
+import autocity.core.enumeration.ETerrainType;
 import autocity.core.tiles.WorldObject;
 import autocity.core.tiles.paths.Road;
-import autocity.enums.ETerrainType;
 
 public class Tile {
     private WorldObject occupyingObject;
     private ETerrainType terrainType = ETerrainType.Grass;
     private int x;
     private int y;
+
+    public Tile(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 
     public WorldObject getOccupyingObject() {
         return occupyingObject;
@@ -31,11 +36,6 @@ public class Tile {
     }
 
     public void setY(int y) {
-        this.y = y;
-    }
-
-    public Tile(int x, int y) {
-        this.x = x;
         this.y = y;
     }
 

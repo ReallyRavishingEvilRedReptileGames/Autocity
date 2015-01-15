@@ -1,17 +1,17 @@
 package autocity.core;
 
+import autocity.core.enumeration.EThoughtType;
 import autocity.core.tiles.buildings.prefabs.Building;
-import autocity.enums.EThoughtType;
 
 public class Thought {
     private EThoughtType type;
     private Building building;
-    private Person person;
+    private Character character;
 
-    public Thought(EThoughtType type, Building building, Person person) {
+    public Thought(EThoughtType type, Building building, Character character) {
         this.type = type;
         this.building = building;
-        this.person = person;
+        this.character = character;
     }
 
     public Thought(EThoughtType type, Building building) {
@@ -19,9 +19,9 @@ public class Thought {
         this.building = building;
     }
 
-    public Thought(EThoughtType type, Person person) {
+    public Thought(EThoughtType type, Character character) {
         this.type = type;
-        this.person = person;
+        this.character = character;
     }
 
     public Thought(EThoughtType type) {
@@ -29,7 +29,7 @@ public class Thought {
     }
 
     public String toString() {
-        return String.format(this.getFormatString(this.type), this.building, this.person);
+        return String.format(this.getFormatString(this.type), this.building, this.character);
     }
 
     public String getFormatString(EThoughtType type) {

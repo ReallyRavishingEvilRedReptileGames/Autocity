@@ -1,7 +1,7 @@
 package autocity.core.civilians;
 
-import autocity.core.Person;
+import autocity.core.Character;
 
-public class Villager extends Person {
+public class Villager extends Character {
 
 }

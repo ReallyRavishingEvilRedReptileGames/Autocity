@@ -1,9 +1,9 @@
 package autocity.simpleui;
 
 import autocity.core.Game;
-import autocity.core.Map;
 import autocity.core.Tile;
-import autocity.exceptions.TileOutOfBoundsException;
+import autocity.core.World;
+import autocity.core.exceptions.TileOutOfBoundsException;
 
 /**
  * Warning: only supports Windows because Consolas
@@ -52,13 +52,13 @@ public class SimpleUI extends Thread {
     }
 
     private StringBuffer getHeaderText() {
-        Map map = this.game.getMap();
-        int height = map.getHeight();
-        int width = map.getWidth();
+        World world = this.game.getWorld();
+        int height = world.getHeight();
+        int width = world.getWidth();
 
         StringBuffer sb = new StringBuffer();
 
-        sb.append(String.format("Rrerr~ Map Format: %dx%d, Number of settlements: %d", width, height, map.getSettlements().size()));
+        sb.append(String.format("Rrerr~ Map Format: %dx%d, Number of settlements: %d", width, height, world.getSettlements().size()));
 
         sb.append('\n');
         sb.append('\n');
@@ -67,16 +67,16 @@ public class SimpleUI extends Thread {
     }
 
     private StringBuffer getMapText() {
-        Map map = this.game.getMap();
-        int height = map.getHeight();
-        int width = map.getWidth();
+        World world = this.game.getWorld();
+        int height = world.getHeight();
+        int width = world.getWidth();
 
         StringBuffer sb = new StringBuffer();
 
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 try {
-                    Tile tile = map.getTile(i, j);
+                    Tile tile = world.getTile(i, j);
 
                     sb.append(tile.getCharacter());
                 } catch (TileOutOfBoundsException e) {
