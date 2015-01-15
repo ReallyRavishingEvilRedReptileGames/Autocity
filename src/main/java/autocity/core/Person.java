@@ -1,5 +1,9 @@
 package autocity.core;
 
+import autocity.core.generators.PersonName;
+import autocity.core.tiles.WorldObject;
+import autocity.core.tiles.buildings.prefabs.Building;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -8,11 +12,13 @@ public abstract class Person implements Comparable<Person> {
     protected ArrayList<Thought> thoughts;
     protected String name;
     protected Settlement settlement;
+    protected WorldObject location;
 
     protected final int thoughtLimit = 10;
 
     public Person() {
-        thoughts = new ArrayList<>();
+        this.thoughts = new ArrayList<>();
+        this.name = PersonName.getString(this);
     }
 
     public String getName() {
@@ -46,5 +52,27 @@ public abstract class Person implements Comparable<Person> {
 
     public int compareTo(Person person) {
         return this.name.compareTo(person.getName());
+    }
+
+    public void setLocation(WorldObject location) {
+        if (this.location != null) {
+            this.location.removeVisitor(this);
+        }
+
+        this.location = location;
+
+        if (this.location != null) {
+            this.location.addVisitor(this);
+        } else {
+            // TODO: how do we handle persons being nowhere?
+        }
+    }
+
+    public WorldObject getLocation() {
+        return this.location;
+    }
+
+    public String toString() {
+        return this.name;
     }
 }
