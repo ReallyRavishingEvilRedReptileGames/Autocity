@@ -1,4 +1,4 @@
-package autocity.core.generators.names;
+package autocity.core.generators.strings;
 
 import autocity.core.world.buildings.prefabs.Store;
 

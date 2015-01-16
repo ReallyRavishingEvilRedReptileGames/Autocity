@@ -12,7 +12,7 @@ public class Sex {
         this.sex = sex;
     }
 
-    public ECharacterSex getSex() {
+    public ECharacterSex getE() {
         return sex;
     }
 

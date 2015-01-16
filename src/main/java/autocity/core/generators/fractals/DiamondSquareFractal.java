@@ -30,7 +30,7 @@ public class DiamondSquareFractal {
     /**
      * Sets the fractal's size to the specified size.
      * For best results, the inputted number should be be a square of two.
-     * @param size
+     * @param size the size of the fractal
      */
     public void setSize(int size) {
         this.size = size;

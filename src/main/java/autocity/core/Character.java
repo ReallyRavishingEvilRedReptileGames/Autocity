@@ -1,7 +1,8 @@
 package autocity.core;
 
 import autocity.core.character.Sex;
-import autocity.core.generators.names.PersonName;
+import autocity.core.enumeration.ECharacterSex;
+import autocity.core.generators.strings.GenericPersonName;
 import autocity.core.world.WorldObject;
 
 import java.util.ArrayList;
@@ -12,11 +13,19 @@ public abstract class Character implements Comparable<Character> {
     protected ArrayList<Thought> thoughts;
     protected String name;
     protected WorldObject location;
-    protected Sex sex;
+    protected Sex sex = new Sex(ECharacterSex.Male);
+
+    public Sex getSex() {
+        return sex;
+    }
+
+    public void setSex(Sex sex) {
+        this.sex = sex;
+    }
 
     public Character() {
         this.thoughts = new ArrayList<>();
-        this.name = PersonName.getString(this);
+        this.name = new GenericPersonName(this).getFullName();
     }
 
     public String getName() {

@@ -73,6 +73,8 @@ public class SettlementFactory {
     }
 
     private static void addBuilding(Settlement settlement, Building building) {
+        System.out.println("Adding building " + building);
+
         building.setSettlement(settlement);
 
         ConstructionManager manager = new ConstructionManager(settlement.getWorld(), building);
