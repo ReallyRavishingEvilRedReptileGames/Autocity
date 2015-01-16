@@ -6,7 +6,7 @@ import java.util.Random;
  * Implements the diamond-square algorithm.
  */
 public class Fractal {
-    private double roughness = 0.03;
+    private double roughness = 0.1;
     private int size = 16;
     private Random random;
     private Double[][] map;
@@ -75,13 +75,13 @@ public class Fractal {
     }
 
     private void square(int x, int y, int sub, double offset) {
-        Double[] averages = {Math.max(0, this.get(x + sub, y - sub)), Math.max(0, this.get(x - sub, y + sub)), Math.max(0, this.get(x - sub, y - sub)), Math.max(0, this.get(x + sub, y + sub))};
+        Double[] averages = {this.get(x + sub, y - sub), this.get(x - sub, y + sub), this.get(x - sub, y - sub), this.get(x + sub, y + sub)};
 
         map[x][y] = this.average(averages) + offset;
     }
 
     private void diamond(int x, int y, int sub, double offset) {
-        Double[] averages = {this.get(x, y-sub), this.get(x, y+sub), this.get(x-sub, y), this.get(x+sub, y)};
+        Double[] averages = {this.get(x, y - sub), this.get(x, y + sub), this.get(x - sub, y), this.get(x + sub, y)};
 
         map[x][y] = this.average(averages) + offset;
     }
@@ -98,13 +98,12 @@ public class Fractal {
             sum += num;
             count++;
         }
-
         return sum / count;
     }
 
     private Double get(int x, int y) {
         try {
-            return map[Math.max(0, x)][Math.max(0, y)];
+            return map[x][y];
         } catch (ArrayIndexOutOfBoundsException e) {
             return null;
         }
