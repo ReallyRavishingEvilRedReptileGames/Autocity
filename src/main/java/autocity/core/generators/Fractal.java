@@ -77,13 +77,13 @@ public class Fractal {
     private void square(int x, int y, int sub, double offset) {
         Double[] averages = {this.get(x + sub, y - sub), this.get(x - sub, y + sub), this.get(x - sub, y - sub), this.get(x + sub, y + sub)};
 
-        map[x][y] = this.average(averages) + offset;
+        map[x][y] = Math.min(1, Math.max(0, this.average(averages) + offset));
     }
 
     private void diamond(int x, int y, int sub, double offset) {
         Double[] averages = {this.get(x, y - sub), this.get(x, y + sub), this.get(x - sub, y), this.get(x + sub, y)};
 
-        map[x][y] = this.average(averages) + offset;
+        map[x][y] = Math.min(1, Math.max(0, this.average(averages) + offset));
     }
 
     private double average(Double[] nums) {
