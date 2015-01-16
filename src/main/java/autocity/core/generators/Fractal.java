@@ -75,7 +75,7 @@ public class Fractal {
     }
 
     private void square(int x, int y, int sub, double offset) {
-        Double[] averages = {this.get(x+sub, y-sub), this.get(x-sub, y+sub), this.get(x-sub, y-sub), this.get(x+sub, y+sub)};
+        Double[] averages = {Math.max(0, this.get(x + sub, y - sub)), Math.max(0, this.get(x - sub, y + sub)), Math.max(0, this.get(x - sub, y - sub)), Math.max(0, this.get(x + sub, y + sub))};
 
         map[x][y] = this.average(averages) + offset;
     }
@@ -104,7 +104,7 @@ public class Fractal {
 
     private Double get(int x, int y) {
         try {
-            return map[x][y];
+            return map[Math.max(0, x)][Math.max(0, y)];
         } catch (ArrayIndexOutOfBoundsException e) {
             return null;
         }
