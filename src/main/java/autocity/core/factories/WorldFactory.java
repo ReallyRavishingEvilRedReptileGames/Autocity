@@ -4,28 +4,29 @@ import autocity.core.Settlement;
 import autocity.core.World;
 import autocity.core.exceptions.PlacementAttemptsExceededException;
 import autocity.core.exceptions.TileOutOfBoundsException;
-import autocity.core.generators.Fractal;
+import autocity.core.generators.fractals.DiamondSquareFractal;
 import autocity.core.world.resources.Tree;
 
 import java.util.Random;
 
 public class WorldFactory {
     private int size;
+    private World world;
 
     public World generate(int size) {
+        this.world = new World(size, size);
+
         this.size = size;
 
-        World world = new World(size, size);
+        this.generateHeight();
+        this.generateTerrain();
+        this.generateFoliage();
+        this.generateSettlements();
 
-        this.generateHeight(world);
-        this.generateTerrain(world);
-        this.generateFoliage(world);
-        this.generateSettlements(world);
-
-        return world;
+        return this.world;
     }
 
-    private void generateSettlements(World world) {
+    private void generateSettlements() {
         for (int i = 0; i < 5; i++) {
             try {
                 Settlement settlement = SettlementFactory.generate(world);
@@ -36,12 +37,12 @@ public class WorldFactory {
         }
     }
 
-    private void generateHeight(World world) {
-        Fractal fractal = new Fractal();
-        fractal.setRoughness(0.01);
-        fractal.setSize(size);
+    private void generateHeight() {
+        DiamondSquareFractal diamondSquareFractal = new DiamondSquareFractal();
+        diamondSquareFractal.setRoughness(0.01);
+        diamondSquareFractal.setSize(size);
 
-        Double[][] map = fractal.generate();
+        Double[][] map = diamondSquareFractal.generate();
 
         for (int i = 0; i < world.getWidth(); i++) {
             for (int j = 0; j < world.getHeight(); j++) {
@@ -54,11 +55,11 @@ public class WorldFactory {
         }
     }
 
-    private void generateTerrain(World world) {
+    private void generateTerrain() {
         //todo terrain generation
     }
 
-    private void generateFoliage(World world) {
+    private void generateFoliage() {
         Random random = new Random();
 
         for (int i = 0; i < world.getWidth(); i++) {

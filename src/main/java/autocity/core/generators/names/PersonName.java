@@ -1,4 +1,4 @@
-package autocity.core.generators;
+package autocity.core.generators.names;
 
 import autocity.core.Character;
 

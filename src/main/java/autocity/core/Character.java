@@ -1,7 +1,7 @@
 package autocity.core;
 
 import autocity.core.character.Sex;
-import autocity.core.generators.PersonName;
+import autocity.core.generators.names.PersonName;
 import autocity.core.world.WorldObject;
 
 import java.util.ArrayList;

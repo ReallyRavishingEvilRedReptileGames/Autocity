@@ -1,4 +1,4 @@
-package autocity.core.generators;
+package autocity.core.generators.builders;
 
 import autocity.core.Settlement;
 import autocity.core.exceptions.TileOutOfBoundsException;

@@ -1,17 +1,25 @@
-package autocity.core.generators;
+package autocity.core.generators.fractals;
 
 import java.util.Random;
 
 /**
  * Implements the diamond-square algorithm.
  */
-public class Fractal {
-    private double roughness = 0.1;
+public class DiamondSquareFractal {
+    /**
+     * Roughness should be kept to a really low number.
+     * If it is too high it will not generate decent algos.
+     */
+    private double roughness = 0.01;
     private int size = 16;
     private Random random;
     private Double[][] map;
+    private Double topLeftValue;
+    private Double topRightValue;
+    private Double bottomLeftValue;
+    private Double bottomRightValue;
 
-    public Fractal() {
+    public DiamondSquareFractal() {
         random = new Random();
     }
 
@@ -19,6 +27,11 @@ public class Fractal {
         return size;
     }
 
+    /**
+     * Sets the fractal's size to the specified size.
+     * For best results, the inputted number should be be a square of two.
+     * @param size
+     */
     public void setSize(int size) {
         this.size = size;
     }
@@ -35,6 +48,10 @@ public class Fractal {
         random.setSeed(seed);
     }
 
+    /**
+     * Generate the fractal.
+     * @return a 2D array of Double wrappers.
+     */
     public Double[][] generate() {
         map = new Double[size + 1][size + 1];
 
@@ -45,8 +62,17 @@ public class Fractal {
         map[size][size] = 0.5 - getDeviation();
 
         this.divide(size);
+        this.truncate();
 
         return map;
+    }
+
+    private void truncate() {
+        for (int x = 0; x <= size; x++) {
+            for (int y = 0; y <= size; y++) {
+                map[x][y] = Math.min(1, Math.max(0, map[x][y]));
+            }
+        }
     }
 
     private void divide(double sub) {
@@ -77,13 +103,13 @@ public class Fractal {
     private void square(int x, int y, int sub, double offset) {
         Double[] averages = {this.get(x + sub, y - sub), this.get(x - sub, y + sub), this.get(x - sub, y - sub), this.get(x + sub, y + sub)};
 
-        map[x][y] = Math.min(1, Math.max(0, this.average(averages) + offset));
+        map[x][y] = this.average(averages) + offset;
     }
 
     private void diamond(int x, int y, int sub, double offset) {
         Double[] averages = {this.get(x, y - sub), this.get(x, y + sub), this.get(x - sub, y), this.get(x + sub, y)};
 
-        map[x][y] = Math.min(1, Math.max(0, this.average(averages) + offset));
+        map[x][y] = this.average(averages) + offset;
     }
 
     private double average(Double[] nums) {

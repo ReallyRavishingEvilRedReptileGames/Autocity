@@ -1,27 +1,24 @@
-import autocity.core.generators.Fractal;
+import autocity.core.generators.fractals.DiamondSquareFractal;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * Created by Fiskie on 15/01/2015.
- */
 public class FractalTest {
-    private Fractal fractal;
+    private DiamondSquareFractal diamondSquareFractal;
 
     @Before
     public void setUp() {
-        this.fractal = new Fractal();
+        this.diamondSquareFractal = new DiamondSquareFractal();
     }
 
     @Test
     public void testDefault() {
-
+        this.diamondSquareFractal.setSeed(1);
     }
 
     @After
     public void tearDown() {
-        Double[][] map = this.fractal.generate();
+        Double[][] map = this.diamondSquareFractal.generate();
 
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {

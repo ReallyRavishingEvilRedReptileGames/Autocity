@@ -6,7 +6,7 @@ import autocity.core.Settlement;
 import autocity.core.World;
 import autocity.core.exceptions.BuildingConflictException;
 import autocity.core.exceptions.PlacementAttemptsExceededException;
-import autocity.core.generators.RoadBuilder;
+import autocity.core.generators.builders.RoadBuilder;
 import autocity.core.world.buildings.Hut;
 import autocity.core.world.buildings.TownHall;
 import autocity.core.world.buildings.prefabs.Building;
