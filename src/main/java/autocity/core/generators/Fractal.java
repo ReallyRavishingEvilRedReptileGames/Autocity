@@ -6,7 +6,7 @@ import java.util.Random;
  * Implements the diamond-square algorithm.
  */
 public class Fractal {
-    private double roughness = 0.01;
+    private double roughness = 0.03;
     private int size = 16;
     private Random random;
     private Double[][] map;

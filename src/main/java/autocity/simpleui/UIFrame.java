@@ -13,7 +13,7 @@ public class UIFrame extends JFrame {
         textArea.setFont(new Font("Consolas", Font.PLAIN, 10));
 
         this.add(textArea);
-        this.setSize(800, 800);
+        this.setSize(800, 920);
         this.setVisible(true);
     }
 

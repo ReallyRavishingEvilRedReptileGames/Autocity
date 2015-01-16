@@ -4,22 +4,28 @@ import autocity.core.Settlement;
 import autocity.core.World;
 import autocity.core.exceptions.PlacementAttemptsExceededException;
 import autocity.core.exceptions.TileOutOfBoundsException;
+import autocity.core.generators.Fractal;
 import autocity.core.world.resources.Tree;
 
 import java.util.Random;
 
 public class WorldFactory {
-    public static World generate() {
-        World world = new World(48, 48);
+    private int size;
 
-        generateTerrain(world);
-        generateFoliage(world);
-        generateSettlements(world);
+    public World generate(int size) {
+        this.size = size;
+
+        World world = new World(size, size);
+
+        this.generateHeight(world);
+        this.generateTerrain(world);
+        this.generateFoliage(world);
+        this.generateSettlements(world);
 
         return world;
     }
 
-    private static void generateSettlements(World world) {
+    private void generateSettlements(World world) {
         for (int i = 0; i < 5; i++) {
             try {
                 Settlement settlement = SettlementFactory.generate(world);
@@ -30,11 +36,29 @@ public class WorldFactory {
         }
     }
 
-    private static void generateTerrain(World world) {
+    private void generateHeight(World world) {
+        Fractal fractal = new Fractal();
+        fractal.setRoughness(0.01);
+        fractal.setSize(size);
+
+        Double[][] map = fractal.generate();
+
+        for (int i = 0; i < world.getWidth(); i++) {
+            for (int j = 0; j < world.getHeight(); j++) {
+                try {
+                    world.getTile(i, j).setHeight((int) (map[i][j] * 255));
+                } catch (TileOutOfBoundsException e) {
+                    // Nah
+                }
+            }
+        }
+    }
+
+    private void generateTerrain(World world) {
         //todo terrain generation
     }
 
-    private static void generateFoliage(World world) {
+    private void generateFoliage(World world) {
         Random random = new Random();
 
         for (int i = 0; i < world.getWidth(); i++) {

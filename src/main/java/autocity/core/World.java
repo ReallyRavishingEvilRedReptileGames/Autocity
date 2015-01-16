@@ -51,4 +51,8 @@ public class World {
     public HashSet<Settlement> getSettlements() {
         return this.settlements;
     }
+
+    public void forEachTile(Object object) {
+
+    }
 }

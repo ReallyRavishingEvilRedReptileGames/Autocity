@@ -11,9 +11,9 @@ public class Game extends Thread {
     private Simulation simulation;
 
     public Game() {
-        System.out.println("Generating map...");
+        System.out.println("Generating world...");
         WorldFactory builder = new WorldFactory();
-        this.world = builder.generate();
+        this.world = builder.generate(64);
         this.simulation = new Simulation(this);
     }
 
