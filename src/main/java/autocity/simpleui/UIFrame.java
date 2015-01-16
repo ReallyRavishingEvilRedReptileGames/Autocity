@@ -12,6 +12,8 @@ public class UIFrame extends JFrame {
 
         textArea.setFont(new Font("Consolas", Font.PLAIN, 10));
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
         this.add(textArea);
         this.setSize(800, 920);
         this.setVisible(true);
