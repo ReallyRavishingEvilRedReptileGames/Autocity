@@ -28,8 +28,8 @@ public class ConstructionManager {
         PlacementValidator validator = new PlacementValidator(this.world);
 
         try {
-            validator.validateBuilding(this.building, 1, 1);
-            this.world.getTile(1, 1).setOccupyingObject(this.building);
+            validator.validateBuilding(this.building, this.settlement.getOriginX(), this.settlement.getOriginY());
+            this.world.getTile(this.settlement.getOriginX(), this.settlement.getOriginY()).setOccupyingObject(this.building);
         } catch (WorldObjectConflictException e) {
             System.out.println("Could not place building - conflicts with " + e.getWorldObject());
         } catch (TerrainConflictException e) {

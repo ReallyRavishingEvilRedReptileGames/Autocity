@@ -15,6 +15,7 @@ public abstract class WorldObject implements Comparable<WorldObject> {
 
     public WorldObject() {
         this.visitors = new HashSet<>();
+        this.tiles = new HashSet<>();
     }
 
     public HashSet<Character> getVisitors() {
@@ -55,5 +56,11 @@ public abstract class WorldObject implements Comparable<WorldObject> {
 
     public String toString() {
         return this.customName == null ? this.getName() : this.customName;
+    }
+
+    public void destroy() {
+        for (Tile tile : tiles) {
+            tile.setOccupyingObject(null);
+        }
     }
 }

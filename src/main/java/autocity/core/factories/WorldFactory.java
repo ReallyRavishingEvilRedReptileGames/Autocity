@@ -10,6 +10,7 @@ import autocity.core.world.resources.Tree;
 
 import java.util.Random;
 
+//TODO create anonymous functions to reduce copypasted nested for loops
 public class WorldFactory {
     private int size;
     private World world;
@@ -47,9 +48,11 @@ public class WorldFactory {
     }
 
     private void generateSettlements() {
+        SettlementFactory settlementFactory = new SettlementFactory();
+
         for (int i = 0; i < 5; i++) {
             try {
-                Settlement settlement = SettlementFactory.generate(world);
+                Settlement settlement = settlementFactory.generate(world);
                 world.addSettlement(settlement);
             } catch (PlacementAttemptsExceededException e) {
                 //

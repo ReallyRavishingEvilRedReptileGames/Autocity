@@ -22,6 +22,10 @@ public class Tile {
     }
 
     public void setOccupyingObject(WorldObject occupyingObject) {
+        if (this.occupyingObject != null) {
+            this.occupyingObject.destroy();
+        }
+
         this.occupyingObject = occupyingObject;
     }
 
