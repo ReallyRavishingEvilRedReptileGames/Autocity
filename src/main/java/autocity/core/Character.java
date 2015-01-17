@@ -15,17 +15,17 @@ public abstract class Character implements Comparable<Character> {
     protected WorldObject location;
     protected Sex sex = new Sex(ECharacterSex.Male);
 
+    public Character() {
+        this.thoughts = new ArrayList<>();
+        this.name = new GenericPersonName(this).getFullName();
+    }
+
     public Sex getSex() {
         return sex;
     }
 
     public void setSex(Sex sex) {
         this.sex = sex;
-    }
-
-    public Character() {
-        this.thoughts = new ArrayList<>();
-        this.name = new GenericPersonName(this).getFullName();
     }
 
     public String getName() {

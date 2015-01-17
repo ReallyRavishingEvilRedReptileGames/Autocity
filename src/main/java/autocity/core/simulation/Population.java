@@ -1,6 +1,7 @@
 package autocity.core.simulation;
 
 import autocity.core.Settlement;
+
 import java.util.Random;
 
 /**

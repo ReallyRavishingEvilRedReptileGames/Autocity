@@ -30,6 +30,7 @@ public class DiamondSquareFractal {
     /**
      * Sets the fractal's size to the specified size.
      * For best results, the inputted number should be be a square of two.
+     *
      * @param size the size of the fractal
      */
     public void setSize(int size) {
@@ -50,6 +51,7 @@ public class DiamondSquareFractal {
 
     /**
      * Generate the fractal.
+     *
      * @return a 2D array of Double wrappers.
      */
     public Double[][] generate() {

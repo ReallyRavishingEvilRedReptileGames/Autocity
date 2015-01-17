@@ -14,7 +14,7 @@ public class WorldFactory {
     private World world;
 
     private double foliageRequiredFractalValue = 0.5;
-    private int foliageSpawnRateDivider = 4;
+    private int foliageSpawnRateDivider = 8;
 
     public double getFoliageRequiredFractalValue() {
         return foliageRequiredFractalValue;

@@ -15,17 +15,20 @@ public class SimpleUI extends Thread {
     private int targetfps = 60;
     private double targettime = 2 / (double) targetfps;
 
-
     private Game game;
     private UIFrame uiFrame;
 
     public SimpleUI(Game game) {
         this.game = game;
-        this.uiFrame = new UIFrame();
+        this.uiFrame = new UIFrame(this);
     }
 
     public void run() {
         this.main();
+    }
+
+    public Game getGame() {
+        return this.game;
     }
 
     private void main() {
@@ -34,17 +37,21 @@ public class SimpleUI extends Thread {
             long updateLength = now - lastloop;
             delta += ((double) updateLength / 1000000000);
             lastloop = now;
+
             if (delta >= targettime) {
-                this.redraw();
+                // Do stuff
+                try {
+                    this.redraw();
+                } catch (NullPointerException e) {
+                    System.out.println("Caught null pointer exception");
+                }
+
                 delta = 0;
             }
-
-            // Do stuff
         }
     }
 
     private void redraw() {
-
         StringBuilder sb = new StringBuilder();
 
         sb.append(this.getHeaderText());

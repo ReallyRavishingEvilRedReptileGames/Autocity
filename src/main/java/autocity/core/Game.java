@@ -11,6 +11,16 @@ public class Game extends Thread {
     private Simulation simulation;
 
     public Game() {
+        this.startGame();
+    }
+
+    public void restartGame() {
+        this.simulation = null;
+        this.world = null;
+        this.startGame();
+    }
+
+    public void startGame() {
         System.out.println("Generating world...");
         WorldFactory builder = new WorldFactory();
         this.world = builder.generate(64);

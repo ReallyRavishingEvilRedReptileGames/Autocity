@@ -16,10 +16,6 @@ public class Settlement {
     private Player owner;
     private Population population;
 
-    public double getBirthRate() {
-        return 0.1;
-    }
-
     public Settlement(World world, int originX, int originY) {
         this.initialize(world);
         this.originX = originX;
@@ -28,6 +24,10 @@ public class Settlement {
 
     public Settlement(World world) {
         this.initialize(world);
+    }
+
+    public double getBirthRate() {
+        return 0.1;
     }
 
     private void initialize(World world) {

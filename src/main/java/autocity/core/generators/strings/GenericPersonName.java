@@ -28,7 +28,7 @@ public class GenericPersonName {
     public String getFirstName() {
         ArrayList<String[]> pools = new ArrayList<>();
 
-        switch(this.character.getSex().getE()) {
+        switch (this.character.getSex().getE()) {
             case Male:
                 pools.add(maleFirstNamePool);
                 pools.add(androgynousFirstNamePool);
