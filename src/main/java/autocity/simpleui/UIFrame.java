@@ -1,20 +1,26 @@
 package autocity.simpleui;
 
 import javax.swing.*;
+import javax.swing.text.DefaultStyledDocument;
+import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class UIFrame extends JFrame implements MouseListener {
-    private JTextArea textArea;
+    //private JTextArea textArea;
+    private JTextPane textPane;
+    private DefaultStyledDocument styledDocument;
     private SimpleUI simpleUI;
 
     public UIFrame(SimpleUI simpleUI) {
         super("AutoCity SimpleUI");
-
+        this.textPane = new JTextPane();
+        this.styledDocument = new DefaultStyledDocument();
+        this.textPane.setFont(new Font("Consolas", Font.PLAIN, 10));
         this.simpleUI = simpleUI;
-        this.textArea = new JTextArea();
-        this.textArea.setFont(new Font("Consolas", Font.PLAIN, 10));
+        //this.textArea = new JTextArea();
+        //this.textArea.setFont(new Font("Consolas", Font.PLAIN, 10));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -27,13 +33,14 @@ public class UIFrame extends JFrame implements MouseListener {
         menuBar.add(menu);
 
         this.add(menuBar, BorderLayout.NORTH);
-        this.add(textArea, BorderLayout.CENTER);
+        this.add(textPane, BorderLayout.CENTER);
         this.setSize(800, 940);
         this.setVisible(true);
     }
 
     public void setText(String text) {
-        textArea.setText(text);
+        //textArea.setText(text);
+        textPane.setText(text);
     }
 
     @Override

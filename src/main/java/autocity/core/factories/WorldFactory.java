@@ -2,6 +2,7 @@ package autocity.core.factories;
 
 import autocity.core.Settlement;
 import autocity.core.World;
+import autocity.core.enumeration.ETerrainType;
 import autocity.core.exceptions.PlacementAttemptsExceededException;
 import autocity.core.exceptions.TileOutOfBoundsException;
 import autocity.core.generators.fractals.DiamondSquareFractal;
@@ -58,7 +59,7 @@ public class WorldFactory {
 
     private void generateHeight() {
         DiamondSquareFractal diamondSquareFractal = new DiamondSquareFractal();
-        diamondSquareFractal.setRoughness(0.01);
+        diamondSquareFractal.setRoughness(0.03);
         diamondSquareFractal.setSize(size);
 
         Double[][] map = diamondSquareFractal.generate();
@@ -75,7 +76,20 @@ public class WorldFactory {
     }
 
     private void generateTerrain() {
-        //todo terrain generation
+
+        for (int x = 0; x < world.getWidth(); x++) {
+            for (int y = 0; y < world.getHeight(); y++) {
+                try {
+                    if (world.getTile(x, y).getHeight() > 0.5f) {
+                        world.getTile(x, y).setTerrainType(ETerrainType.Grass);
+                    } else {
+                        world.getTile(x, y).setTerrainType(ETerrainType.Sand);
+                    }
+                } catch (TileOutOfBoundsException e) {
+                    //derp
+                }
+            }
+        }
 
     }
 

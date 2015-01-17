@@ -7,7 +7,7 @@ import autocity.core.world.resources.Tree;
 
 public class Tile {
     private WorldObject occupyingObject;
-    private ETerrainType terrainType = ETerrainType.Grass;
+    private ETerrainType terrainType;
     private int x;
     private int y;
     private int height;
@@ -62,8 +62,14 @@ public class Tile {
     }
 
     public char getCharacter() {
+
         if (this.occupyingObject == null) {
-            return '.';
+            if (this.getTerrainType() == ETerrainType.Grass) {
+                return '.';
+            }
+            if (this.getTerrainType() == ETerrainType.Sand) {
+                return '~';
+            }
         }
 
         if (this.occupyingObject instanceof Road) {
