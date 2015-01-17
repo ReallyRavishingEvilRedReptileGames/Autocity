@@ -14,7 +14,7 @@ public class UIFrame extends JFrame implements MouseListener {
     private SimpleUI simpleUI;
 
     public UIFrame(SimpleUI simpleUI) {
-        super("AutoCity SimpleUI");
+        super("Autocity SimpleUI");
         this.textPane = new JTextPane();
         this.styledDocument = new DefaultStyledDocument();
         this.textPane.setFont(new Font("Consolas", Font.PLAIN, 10));
