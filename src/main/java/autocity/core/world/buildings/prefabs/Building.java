@@ -29,5 +29,7 @@ public abstract class Building extends WorldObject {
 
         //this.owner.removeBuilding(this);
         this.owner = null;
+
+        this.onDestroy();
     }
 }

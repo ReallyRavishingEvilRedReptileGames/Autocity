@@ -4,13 +4,16 @@ import autocity.core.ConstructionManager;
 import autocity.core.PlacementValidator;
 import autocity.core.Settlement;
 import autocity.core.World;
+import autocity.core.civilians.prefabs.Villager;
 import autocity.core.exceptions.BuildingConflictException;
 import autocity.core.exceptions.PlacementAttemptsExceededException;
 import autocity.core.exceptions.TileOutOfBoundsException;
 import autocity.core.generators.builders.PathBuilder;
+import autocity.core.generators.builders.SettlementBuilder;
 import autocity.core.world.buildings.Hut;
 import autocity.core.world.buildings.TownHall;
 import autocity.core.world.buildings.prefabs.Building;
+import autocity.core.world.buildings.prefabs.Residential;
 
 import java.util.Random;
 
@@ -90,22 +93,18 @@ public class SettlementFactory {
     private void addBuilding(Building building) {
         System.out.println("Adding building " + building);
 
-        building.setSettlement(settlement);
+        building.setSettlement(this.settlement);
 
-        ConstructionManager manager = new ConstructionManager(settlement.getWorld(), building);
+        SettlementBuilder settlementBuilder = new SettlementBuilder(this.settlement);
 
-        manager.setSettlement(settlement);
-        manager.setBuilding(building);
-
-        try {
-            manager.construct();
-            settlement.addBuilding(building);
-        } catch (PlacementAttemptsExceededException e) {
-            //
-        }
+        settlementBuilder.placeBuilding(building);
     }
 
     private void addPopulation() {
+        int townCapacity = this.settlement.getPopulationCapacity();
 
+        for (int i = 0; i < townCapacity; i++) {
+            this.settlement.addCitizen(new Villager());
+        }
     }
 }

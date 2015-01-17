@@ -9,13 +9,13 @@ public abstract class WorldObject implements Comparable<WorldObject> {
     protected int width = 1;
     protected int height = 1;
     protected String customName;
+    protected String name;
 
-    protected HashSet<Character> visitors;
-    protected HashSet<Tile> tiles;
+    protected HashSet<Character> visitors = new HashSet<>();
+    protected HashSet<Tile> tiles = new HashSet<>();
 
     public WorldObject() {
-        this.visitors = new HashSet<>();
-        this.tiles = new HashSet<>();
+        this.name = "Unknown World Object";
     }
 
     public HashSet<Character> getVisitors() {
@@ -43,7 +43,7 @@ public abstract class WorldObject implements Comparable<WorldObject> {
     }
 
     public String getName() {
-        return "World Object";
+        return this.name;
     }
 
     public String getCustomName() {
@@ -62,5 +62,11 @@ public abstract class WorldObject implements Comparable<WorldObject> {
         for (Tile tile : tiles) {
             tile.setOccupyingObject(null);
         }
+
+        this.onDestroy();
+    }
+
+    public void onDestroy() {
+
     }
 }

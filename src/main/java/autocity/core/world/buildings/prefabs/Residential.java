@@ -5,10 +5,19 @@ import autocity.core.Character;
 import java.util.HashSet;
 
 public abstract class Residential extends Building {
-    protected HashSet<Character> residents;
+    protected HashSet<Character> residents = new HashSet<>();
+    protected int baseCapacity = 4;
 
     public Residential() {
-        this.residents = new HashSet<>();
+        this.name = "Residential";
+    }
+
+    public int getBaseCapacity() {
+        return baseCapacity;
+    }
+
+    public void setBaseCapacity(int baseCapacity) {
+        this.baseCapacity = baseCapacity;
     }
 
     public HashSet<Character> getResidents() {

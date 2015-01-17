@@ -4,6 +4,7 @@ import autocity.core.civilians.prefabs.Villager;
 import autocity.core.exceptions.TileOutOfBoundsException;
 import autocity.core.simulation.Population;
 import autocity.core.world.buildings.prefabs.Building;
+import autocity.core.world.buildings.prefabs.Residential;
 
 import java.util.HashSet;
 
@@ -61,6 +62,10 @@ public class Settlement {
         this.buildings.remove(building);
     }
 
+    public HashSet<Building> getBuildings() {
+        return this.buildings;
+    }
+
     public Player getOwner() {
         return this.owner;
     }
@@ -91,5 +96,17 @@ public class Settlement {
 
     public Tile getOriginTile() throws TileOutOfBoundsException {
         return this.world.getTile(this.originX, this.originY);
+    }
+
+    public int getPopulationCapacity() {
+        int capacity = 0;
+
+        for (Building building : this.buildings) {
+            if (building instanceof Residential) {
+                capacity += ((Residential) building).getBaseCapacity();
+            }
+        }
+
+        return capacity;
     }
 }
