@@ -29,6 +29,7 @@ public class World {
     }
 
     public void setTile(int x, int y, Tile tile) {
+        tile.setHeight(tiles[x][y].getHeight());
         this.tiles[x][y] = tile;
     }
 

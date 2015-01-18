@@ -62,7 +62,7 @@ public class WorldFactory {
 
     private void generateHeight() {
         DiamondSquareFractal diamondSquareFractal = new DiamondSquareFractal();
-        diamondSquareFractal.setRoughness(0.075);
+        diamondSquareFractal.setRoughness(0.05);
         diamondSquareFractal.setSize(size);
 
         Double[][] map = diamondSquareFractal.generate();
@@ -76,21 +76,34 @@ public class WorldFactory {
                 }
             }
         }
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[i].length; j++) {
+                System.out.printf("%5.3f ", map[i][j]);
+            }
+            System.out.println();
+        }
     }
 
     private void generateTerrain() {
-/*
+
         for (int x = 0; x < world.getWidth(); x++) {
             for (int y = 0; y < world.getHeight(); y++) {
                 try {
-                    // Place tiles here.
+
+                    if (world.getTile(x, y).getHeight() >= 128) {
+                        world.setTile(x, y, new Grass(x, y));
+                    } else if (world.getTile(x, y).getHeight() < 128 && world.getTile(x, y).getHeight() > 75) {
+                        world.setTile(x, y, new Sand(x, y));
+                    } else {
+                        world.setTile(x, y, new Water(x, y));
+                    }
+
+                } catch (TileOutOfBoundsException e) {
+                    //derp
                 }
-            }catch(TileOutOfBoundsException e){
-                //derp
             }
         }
-    }
-*/
+
     }
 
     private void generateFoliage() {
