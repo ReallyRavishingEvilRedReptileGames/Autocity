@@ -28,6 +28,10 @@ public class World {
         }
     }
 
+    public void setTile(int x, int y, Tile tile) {
+        this.tiles[x][y] = tile;
+    }
+
     public int getHeight() {
         return height;
     }

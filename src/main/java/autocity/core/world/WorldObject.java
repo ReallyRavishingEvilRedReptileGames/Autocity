@@ -10,12 +10,14 @@ public abstract class WorldObject implements Comparable<WorldObject> {
     protected int height = 1;
     protected String customName;
     protected String name;
+    protected char character;
 
     protected HashSet<Character> visitors = new HashSet<>();
     protected HashSet<Tile> tiles = new HashSet<>();
 
     public WorldObject() {
         this.name = "Unknown World Object";
+        character = '!';
     }
 
     public HashSet<Character> getVisitors() {
@@ -52,6 +54,10 @@ public abstract class WorldObject implements Comparable<WorldObject> {
 
     public void setCustomName(String customName) {
         this.customName = customName;
+    }
+
+    public char getCharacter() {
+        return character;
     }
 
     public String toString() {

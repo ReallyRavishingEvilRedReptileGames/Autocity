@@ -7,5 +7,7 @@ public class TownHall extends Civic {
         this.name = "Town Hall";
         this.width = 3;
         this.height = 2;
+        character = 'H';
     }
+
 }
