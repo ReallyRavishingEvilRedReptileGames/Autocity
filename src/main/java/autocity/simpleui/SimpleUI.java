@@ -33,6 +33,7 @@ public class SimpleUI extends Thread {
 
     private void main() {
         while (isRunning) {
+            /*
             long now = System.nanoTime();
             long updateLength = now - lastloop;
             delta += ((double) updateLength / 1000000000);
@@ -47,6 +48,19 @@ public class SimpleUI extends Thread {
                 }
 
                 delta = 0;
+            }
+            */
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                //
+            }
+
+            try {
+                this.redraw();
+            } catch (NullPointerException e) {
+                System.out.println("Caught null pointer exception");
             }
         }
     }

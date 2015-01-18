@@ -1,12 +1,12 @@
 package autocity.core.factories;
 
-import autocity.core.ConstructionManager;
 import autocity.core.PlacementValidator;
 import autocity.core.Settlement;
 import autocity.core.World;
 import autocity.core.civilians.prefabs.Villager;
 import autocity.core.exceptions.BuildingConflictException;
 import autocity.core.exceptions.PlacementAttemptsExceededException;
+import autocity.core.exceptions.TerrainConflictException;
 import autocity.core.exceptions.TileOutOfBoundsException;
 import autocity.core.generators.builders.PathBuilder;
 import autocity.core.generators.builders.SettlementBuilder;
@@ -71,6 +71,8 @@ public class SettlementFactory {
             } catch (BuildingConflictException e) {
                 System.out.println("Settlement conflicts with " + e.getBuilding());
                 // Settlement placement will conflict with a building
+            } catch (TerrainConflictException e) {
+                System.out.println("Settlement cannot be placed on " + e.getTerrainType());
             }
         }
 

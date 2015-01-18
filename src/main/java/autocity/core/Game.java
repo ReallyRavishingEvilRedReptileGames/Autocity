@@ -40,6 +40,7 @@ public class Game extends Thread {
      */
     private void main() {
         while (isRunning) {
+            /*
             long now = System.nanoTime();
             long updateLength = now - lastloop;
             delta += ((double) updateLength / 1000000000);
@@ -48,9 +49,15 @@ public class Game extends Thread {
             if (delta >= 1) {
                 this.onTick();
                 delta = 0;
+            }*/
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                //
             }
 
-            // Do stuff
+            this.onTick();
         }
 
         this.onClose();

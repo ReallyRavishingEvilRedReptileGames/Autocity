@@ -1,5 +1,6 @@
 package autocity.core;
 
+import autocity.core.enumeration.ETerrainType;
 import autocity.core.exceptions.BuildingConflictException;
 import autocity.core.exceptions.TerrainConflictException;
 import autocity.core.exceptions.TileOutOfBoundsException;
@@ -15,7 +16,7 @@ public class PlacementValidator {
         this.world = world;
     }
 
-    public void validateSettlement(Settlement settlement, int x, int y) throws BuildingConflictException {
+    public void validateSettlement(Settlement settlement, int x, int y) throws BuildingConflictException, TerrainConflictException {
         for (int i = x - requiredSettlementFreeRadius; i < x + requiredSettlementFreeRadius; i++) {
             for (int j = y - requiredSettlementFreeRadius; j < y + requiredSettlementFreeRadius; j++) {
                 try {
@@ -25,6 +26,10 @@ public class PlacementValidator {
 
                     if (worldObject != null && worldObject instanceof Building) {
                         throw new BuildingConflictException((Building) worldObject);
+                    }
+
+                    if (tile.getTerrainType() == ETerrainType.Water) {
+                        throw new TerrainConflictException(ETerrainType.Water);
                     }
                 } catch (TileOutOfBoundsException expected) {
                     // Not a problem
