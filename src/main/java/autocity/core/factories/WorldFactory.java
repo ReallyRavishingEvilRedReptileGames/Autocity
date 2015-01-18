@@ -13,7 +13,8 @@ import java.util.Random;
 
 //TODO create anonymous functions to reduce copypasted nested for loops
 public class WorldFactory {
-    private int size;
+    private int sizeX;
+    private int sizeY;
     private World world;
 
     private double foliageRequiredFractalValue = 0.5;
@@ -35,10 +36,10 @@ public class WorldFactory {
         this.foliageSpawnRateDivider = foliageSpawnRateDivider;
     }
 
-    public World generate(int size) {
-        this.world = new World(size, size);
-
-        this.size = size;
+    public World generate(int sizeX, int sizeY) {
+        this.world = new World(sizeX, sizeY);
+        this.sizeX = sizeX;
+        this.sizeY = sizeY;
 
         this.generateHeight();
         this.generateTerrain();
@@ -64,7 +65,7 @@ public class WorldFactory {
     private void generateHeight() {
         DiamondSquareFractal diamondSquareFractal = new DiamondSquareFractal();
         diamondSquareFractal.setRoughness(0.05);
-        diamondSquareFractal.setSize(size);
+        diamondSquareFractal.setSize(Math.max(sizeX, sizeY));
 
         Double[][] map = diamondSquareFractal.generate();
 
@@ -77,6 +78,7 @@ public class WorldFactory {
                 }
             }
         }
+
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
                 System.out.printf("%5.3f ", map[i][j]);
@@ -111,7 +113,7 @@ public class WorldFactory {
     private void generateFoliage() {
         DiamondSquareFractal diamondSquareFractal = new DiamondSquareFractal();
         diamondSquareFractal.setRoughness(0.05);
-        diamondSquareFractal.setSize(size);
+        diamondSquareFractal.setSize(Math.max(this.sizeX, this.sizeY));
 
         Random random = new Random();
 

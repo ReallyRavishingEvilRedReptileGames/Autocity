@@ -3,6 +3,7 @@ package autocity.core.world;
 import autocity.core.Character;
 import autocity.core.Tile;
 import autocity.core.World;
+import autocity.core.enumeration.ETerrainType;
 import autocity.core.exceptions.TileOutOfBoundsException;
 
 import java.util.HashSet;

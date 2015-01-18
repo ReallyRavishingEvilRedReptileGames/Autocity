@@ -62,8 +62,8 @@ public class SimpleUI extends Thread {
 
     private StringBuffer getHeaderText() {
         World world = this.game.getWorld();
-        int height = world.getHeight();
         int width = world.getWidth();
+        int height = world.getHeight();
 
         StringBuffer sb = new StringBuffer();
 
@@ -77,15 +77,15 @@ public class SimpleUI extends Thread {
 
     private StringBuffer getMapText() {
         World world = this.game.getWorld();
-        int height = world.getHeight();
         int width = world.getWidth();
+        int height = world.getHeight();
 
         StringBuffer sb = new StringBuffer();
 
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
                 try {
-                    Tile tile = world.getTile(i, j);
+                    Tile tile = world.getTile(j, i);
 
                     sb.append(tile.getCharacter());
                 } catch (TileOutOfBoundsException e) {

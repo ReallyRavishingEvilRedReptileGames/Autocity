@@ -34,7 +34,13 @@ public class DiamondSquareFractal {
      * @param size the size of the fractal
      */
     public void setSize(int size) {
-        this.size = size;
+        int internalSize = 2;
+
+        while (internalSize < size){
+            internalSize *= 2;
+        }
+
+        this.size = internalSize;
     }
 
     public double getRoughness() {

@@ -19,8 +19,6 @@ public class UIFrame extends JFrame implements MouseListener {
         this.styledDocument = new DefaultStyledDocument();
         this.textPane.setFont(new Font("Consolas", Font.PLAIN, 10));
         this.simpleUI = simpleUI;
-        //this.textArea = new JTextArea();
-        //this.textArea.setFont(new Font("Consolas", Font.PLAIN, 10));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -34,12 +32,11 @@ public class UIFrame extends JFrame implements MouseListener {
 
         this.add(menuBar, BorderLayout.NORTH);
         this.add(textPane, BorderLayout.CENTER);
-        this.setSize(800, 940);
+        this.setSize(1120, 900);
         this.setVisible(true);
     }
 
     public void setText(String text) {
-        //textArea.setText(text);
         textPane.setText(text);
     }
 
