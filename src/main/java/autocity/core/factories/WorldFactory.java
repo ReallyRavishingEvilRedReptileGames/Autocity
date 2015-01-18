@@ -2,11 +2,12 @@ package autocity.core.factories;
 
 import autocity.core.Settlement;
 import autocity.core.World;
+import autocity.core.enumeration.ETerrainType;
 import autocity.core.exceptions.PlacementAttemptsExceededException;
 import autocity.core.exceptions.TileOutOfBoundsException;
 import autocity.core.generators.fractals.DiamondSquareFractal;
 import autocity.core.world.resources.Tree;
-import autocity.core.world.terrain.*;
+import autocity.core.Tile;
 
 import java.util.Random;
 
@@ -89,15 +90,16 @@ public class WorldFactory {
         for (int x = 0; x < world.getWidth(); x++) {
             for (int y = 0; y < world.getHeight(); y++) {
                 try {
+                    Tile tile = world.getTile(x, y);
+                    int height = tile.getHeight();
 
-                    if (world.getTile(x, y).getHeight() >= 128) {
-                        world.setTile(x, y, new Grass(x, y));
-                    } else if (world.getTile(x, y).getHeight() < 128 && world.getTile(x, y).getHeight() > 75) {
-                        world.setTile(x, y, new Sand(x, y));
+                    if (height >= 128) {
+                        tile.setTerrainType(ETerrainType.Grass);
+                    } else if (height < 128 && height > 75) {
+                        tile.setTerrainType(ETerrainType.Sand);
                     } else {
-                        world.setTile(x, y, new Water(x, y));
+                        tile.setTerrainType(ETerrainType.Water);
                     }
-
                 } catch (TileOutOfBoundsException e) {
                     //derp
                 }
@@ -118,7 +120,7 @@ public class WorldFactory {
         for (int x = 0; x < world.getWidth(); x++) {
             for (int y = 0; y < world.getHeight(); y++) {
                 try {
-                    if ((map[x][y] > this.foliageRequiredFractalValue) && (random.nextInt(this.foliageSpawnRateDivider) == 0) && (world.getTile(x, y) instanceof Grass)) {
+                    if ((map[x][y] > this.foliageRequiredFractalValue) && (random.nextInt(this.foliageSpawnRateDivider) == 0) && (world.getTile(x, y).getTerrainType() == ETerrainType.Grass)) {
                         world.getTile(x, y).setOccupyingObject(new Tree());
                     }
                 } catch (TileOutOfBoundsException e) {

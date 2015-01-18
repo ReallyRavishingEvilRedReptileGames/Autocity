@@ -8,12 +8,12 @@ public enum ETerrainType {
     },
     Sand {
         public char getCharacter() {
-            return '~';
+            return ',';
         }
     },
     Water {
         public char getCharacter() {
-            return ',';
+            return '~';
         }
     },
     Clay {
