@@ -2,6 +2,8 @@ package autocity.core.world;
 
 import autocity.core.Character;
 import autocity.core.Tile;
+import autocity.core.World;
+import autocity.core.exceptions.TileOutOfBoundsException;
 
 import java.util.HashSet;
 
@@ -9,13 +11,17 @@ public abstract class WorldObject implements Comparable<WorldObject> {
     protected int width = 1;
     protected int height = 1;
     protected String customName;
-    protected String name;
+    protected String name = "Unknown World Object";
+    protected char character = '#';
 
     protected HashSet<Character> visitors = new HashSet<>();
     protected HashSet<Tile> tiles = new HashSet<>();
 
     public WorldObject() {
-        this.name = "Unknown World Object";
+    }
+
+    public char getCharacter() {
+        return this.character;
     }
 
     public HashSet<Character> getVisitors() {
@@ -68,5 +74,13 @@ public abstract class WorldObject implements Comparable<WorldObject> {
 
     public void onDestroy() {
 
+    }
+
+    public void placeAt(World world, int x, int y) {
+        try {
+            world.getTile(x, y).setOccupyingObject(this);
+        } catch (TileOutOfBoundsException e) {
+
+        }
     }
 }

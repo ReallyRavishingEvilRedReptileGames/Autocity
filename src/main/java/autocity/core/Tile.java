@@ -66,24 +66,10 @@ public class Tile {
     }
 
     public char getCharacter() {
-
         if (this.occupyingObject == null) {
-            if (this.getTerrainType() == ETerrainType.Grass) {
-                return '.';
-            }
-            if (this.getTerrainType() == ETerrainType.Sand) {
-                return '~';
-            }
+            return this.terrainType.getCharacter();
+        } else {
+            return this.occupyingObject.getCharacter();
         }
-
-        if (this.occupyingObject instanceof Road) {
-            return '=';
-        }
-
-        if (this.occupyingObject instanceof Tree) {
-            return 'T';
-        }
-
-        return '#';
     }
 }
