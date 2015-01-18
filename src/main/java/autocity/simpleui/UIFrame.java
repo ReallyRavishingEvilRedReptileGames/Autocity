@@ -13,10 +13,6 @@ public class UIFrame extends JFrame implements MouseListener {
     private SimpleUI simpleUI;
     private JMenu status;
 
-    public void setStatusText(String text) {
-        this.status.setText(text);
-    }
-
     public UIFrame(SimpleUI simpleUI) {
         super("Autocity SimpleUI");
         this.textPane = new JTextPane();
@@ -44,6 +40,10 @@ public class UIFrame extends JFrame implements MouseListener {
         this.add(statusBar, BorderLayout.SOUTH);
         this.setSize(1280, 900);
         this.setVisible(true);
+    }
+
+    public void setStatusText(String text) {
+        this.status.setText(text);
     }
 
     public void setText(String text) {

@@ -1,16 +1,15 @@
 package autocity.core.exceptions;
 
-import autocity.core.enumeration.ETerrainType;
-import autocity.core.world.WorldObject;
+import autocity.core.Terrain;
 
 public class TerrainConflictException extends Exception {
-    private ETerrainType terrainType;
+    private Terrain terrain;
 
-    public TerrainConflictException(ETerrainType terrainType) {
-        this.terrainType = terrainType;
+    public TerrainConflictException(Terrain terrain) {
+        this.terrain = terrain;
     }
 
-    public ETerrainType getTerrainType() {
-        return this.terrainType;
+    public Terrain getTerrain() {
+        return this.terrain;
     }
 }

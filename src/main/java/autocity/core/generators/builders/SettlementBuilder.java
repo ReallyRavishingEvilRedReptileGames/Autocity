@@ -22,6 +22,7 @@ public class SettlementBuilder {
 
     /**
      * Automatically place a building in a settlement.
+     *
      * @param building
      */
     public void placeBuilding(Building building) {

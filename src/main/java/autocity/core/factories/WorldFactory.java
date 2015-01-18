@@ -1,13 +1,15 @@
 package autocity.core.factories;
 
 import autocity.core.Settlement;
+import autocity.core.Tile;
 import autocity.core.World;
-import autocity.core.enumeration.ETerrainType;
 import autocity.core.exceptions.PlacementAttemptsExceededException;
 import autocity.core.exceptions.TileOutOfBoundsException;
 import autocity.core.generators.fractals.DiamondSquareFractal;
-import autocity.core.world.resources.Tree;
-import autocity.core.Tile;
+import autocity.core.terrain.Grass;
+import autocity.core.terrain.Sand;
+import autocity.core.terrain.Water;
+import autocity.core.world.resources.PineTree;
 
 import java.util.Random;
 
@@ -88,11 +90,11 @@ public class WorldFactory {
                     int height = tile.getHeight();
 
                     if (height >= 64) {
-                        tile.setTerrainType(ETerrainType.Grass);
+                        tile.setTerrain(new Grass());
                     } else if (height >= 16) {
-                        tile.setTerrainType(ETerrainType.Sand);
+                        tile.setTerrain(new Sand());
                     } else {
-                        tile.setTerrainType(ETerrainType.Water);
+                        tile.setTerrain(new Water());
                     }
                 } catch (TileOutOfBoundsException e) {
                     //derp
@@ -114,8 +116,8 @@ public class WorldFactory {
         for (int x = 0; x < world.getWidth(); x++) {
             for (int y = 0; y < world.getHeight(); y++) {
                 try {
-                    if ((map[x][y] > this.foliageRequiredFractalValue) && (random.nextInt(this.foliageSpawnRateDivider) == 0) && (world.getTile(x, y).getTerrainType() == ETerrainType.Grass)) {
-                        world.getTile(x, y).setOccupyingObject(new Tree());
+                    if ((map[x][y] > this.foliageRequiredFractalValue) && (random.nextInt(this.foliageSpawnRateDivider) == 0) && (world.getTile(x, y).getTerrain() instanceof Grass)) {
+                        world.getTile(x, y).setOccupyingObject(new PineTree());
                     }
                 } catch (TileOutOfBoundsException e) {
                     // Nah

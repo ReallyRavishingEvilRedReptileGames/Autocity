@@ -1,10 +1,10 @@
 package autocity.core;
 
-import autocity.core.enumeration.ETerrainType;
 import autocity.core.exceptions.BuildingConflictException;
 import autocity.core.exceptions.TerrainConflictException;
 import autocity.core.exceptions.TileOutOfBoundsException;
 import autocity.core.exceptions.WorldObjectConflictException;
+import autocity.core.terrain.Water;
 import autocity.core.world.WorldObject;
 import autocity.core.world.buildings.prefabs.Building;
 
@@ -28,8 +28,8 @@ public class PlacementValidator {
                         throw new BuildingConflictException((Building) worldObject);
                     }
 
-                    if (tile.getTerrainType() == ETerrainType.Water) {
-                        throw new TerrainConflictException(ETerrainType.Water);
+                    if (tile.getTerrain() instanceof Water) {
+                        throw new TerrainConflictException(tile.getTerrain());
                     }
                 } catch (TileOutOfBoundsException expected) {
                     // Not a problem

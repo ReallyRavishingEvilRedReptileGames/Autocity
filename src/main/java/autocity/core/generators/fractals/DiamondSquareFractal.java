@@ -36,7 +36,7 @@ public class DiamondSquareFractal {
     public void setSize(int size) {
         int internalSize = 2;
 
-        while (internalSize < size){
+        while (internalSize < size) {
             internalSize *= 2;
         }
 

@@ -1,14 +1,11 @@
 package autocity.core;
 
-import autocity.core.enumeration.ETerrainType;
 import autocity.core.world.WorldObject;
-import autocity.core.world.paths.Road;
-import autocity.core.world.resources.Tree;
 
 public class Tile {
-    private WorldObject occupyingObject;
-    private ETerrainType terrainType;
     protected char character;
+    private WorldObject occupyingObject;
+    private Terrain terrain;
     private int x;
     private int y;
     private int height;
@@ -16,6 +13,14 @@ public class Tile {
     public Tile(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    public Terrain getTerrain() {
+        return terrain;
+    }
+
+    public void setTerrain(Terrain terrain) {
+        this.terrain = terrain;
     }
 
     public WorldObject getOccupyingObject() {
@@ -34,16 +39,8 @@ public class Tile {
         return x;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
     public int getY() {
         return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
     }
 
     public int getHeight() {
@@ -58,17 +55,9 @@ public class Tile {
         return "Tile at (" + this.x + "," + this.y + "), " + (this.occupyingObject == null ? "no occupying building" : "occupied by " + this.occupyingObject);
     }
 
-    public ETerrainType getTerrainType() {
-        return terrainType;
-    }
-
-    public void setTerrainType(ETerrainType terrainType) {
-        this.terrainType = terrainType;
-    }
-
     public char getCharacter() {
         if (this.occupyingObject == null) {
-            return this.terrainType.getCharacter();
+            return this.terrain.getCharacter();
         } else {
             return this.occupyingObject.getCharacter();
         }

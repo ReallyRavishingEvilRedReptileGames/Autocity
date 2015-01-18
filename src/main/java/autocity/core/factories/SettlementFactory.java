@@ -13,12 +13,11 @@ import autocity.core.generators.builders.SettlementBuilder;
 import autocity.core.world.buildings.Hut;
 import autocity.core.world.buildings.TownHall;
 import autocity.core.world.buildings.prefabs.Building;
-import autocity.core.world.buildings.prefabs.Residential;
 
 import java.util.Random;
 
 public class SettlementFactory {
-    private int placementAttempts = 10;
+    private int placementAttempts = 50;
     private Settlement settlement;
 
     public int getPlacementAttempts() {
@@ -72,7 +71,7 @@ public class SettlementFactory {
                 System.out.println("Settlement conflicts with " + e.getBuilding());
                 // Settlement placement will conflict with a building
             } catch (TerrainConflictException e) {
-                System.out.println("Settlement cannot be placed on " + e.getTerrainType());
+                System.out.println("Settlement cannot be placed on " + e.getTerrain());
             }
         }
 
