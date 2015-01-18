@@ -18,7 +18,7 @@ public class FractalTest {
 
     @After
     public void tearDown() {
-        this.diamondSquareFractal.setRoughness(0.03);
+        this.diamondSquareFractal.setRoughness(0.075);
         Double[][] map = this.diamondSquareFractal.generate();
 
         for (int i = 0; i < map.length; i++) {

@@ -12,7 +12,7 @@ public class SimpleUI extends Thread {
     private boolean isRunning = true;
     private long lastloop = System.nanoTime();
     private double delta = 0;
-    private int targetfps = 10;
+    private int targetfps = 2;
     private double targettime = 2 / (double) targetfps;
 
     private Game game;

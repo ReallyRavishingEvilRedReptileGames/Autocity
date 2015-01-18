@@ -8,6 +8,7 @@ import autocity.core.world.resources.Tree;
 public class Tile {
     private WorldObject occupyingObject;
     private ETerrainType terrainType;
+    protected char character;
     private int x;
     private int y;
     private int height;

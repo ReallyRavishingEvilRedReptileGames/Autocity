@@ -7,6 +7,6 @@ public class Hut extends Residential {
         this.name = "Hut";
         this.width = 2;
         this.height = 2;
-        this.character = 'H';
+        this.character = '^';
     }
 }
