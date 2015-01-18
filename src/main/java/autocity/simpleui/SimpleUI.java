@@ -68,25 +68,18 @@ public class SimpleUI extends Thread {
     private void redraw() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append(this.getHeaderText());
         sb.append(this.getMapText());
 
+        this.uiFrame.setStatusText(this.getStatusText());
         this.uiFrame.setText(sb.toString());
     }
 
-    private StringBuffer getHeaderText() {
+    private String getStatusText() {
         World world = this.game.getWorld();
         int width = world.getWidth();
         int height = world.getHeight();
 
-        StringBuffer sb = new StringBuffer();
-
-        sb.append(String.format("Rrerr~ Map Format: %dx%d, Number of settlements: %d", width, height, world.getSettlements().size()));
-
-        sb.append('\n');
-        sb.append('\n');
-
-        return sb;
+        return String.format("Rrerr~ Map Format: %dx%d, Number of settlements: %d", width, height, world.getSettlements().size());
     }
 
     private StringBuffer getMapText() {

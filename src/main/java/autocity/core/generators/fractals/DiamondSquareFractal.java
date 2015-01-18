@@ -64,10 +64,10 @@ public class DiamondSquareFractal {
         map = new Double[size + 1][size + 1];
 
         // Set the values of each corner to 1 minus our variation
-        map[0][0] = 0.5 - getDeviation();
-        map[0][size] = 0.5 - getDeviation();
-        map[size][0] = 0.5 - getDeviation();
-        map[size][size] = 0.5 - getDeviation();
+        map[0][0] = 0.5 + getDeviation();
+        map[0][size] = 0.5 + getDeviation();
+        map[size][0] = 0.5 + getDeviation();
+        map[size][size] = 0.5 + getDeviation();
 
         this.divide(size);
         this.truncate();
@@ -144,6 +144,6 @@ public class DiamondSquareFractal {
     }
 
     private double getDeviation() {
-        return random.nextDouble() * this.roughness;
+        return (random.nextInt(2) == 0 ? random.nextDouble() * this.roughness : 0 - random.nextDouble() * this.roughness);
     }
 }

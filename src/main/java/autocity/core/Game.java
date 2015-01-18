@@ -23,7 +23,7 @@ public class Game extends Thread {
     public void startGame() {
         System.out.println("Generating world...");
         WorldFactory builder = new WorldFactory();
-        this.world = builder.generate(90, 60);
+        this.world = builder.generate(155, 90);
         this.simulation = new Simulation(this);
     }
 

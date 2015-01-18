@@ -2,7 +2,6 @@ package autocity.simpleui;
 
 import javax.swing.*;
 import javax.swing.text.DefaultStyledDocument;
-import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -12,27 +11,38 @@ public class UIFrame extends JFrame implements MouseListener {
     private JTextPane textPane;
     private DefaultStyledDocument styledDocument;
     private SimpleUI simpleUI;
+    private JMenu status;
+
+    public void setStatusText(String text) {
+        this.status.setText(text);
+    }
 
     public UIFrame(SimpleUI simpleUI) {
         super("Autocity SimpleUI");
         this.textPane = new JTextPane();
         this.styledDocument = new DefaultStyledDocument();
-        this.textPane.setFont(new Font("Consolas", Font.PLAIN, 10));
+        this.textPane.setFont(new Font("Consolas", Font.PLAIN, 7));
         this.simpleUI = simpleUI;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         JMenuBar menuBar = new JMenuBar();
-
         JMenu menu = new JMenu("Restart");
 
         menu.addMouseListener(this);
-
         menuBar.add(menu);
+
+        JMenuBar statusBar = new JMenuBar();
+        this.status = new JMenu("Status");
+
+        statusBar.add(this.status);
+
+        this.status.setEnabled(false);
 
         this.add(menuBar, BorderLayout.NORTH);
         this.add(textPane, BorderLayout.CENTER);
-        this.setSize(1120, 900);
+        this.add(statusBar, BorderLayout.SOUTH);
+        this.setSize(1280, 900);
         this.setVisible(true);
     }
 
