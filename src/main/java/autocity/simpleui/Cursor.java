@@ -52,12 +52,12 @@ public class Cursor {
             y--;
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN && y < world.getHeight() - 1) {
             y++;
-        } else if (e.getKeyCode() == KeyEvent.VK_LEFT && x > 0) {
+        }
+
+        if (e.getKeyCode() == KeyEvent.VK_LEFT && x > 0) {
             x--;
         } else if (e.getKeyCode() == KeyEvent.VK_RIGHT && x < world.getWidth() - 1) {
             x++;
         }
-
-        System.out.println("X: " + x + " Y: " + y);
     }
 }
