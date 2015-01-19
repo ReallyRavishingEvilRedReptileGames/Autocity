@@ -1,5 +1,8 @@
 package autocity.simpleui;
 
+import autocity.core.World;
+import autocity.core.exceptions.TileOutOfBoundsException;
+
 import java.awt.event.KeyEvent;
 
 /**
@@ -7,22 +10,51 @@ import java.awt.event.KeyEvent;
  */
 public class Cursor {
 
-    int x, y = 0;
+    private int x, y = 0;
+    private World world;
 
-    //TODO Make this thing work
+    public Cursor(World world) {
+        this.world = world;
+    }
 
-    public static void Move(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_UP) {
-            System.out.println("We went up!");
-        }
-        if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-            System.out.println("We went down!");
-        }
-        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            System.out.println("We went left!");
-        }
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            System.out.println("We went right!");
+    public void Move(KeyEvent e) {
+        try {
+            if (e.getKeyCode() == KeyEvent.VK_UP) {
+                if (y - 1 < 0) {
+                } else {
+                    world.getTile(x, y).setSelected();
+                    y--;
+                    world.getTile(x, y).setSelected();
+                }
+
+            }
+            if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                if (y + 1 > world.getHeight() - 1) {
+                } else {
+                    world.getTile(x, y).setSelected();
+                    y++;
+                    world.getTile(x, y).setSelected();
+                }
+            }
+            if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                if (x - 1 < 0) {
+                } else {
+                    world.getTile(x, y).setSelected();
+                    x--;
+                    world.getTile(x, y).setSelected();
+                }
+            }
+            if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                if (x + 1 > world.getWidth() - 1) {
+                } else {
+                    world.getTile(x, y).setSelected();
+                    x++;
+                    world.getTile(x, y).setSelected();
+                }
+            }
+            System.out.println("X: " + x + " Y: " + y);
+        } catch (TileOutOfBoundsException TOBE) {
+
         }
     }
 }

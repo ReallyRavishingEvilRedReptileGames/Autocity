@@ -12,15 +12,18 @@ public class SimpleUI extends Thread {
     private boolean isRunning = true;
     private long lastloop = System.nanoTime();
     private double delta = 0;
-    private int targetfps = 2;
+    private int targetfps = 5;
     private double targettime = 2 / (double) targetfps;
 
     private Game game;
     private UIFrame uiFrame;
+    private Cursor cursor;
 
     public SimpleUI(Game game) {
         this.game = game;
-        this.uiFrame = new UIFrame(this);
+        this.cursor = new Cursor(this.game.getWorld());
+        this.uiFrame = new UIFrame(this, cursor);
+
     }
 
     public void run() {
