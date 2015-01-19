@@ -19,8 +19,7 @@ public class WorldFactory {
     private int sizeY;
     private World world;
 
-    private double foliageRequiredFractalValue = 0.5;
-    private int foliageSpawnRateDivider = 8;
+    private double foliageRequiredFractalValue = 0.4;
 
     public double getFoliageRequiredFractalValue() {
         return foliageRequiredFractalValue;
@@ -28,14 +27,6 @@ public class WorldFactory {
 
     public void setFoliageRequiredFractalValue(double foliageRequiredFractalValue) {
         this.foliageRequiredFractalValue = foliageRequiredFractalValue;
-    }
-
-    public int getFoliageSpawnRateDivider() {
-        return foliageSpawnRateDivider;
-    }
-
-    public void setFoliageSpawnRateDivider(int foliageSpawnRateDivider) {
-        this.foliageSpawnRateDivider = foliageSpawnRateDivider;
     }
 
     public World generate(int sizeX, int sizeY) {
@@ -66,7 +57,7 @@ public class WorldFactory {
 
     private void generateHeight() {
         DiamondSquareFractal diamondSquareFractal = new DiamondSquareFractal();
-        diamondSquareFractal.setRoughness(0.05);
+        diamondSquareFractal.setRoughness(0.03);
         diamondSquareFractal.setSize(Math.max(sizeX, sizeY));
 
         Double[][] map = diamondSquareFractal.generate();
@@ -106,7 +97,7 @@ public class WorldFactory {
 
     private void generateFoliage() {
         DiamondSquareFractal diamondSquareFractal = new DiamondSquareFractal();
-        diamondSquareFractal.setRoughness(0.05);
+        diamondSquareFractal.setRoughness(0.03);
         diamondSquareFractal.setSize(Math.max(this.sizeX, this.sizeY));
 
         Random random = new Random();
@@ -116,8 +107,10 @@ public class WorldFactory {
         for (int x = 0; x < world.getWidth(); x++) {
             for (int y = 0; y < world.getHeight(); y++) {
                 try {
-                    if ((map[x][y] > this.foliageRequiredFractalValue) && (random.nextInt(this.foliageSpawnRateDivider) == 0) && (world.getTile(x, y).getTerrain() instanceof Grass)) {
-                        world.getTile(x, y).setOccupyingObject(new PineTree());
+                    Tile tile = world.getTile(x, y);
+
+                    if ((map[x][y] > this.foliageRequiredFractalValue) && (random.nextDouble() <= tile.getTerrain().getRandomEntitySpawnRate())) {
+                        tile.setOccupyingObject(tile.getTerrain().getRandomTerrainObject());
                     }
                 } catch (TileOutOfBoundsException e) {
                     // Nah

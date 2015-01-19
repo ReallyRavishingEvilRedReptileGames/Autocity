@@ -2,26 +2,20 @@ package autocity.core;
 
 import autocity.core.world.WorldObject;
 
-/**
- * Created by Fiskie on 18/01/2015.
- */
 public abstract class Terrain {
     protected char character;
     protected String name;
-    protected WorldObject[] randomEntities;
-    protected int randomEntitySpawnRate = 4;
+    protected double randomEntitySpawnRate = 0.5;
 
     public char getCharacter() {
         return character;
     }
 
-    public WorldObject[] getRandomEntities() {
-        return randomEntities;
-    }
-
-    public int getRandomEntitySpawnRate() {
+    public double getRandomEntitySpawnRate() {
         return randomEntitySpawnRate;
     }
+
+    public abstract WorldObject getRandomTerrainObject();
 
     public String toString() {
         return this.name;
