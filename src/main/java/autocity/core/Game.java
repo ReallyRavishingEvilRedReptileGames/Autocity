@@ -25,11 +25,6 @@ public class Game extends Thread {
         System.out.println("Generating world...");
         WorldFactory builder = new WorldFactory();
         this.world = builder.generate(155, 90);
-        try {
-            this.world.getTile(0, 0).setSelected();
-        } catch (TileOutOfBoundsException e) {
-
-        }
         this.simulation = new Simulation(this);
     }
 

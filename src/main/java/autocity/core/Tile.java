@@ -9,7 +9,6 @@ public class Tile {
     private int x;
     private int y;
     private int height;
-    private boolean isSelected;
 
     public Tile(int x, int y) {
         this.x = x;
@@ -57,17 +56,10 @@ public class Tile {
     }
 
     public char getCharacter() {
-        if (this.isSelected) {
-            return '@';
-        } else if (this.occupyingObject == null) {
+        if (this.occupyingObject == null) {
             return this.terrain.getCharacter();
         } else {
             return this.occupyingObject.getCharacter();
         }
     }
-
-    public void setSelected() {
-        isSelected = !isSelected;
-    }
-
 }

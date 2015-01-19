@@ -1,60 +1,63 @@
 package autocity.simpleui;
 
+import autocity.core.Tile;
 import autocity.core.World;
 import autocity.core.exceptions.TileOutOfBoundsException;
 
 import java.awt.event.KeyEvent;
 
-/**
- * Created by Whiplash on 1/18/2015.
- */
 public class Cursor {
-
-    private int x, y = 0;
+    private int x = 0, y = 0;
     private World world;
+    private char character = '#';
 
     public Cursor(World world) {
         this.world = world;
     }
 
-    public void Move(KeyEvent e) {
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public char getCharacter() {
+        return character;
+    }
+
+    public void setCharacter(char character) {
+        this.character = character;
+    }
+
+    public Tile getSelectedTile() {
         try {
-            if (e.getKeyCode() == KeyEvent.VK_UP) {
-                if (y - 1 < 0) {
-                } else {
-                    world.getTile(x, y).setSelected();
-                    y--;
-                    world.getTile(x, y).setSelected();
-                }
-
-            }
-            if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                if (y + 1 > world.getHeight() - 1) {
-                } else {
-                    world.getTile(x, y).setSelected();
-                    y++;
-                    world.getTile(x, y).setSelected();
-                }
-            }
-            if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                if (x - 1 < 0) {
-                } else {
-                    world.getTile(x, y).setSelected();
-                    x--;
-                    world.getTile(x, y).setSelected();
-                }
-            }
-            if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                if (x + 1 > world.getWidth() - 1) {
-                } else {
-                    world.getTile(x, y).setSelected();
-                    x++;
-                    world.getTile(x, y).setSelected();
-                }
-            }
-            System.out.println("X: " + x + " Y: " + y);
-        } catch (TileOutOfBoundsException TOBE) {
-
+            return this.world.getTile(x, y);
+        } catch (TileOutOfBoundsException e) {
+            return null;
         }
+    }
+
+    public void Move(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_UP && y > 0) {
+            y--;
+        } else if (e.getKeyCode() == KeyEvent.VK_DOWN && y < world.getHeight() - 1) {
+            y++;
+        } else if (e.getKeyCode() == KeyEvent.VK_LEFT && x > 0) {
+            x--;
+        } else if (e.getKeyCode() == KeyEvent.VK_RIGHT && x < world.getWidth() - 1) {
+            x++;
+        }
+
+        System.out.println("X: " + x + " Y: " + y);
     }
 }

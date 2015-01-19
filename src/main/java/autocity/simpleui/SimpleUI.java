@@ -85,13 +85,17 @@ public class SimpleUI extends Thread {
 
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                try {
-                    Tile tile = world.getTile(j, i);
+                if (cursor.getX() == j && cursor.getY() == i) {
+                    sb.append(cursor.getCharacter());
+                } else {
+                    try {
+                        Tile tile = world.getTile(j, i);
 
-                    sb.append(tile.getCharacter());
-                } catch (TileOutOfBoundsException e) {
-                    //not going to happen but we'll specify a case for this anyway.
-                    sb.append('X');
+                        sb.append(tile.getCharacter());
+                    } catch (TileOutOfBoundsException e) {
+                        //not going to happen but we'll specify a case for this anyway.
+                        sb.append('X');
+                    }
                 }
 
                 sb.append(' ');
