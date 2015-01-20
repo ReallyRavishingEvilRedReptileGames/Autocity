@@ -2,7 +2,7 @@ package autocity.core;
 
 import autocity.core.world.WorldObject;
 
-public class Tile {
+public class Tile implements Invokable {
     protected char character;
     private WorldObject occupyingObject;
     private Terrain terrain;
@@ -60,6 +60,36 @@ public class Tile {
             return this.terrain.getCharacter();
         } else {
             return this.occupyingObject.getCharacter();
+        }
+    }
+
+    @Override
+    public void Execute(String command) {
+        String[] tmp = command.split(delimiter);
+        try {
+            switch (tmp[3].toLowerCase()) {
+                case "getterrain":
+                    System.out.println(getTerrain());
+                    return;
+                case "getoccupyingobject":
+                    System.out.println(getOccupyingObject());
+                    return;
+                case "getheight":
+                    System.out.println(getHeight());
+                    return;
+                case "tostring":
+                    System.out.println(toString());
+                    return;
+                case "getcharacter":
+                    System.out.println(getCharacter());
+                    return;
+                default:
+                    System.out.println("Invalid command.");
+                    System.out.println(" @" + getClass().getName());
+            }
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Invalid command.");
+            System.out.println(" @" + getClass().getName());
         }
     }
 }

@@ -1,5 +1,6 @@
 package autocity.simpleui;
 
+import autocity.core.Devmode;
 import autocity.core.Game;
 import autocity.core.Tile;
 import autocity.core.World;
@@ -18,11 +19,13 @@ public class SimpleUI extends Thread {
     private Game game;
     private UIFrame uiFrame;
     private Cursor cursor;
+    private Devmode dev;
 
     public SimpleUI(Game game) {
         this.game = game;
         this.cursor = new Cursor(this.game.getWorld());
-        this.uiFrame = new UIFrame(this, cursor);
+        this.dev = new Devmode(game);
+        this.uiFrame = new UIFrame(this, cursor, dev);
 
     }
 
