@@ -4,7 +4,7 @@ import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 import com.fuzzy.autocity.factories.WorldFactory;
 import com.fuzzy.autocity.simulation.Simulation;
 
-public class Game extends Thread {
+public class Game extends Thread implements Invokable {
     private World world;
     private boolean isRunning = true;
     private long lastloop = System.nanoTime();
@@ -25,6 +25,13 @@ public class Game extends Thread {
         System.out.println("Generating world...");
         WorldFactory builder = new WorldFactory();
         this.world = builder.generate(155, 90);
+        this.simulation = new Simulation(this);
+    }
+
+    private void newMap(int x, int y) {
+        System.out.println("Generating world...");
+        WorldFactory builder = new WorldFactory();
+        this.world = builder.generate(x, y);
         this.simulation = new Simulation(this);
     }
 
@@ -74,5 +81,19 @@ public class Game extends Thread {
      */
     private void onTick() {
         this.simulation.onTick();
+    }
+
+    @Override
+    public void Execute(String command) {
+        String[] tmp = command.split(delimiter);
+        switch (tmp[1]) {
+            case "newmap":
+                try {
+                    newMap(Integer.valueOf(tmp[2]), Integer.valueOf(tmp[3]));
+                } catch (NumberFormatException nfe) {
+                    System.out.println("Invalid command.");
+                    System.out.println(" @" + Devmode.class.getName());
+                }
+        }
     }
 }

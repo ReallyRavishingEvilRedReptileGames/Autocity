@@ -1,5 +1,6 @@
 package com.fuzzy.autocity;
 
+import com.fuzzy.autocity.debugui.Cursor;
 import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 
 /**
@@ -10,9 +11,11 @@ public class Devmode {
 
     private static final String deLimiter = "\\.";
     private Game game;
+    private Cursor cursor;
 
-    public Devmode(Game game) {
+    public Devmode(Game game, Cursor cursor) {
         this.game = game;
+        this.cursor = cursor;
     }
 
     public void commandLookup(String command) {
@@ -22,9 +25,15 @@ public class Devmode {
             case "tile":
                 try {
                     game.getWorld().getTile(Integer.valueOf(tmp[1]), Integer.valueOf(tmp[2])).Execute(command);
-                } catch (TileOutOfBoundsException | IndexOutOfBoundsException e) {
+                } catch (TileOutOfBoundsException | IndexOutOfBoundsException | NumberFormatException e) {
                     System.out.println("Invalid tile position.");
                 }
+                return;
+            case "cursor":
+                cursor.Execute(command);
+                return;
+            case "game":
+                game.Execute(command);
                 return;
             default:
                 System.out.println("Invalid command.");

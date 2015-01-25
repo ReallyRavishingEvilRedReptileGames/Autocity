@@ -24,7 +24,7 @@ public class DebugUI extends Thread {
     public DebugUI(Game game) {
         this.game = game;
         this.cursor = new Cursor(this.game.getWorld());
-        this.dev = new Devmode(game);
+        this.dev = new Devmode(game, cursor);
         this.uiFrame = new UIFrame(this, cursor, dev);
 
     }

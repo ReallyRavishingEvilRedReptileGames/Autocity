@@ -1,5 +1,6 @@
 package com.fuzzy.autocity;
 
+import com.fuzzy.autocity.terrain.*;
 import com.fuzzy.autocity.world.WorldObject;
 
 public class Tile implements Invokable {
@@ -21,6 +22,22 @@ public class Tile implements Invokable {
 
     public void setTerrain(Terrain terrain) {
         this.terrain = terrain;
+    }
+
+    private void setTerrain(String s) {
+        switch (s.toLowerCase()) {
+            case "grass":
+                this.terrain = new Grass();
+                return;
+            case "sand":
+                this.terrain = new Sand();
+                return;
+            case "water":
+                this.terrain = new Water();
+                return;
+            default:
+                System.out.println("Nope.");
+        }
     }
 
     public WorldObject getOccupyingObject() {
@@ -68,7 +85,14 @@ public class Tile implements Invokable {
         String[] tmp = command.split(delimiter);
         try {
             switch (tmp[3].toLowerCase()) {
+                case "help":
+                    System.out.println("GetTerrain, SetTerrain, GetOccupyingObject, GetHeight, ToString, GetCharacter");
+                    return;
                 case "getterrain":
+                    System.out.println(getTerrain());
+                    return;
+                case "setterrain":
+                    setTerrain(tmp[4]);
                     System.out.println(getTerrain());
                     return;
                 case "getoccupyingobject":
@@ -76,6 +100,14 @@ public class Tile implements Invokable {
                     return;
                 case "getheight":
                     System.out.println(getHeight());
+                    return;
+                case "setheight":
+                    try {
+                        setHeight(Integer.valueOf(tmp[4]));
+                    } catch (NumberFormatException nfe) {
+                        System.out.println("Invalid command.");
+                        System.out.println(" @" + getClass().getName());
+                    }
                     return;
                 case "tostring":
                     System.out.println(toString());
