@@ -75,8 +75,10 @@ public class DebugUI extends Thread {
         World world = this.game.getWorld();
         int width = world.getWidth();
         int height = world.getHeight();
+        int x = cursor.getX();
+        int y = cursor.getY();
 
-        return String.format("Rrerr~ Map Format: %dx%d, Number of settlements: %d", width, height, world.getSettlements().size());
+        return String.format("Rrerr~ Map Format: %dx%d, Number of settlements: %d, X: %d Y: %d", width, height, world.getSettlements().size(), x, y);
     }
 
     private StringBuffer getMapText() {
