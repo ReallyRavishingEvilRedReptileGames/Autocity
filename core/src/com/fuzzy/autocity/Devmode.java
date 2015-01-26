@@ -2,6 +2,7 @@ package com.fuzzy.autocity;
 
 import com.fuzzy.autocity.debugui.Cursor;
 import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
+import com.fuzzy.autocity.generators.builders.PathBuilder;
 
 /**
  * Created by Whiplash on 1/20/2015.
@@ -34,6 +35,9 @@ public class Devmode {
                 return;
             case "game":
                 game.Execute(command);
+                return;
+            case "pathbuilder":
+                new PathBuilder(this.game.getWorld()).Execute(command);
                 return;
             default:
                 System.out.println("Invalid command.");
