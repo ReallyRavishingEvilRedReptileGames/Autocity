@@ -81,6 +81,7 @@ public class Cursor implements Invokable {
             Road r = new Road();
 //                p.validateWorldObject(r, x, y);
             getSelectedTile().setOccupyingObject(r);
+            world.addToConstructionList(r);
 //            } catch (TileOutOfBoundsException | WorldObjectConflictException e1) {
 //
 //            }
@@ -107,7 +108,7 @@ public class Cursor implements Invokable {
     public void deConstruct() {
         WorldObject wo = getSelectedTile().getOccupyingObject();
         if (wo instanceof Constructable) {
-            ((Constructable) wo).deConstruct();
+            world.addToDeConstructionList((Constructable) wo);
         }
     }
 

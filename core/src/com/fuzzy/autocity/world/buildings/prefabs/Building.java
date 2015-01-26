@@ -63,11 +63,8 @@ public abstract class Building extends WorldObject implements Constructable {
 
     @Override
     public char getCharacter() {
-        if (this.constructed) {
-            return this.character;
-        } else {
-            return java.lang.Character.forDigit((int) this.constructionTime, 10);
-        }
+        float f = this.constructionTime * 10;
+        return this.constructed ? this.character : java.lang.Character.forDigit((int) f, 10);
     }
 
     @Override

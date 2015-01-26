@@ -7,13 +7,4 @@ public class Alchemist extends Research {
         this.name = "Alchemist";
     }
 
-    @Override
-    public void Construct() {
-
-    }
-
-    @Override
-    public void deConstruct() {
-
-    }
 }

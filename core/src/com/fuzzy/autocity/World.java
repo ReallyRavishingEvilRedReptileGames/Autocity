@@ -10,13 +10,15 @@ public class World {
     private int height;
     private Tile[][] tiles;
     private HashSet<Settlement> settlements;
-    private HashSet<Constructable> Constructions;
+    private HashSet<Constructable> constructions;
+    private HashSet<Constructable> deconstructions;
 
     public World(int width, int height) {
         this.width = width;
         this.height = height;
         this.settlements = new HashSet<>();
-        this.Constructions = new HashSet<>();
+        this.constructions = new HashSet<>();
+        this.deconstructions = new HashSet<>();
 
         this.addTiles();
     }
@@ -61,11 +63,19 @@ public class World {
     }
 
     public void addToConstructionList(Constructable c) {
-        Constructions.add(c);
+        constructions.add(c);
     }
 
     public HashSet<Constructable> getConstructions() {
-        return this.Constructions;
+        return this.constructions;
+    }
+
+    public void addToDeConstructionList(Constructable c) {
+        deconstructions.add(c);
+    }
+
+    public HashSet<Constructable> getDeconstructions() {
+        return this.deconstructions;
     }
 
 

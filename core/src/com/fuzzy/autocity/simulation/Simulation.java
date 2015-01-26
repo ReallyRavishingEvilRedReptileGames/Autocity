@@ -18,6 +18,7 @@ public class Simulation {
     public void onTick() {
         HashSet<Settlement> settlements = this.game.getWorld().getSettlements();
         HashSet<Constructable> constructions = this.game.getWorld().getConstructions();
+        HashSet<Constructable> deconstructions = this.game.getWorld().getDeconstructions();
 
         for (Settlement settlement : settlements) {
             settlement.getPopulation().update();
@@ -28,6 +29,13 @@ public class Simulation {
                 i.remove();
             }
             c.Construct();
+        }
+        for (Iterator<Constructable> i = deconstructions.iterator(); i.hasNext();) {
+            Constructable c = i.next();
+            if (c == null || !c.isConstructed()) {
+                i.remove();
+            }
+            c.deConstruct();
         }
     }
 

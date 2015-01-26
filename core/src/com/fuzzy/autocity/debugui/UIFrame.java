@@ -109,11 +109,10 @@ public class UIFrame extends JFrame implements MouseListener, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (placementMode) {
+        if (placementMode && !devConsole.isVisible()) {
             cursor.Place(e);
         }
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            // Pass text to Devmode class.
             dev.commandLookup(devConsole.getText());
             devConsole.setText("");
         } else if (e.getKeyChar() == '`') {
