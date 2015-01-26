@@ -4,6 +4,7 @@ import com.fuzzy.autocity.Invokable;
 import com.fuzzy.autocity.Tile;
 import com.fuzzy.autocity.World;
 import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
+import com.fuzzy.autocity.terrain.Water;
 import com.fuzzy.autocity.world.paths.Road;
 
 public class PathBuilder implements Invokable {
@@ -33,10 +34,12 @@ public class PathBuilder implements Invokable {
             System.out.println("Going across x axis.");
 
             for (int x = tile1.getX(); x <= tile1.getX() + Math.abs(xDiff); x++) {
-                System.out.println("Placing road at " + x + "," + tile1.getY());
-                Road r = new Road();
-                this.world.getTile(x, tile1.getY()).setOccupyingObject(r);
-                this.world.addToConstructionList(r);
+                if (!isInvalidTile(this.world.getTile(x, tile1.getY()))) {
+                    System.out.println("Placing road at " + x + "," + tile1.getY());
+                    Road r = new Road();
+                    this.world.getTile(x, tile1.getY()).setOccupyingObject(r);
+                    this.world.addToConstructionList(r);
+                }
             }
 
             this.generateBetweenTiles(this.world.getTile(tile2.getX(), tile1.getY()), tile2);
@@ -44,14 +47,20 @@ public class PathBuilder implements Invokable {
             System.out.println("Going across y axis.");
 
             for (int y = tile1.getY(); y <= tile1.getY() + Math.abs(yDiff); y++) {
-                System.out.println("Placing road at " + tile1.getX() + "," + y);
-                Road r = new Road();
-                this.world.getTile(tile1.getX(), y).setOccupyingObject(r);
-                this.world.addToConstructionList(r);
+                if (!isInvalidTile(this.world.getTile(tile1.getX(), y))) {
+                    System.out.println("Placing road at " + tile1.getX() + "," + y);
+                    Road r = new Road();
+                    this.world.getTile(tile1.getX(), y).setOccupyingObject(r);
+                    this.world.addToConstructionList(r);
+                }
             }
 
             this.generateBetweenTiles(this.world.getTile(tile1.getX(), tile2.getY()), tile2);
         }
+    }
+
+    private boolean isInvalidTile(Tile tile) {
+        return tile.getTerrain() instanceof Water || tile.getOccupyingObject() != null;
     }
 
     @Override
