@@ -10,4 +10,12 @@ public class TownHall extends Civic {
         this.character = 'H';
     }
 
+    public TownHall(Boolean b) {
+        this.name = "Town Hall";
+        this.width = 3;
+        this.height = 2;
+        this.character = 'H';
+        this.constructed = b;
+    }
+
 }

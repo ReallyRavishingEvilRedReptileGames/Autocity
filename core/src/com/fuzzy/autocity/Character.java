@@ -68,6 +68,9 @@ public abstract class Character implements Comparable<Character> {
             this.location.addVisitor(this);
         } else {
             // TODO: how should we handle persons being nowhere?
+            /* Until we figure out what scenarios would cause them to be "nowhere"
+            we should remove them from the game/kill them off/dispose of them.
+             */
         }
     }
 

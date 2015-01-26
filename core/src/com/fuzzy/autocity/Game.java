@@ -53,7 +53,7 @@ public class Game extends Thread implements Invokable {
             long updateLength = now - lastloop;
             delta += ((double) updateLength / 1000000000);
             lastloop = now;
-
+//TODO: Do we really want the game logic to only update once a second? That seems awfully slow.
             if (delta >= 1) {
                 this.onTick();
                 delta = 0;

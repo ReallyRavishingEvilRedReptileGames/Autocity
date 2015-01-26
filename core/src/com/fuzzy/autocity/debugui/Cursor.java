@@ -4,7 +4,9 @@ import com.fuzzy.autocity.*;
 import com.fuzzy.autocity.exceptions.TerrainConflictException;
 import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 import com.fuzzy.autocity.exceptions.WorldObjectConflictException;
+import com.fuzzy.autocity.world.WorldObject;
 import com.fuzzy.autocity.world.buildings.Hut;
+import com.fuzzy.autocity.world.buildings.prefabs.Constructable;
 import com.fuzzy.autocity.world.paths.Road;
 import com.fuzzy.autocity.world.resources.PineTree;
 import com.fuzzy.autocity.world.resources.prefabs.Tree;
@@ -73,33 +75,42 @@ public class Cursor implements Invokable {
 
     //TODO: Some sort of world object list to iterate over and compare characters for ez placement?
     public void Place(KeyEvent e) {
-        PlacementValidator p = new PlacementValidator(this.world);
+//        PlacementValidator p = new PlacementValidator(this.world);
         if (e.getKeyChar() == 'r') {
-            try {
-                Road r = new Road();
-                p.validateWorldObject(r, x, y);
-                getSelectedTile().setOccupyingObject(r);
-            } catch (TileOutOfBoundsException | WorldObjectConflictException e1) {
-
-            }
+//            try {
+            Road r = new Road();
+//                p.validateWorldObject(r, x, y);
+            getSelectedTile().setOccupyingObject(r);
+//            } catch (TileOutOfBoundsException | WorldObjectConflictException e1) {
+//
+//            }
         } else if (e.getKeyChar() == 'h') {
-            try {
-                Hut h = new Hut();
-                p.validateBuilding(h, x, y);
-                getSelectedTile().setOccupyingObject(h);
-            } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException e2) {
-
-            }
+//            try {
+            Hut h = new Hut();
+//                p.validateBuilding(h, x, y);
+            getSelectedTile().placeBuilding(h);
+            world.addToConstructionList(h);
+//            } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException e2) {
+//
+//            }
         } else if (e.getKeyChar() == 't') {
-            try {
-                Tree t = new PineTree();
-                p.validateWorldObject(t, x, y);
-                getSelectedTile().setOccupyingObject(t);
-            } catch (TileOutOfBoundsException | WorldObjectConflictException e3) {
-
-            }
+//            try {
+            Tree t = new PineTree();
+//                p.validateWorldObject(t, x, y);
+            getSelectedTile().setOccupyingObject(t);
+//            } catch (TileOutOfBoundsException | WorldObjectConflictException e3) {
+//
+//            }
         }
     }
+
+    public void deConstruct() {
+        WorldObject wo = getSelectedTile().getOccupyingObject();
+        if (wo instanceof Constructable) {
+            ((Constructable) wo).deConstruct();
+        }
+    }
+
 
     @Override
     public void Execute(String command) {

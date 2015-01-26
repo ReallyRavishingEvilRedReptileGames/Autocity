@@ -123,6 +123,8 @@ public class UIFrame extends JFrame implements MouseListener, KeyListener {
         } else if (e.getKeyChar() == 'p') {
             placementMode = !placementMode;
             System.out.println("Placement mode: " + placementMode);
+        } else if (e.getKeyChar() == 'd') {
+            cursor.deConstruct();
         } else {
             cursor.Move(e);
         }

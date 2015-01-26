@@ -2,8 +2,11 @@ package com.fuzzy.autocity.simulation;
 
 import com.fuzzy.autocity.Game;
 import com.fuzzy.autocity.Settlement;
+import com.fuzzy.autocity.world.buildings.prefabs.Constructable;
+import com.fuzzy.autocity.world.buildings.prefabs.Constructable;
 
 import java.util.HashSet;
+import java.util.Iterator;
 
 public class Simulation {
     private Game game;
@@ -14,9 +17,19 @@ public class Simulation {
 
     public void onTick() {
         HashSet<Settlement> settlements = this.game.getWorld().getSettlements();
+        HashSet<Constructable> constructions = this.game.getWorld().getConstructions();
 
         for (Settlement settlement : settlements) {
             settlement.getPopulation().update();
         }
+        for (Iterator<Constructable> i = constructions.iterator(); i.hasNext();) {
+            Constructable c = i.next();
+            if (c.isConstructed()) {
+                i.remove();
+            }
+            c.Construct();
+        }
     }
+
+
 }

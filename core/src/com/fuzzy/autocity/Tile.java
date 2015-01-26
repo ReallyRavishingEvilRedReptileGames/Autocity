@@ -1,7 +1,9 @@
 package com.fuzzy.autocity;
 
+import com.fuzzy.autocity.simulation.Simulation;
 import com.fuzzy.autocity.terrain.*;
 import com.fuzzy.autocity.world.WorldObject;
+import com.fuzzy.autocity.world.buildings.prefabs.Building;
 
 public class Tile implements Invokable {
     protected char character;
@@ -50,6 +52,13 @@ public class Tile implements Invokable {
         }
 
         this.occupyingObject = occupyingObject;
+    }
+
+    public void placeBuilding(Building b) {
+        if (this.occupyingObject != null) {
+            this.occupyingObject.destroy();
+        }
+        this.occupyingObject = b;
     }
 
     public int getX() {

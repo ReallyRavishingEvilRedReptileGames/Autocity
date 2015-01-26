@@ -1,6 +1,7 @@
 package com.fuzzy.autocity;
 
 import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
+import com.fuzzy.autocity.world.buildings.prefabs.Constructable;
 
 import java.util.HashSet;
 
@@ -9,11 +10,13 @@ public class World {
     private int height;
     private Tile[][] tiles;
     private HashSet<Settlement> settlements;
+    private HashSet<Constructable> Constructions;
 
     public World(int width, int height) {
         this.width = width;
         this.height = height;
         this.settlements = new HashSet<>();
+        this.Constructions = new HashSet<>();
 
         this.addTiles();
     }
@@ -56,6 +59,15 @@ public class World {
     public HashSet<Settlement> getSettlements() {
         return this.settlements;
     }
+
+    public void addToConstructionList(Constructable c) {
+        Constructions.add(c);
+    }
+
+    public HashSet<Constructable> getConstructions() {
+        return this.Constructions;
+    }
+
 
     public void forEachTile(Object object) {
 
