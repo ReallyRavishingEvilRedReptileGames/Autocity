@@ -19,6 +19,7 @@ public class UIFrame extends JFrame implements MouseListener, KeyListener {
     private Cursor cursor;
     private JTextField devConsole;
     private Devmode dev;
+    private boolean placementMode;
 
     public UIFrame(DebugUI debugUI, Cursor cursor, Devmode dev) {
         super("Autocity SimpleUI");
@@ -29,6 +30,7 @@ public class UIFrame extends JFrame implements MouseListener, KeyListener {
         this.cursor = cursor;
         this.dev = dev;
         this.devConsole = new JTextField();
+        this.placementMode = false;
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -107,6 +109,9 @@ public class UIFrame extends JFrame implements MouseListener, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        if (placementMode) {
+            cursor.Place(e);
+        }
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             // Pass text to Devmode class.
             dev.commandLookup(devConsole.getText());
@@ -115,9 +120,13 @@ public class UIFrame extends JFrame implements MouseListener, KeyListener {
             devConsole.setVisible(!devConsole.isVisible());
             devConsole.setEnabled(!devConsole.isEnabled());
             this.requestFocus();
+        } else if (e.getKeyChar() == 'p') {
+            placementMode = !placementMode;
+            System.out.println("Placement mode: " + placementMode);
         } else {
             cursor.Move(e);
         }
+
     }
 
     @Override

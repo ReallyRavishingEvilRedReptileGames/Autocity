@@ -1,10 +1,13 @@
 package com.fuzzy.autocity.debugui;
 
-import com.fuzzy.autocity.Devmode;
-import com.fuzzy.autocity.Invokable;
-import com.fuzzy.autocity.Tile;
-import com.fuzzy.autocity.World;
+import com.fuzzy.autocity.*;
+import com.fuzzy.autocity.exceptions.TerrainConflictException;
 import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
+import com.fuzzy.autocity.exceptions.WorldObjectConflictException;
+import com.fuzzy.autocity.world.buildings.Hut;
+import com.fuzzy.autocity.world.paths.Road;
+import com.fuzzy.autocity.world.resources.PineTree;
+import com.fuzzy.autocity.world.resources.prefabs.Tree;
 
 import java.awt.event.KeyEvent;
 
@@ -65,6 +68,36 @@ public class Cursor implements Invokable {
             x--;
         } else if (e.getKeyCode() == KeyEvent.VK_RIGHT && x < world.getWidth() - 1) {
             x++;
+        }
+    }
+
+    //TODO: Some sort of world object list to iterate over and compare characters for ez placement?
+    public void Place(KeyEvent e) {
+        PlacementValidator p = new PlacementValidator(this.world);
+        if (e.getKeyChar() == 'r') {
+            try {
+                Road r = new Road();
+                p.validateWorldObject(r, x, y);
+                getSelectedTile().setOccupyingObject(r);
+            } catch (TileOutOfBoundsException | WorldObjectConflictException e1) {
+
+            }
+        } else if (e.getKeyChar() == 'h') {
+            try {
+                Hut h = new Hut();
+                p.validateBuilding(h, x, y);
+                getSelectedTile().setOccupyingObject(h);
+            } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException e2) {
+
+            }
+        } else if (e.getKeyChar() == 't') {
+            try {
+                Tree t = new PineTree();
+                p.validateWorldObject(t, x, y);
+                getSelectedTile().setOccupyingObject(t);
+            } catch (TileOutOfBoundsException | WorldObjectConflictException e3) {
+
+            }
         }
     }
 
