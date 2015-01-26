@@ -24,7 +24,7 @@ public class Devmode {
         switch (tmp[0].toLowerCase()) {
             case "tile":
                 try {
-                    game.getWorld().getTile(Integer.valueOf(tmp[1]), Integer.valueOf(tmp[2])).Execute(command);
+                    game.getWorld().getTile(cursor.getX(), cursor.getY()).Execute(command);
                 } catch (TileOutOfBoundsException | IndexOutOfBoundsException | NumberFormatException e) {
                     System.out.println("Invalid tile position.");
                 }

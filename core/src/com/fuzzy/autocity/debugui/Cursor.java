@@ -75,33 +75,33 @@ public class Cursor implements Invokable {
 
     //TODO: Some sort of world object list to iterate over and compare characters for ez placement?
     public void Place(KeyEvent e) {
-//        PlacementValidator p = new PlacementValidator(this.world);
+        PlacementValidator p = new PlacementValidator(this.world);
         if (e.getKeyChar() == 'r') {
-//            try {
-            Road r = new Road();
-//                p.validateWorldObject(r, x, y);
-            getSelectedTile().setOccupyingObject(r);
-            world.addToConstructionList(r);
-//            } catch (TileOutOfBoundsException | WorldObjectConflictException e1) {
-//
-//            }
+            try {
+                Road r = new Road();
+                p.validateWorldObject(r, x, y);
+                getSelectedTile().setOccupyingObject(r);
+                world.addToConstructionList(r);
+            } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException e1) {
+
+            }
         } else if (e.getKeyChar() == 'h') {
-//            try {
-            Hut h = new Hut();
-//                p.validateBuilding(h, x, y);
-            getSelectedTile().placeBuilding(h);
-            world.addToConstructionList(h);
-//            } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException e2) {
-//
-//            }
+            try {
+                Hut h = new Hut();
+                p.validateBuilding(h, x, y);
+                getSelectedTile().placeBuilding(h);
+                world.addToConstructionList(h);
+            } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException e2) {
+
+            }
         } else if (e.getKeyChar() == 't') {
-//            try {
-            Tree t = new PineTree();
-//                p.validateWorldObject(t, x, y);
-            getSelectedTile().setOccupyingObject(t);
-//            } catch (TileOutOfBoundsException | WorldObjectConflictException e3) {
-//
-//            }
+            try {
+                Tree t = new PineTree();
+                p.validateWorldObject(t, x, y);
+                getSelectedTile().setOccupyingObject(t);
+            } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException e3) {
+
+            }
         }
     }
 

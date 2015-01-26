@@ -93,7 +93,7 @@ public class Tile implements Invokable {
     public void Execute(String command) {
         String[] tmp = command.split(delimiter);
         try {
-            switch (tmp[3].toLowerCase()) {
+            switch (tmp[1].toLowerCase()) {
                 case "help":
                     System.out.println("GetTerrain, SetTerrain, GetOccupyingObject, GetHeight, ToString, GetCharacter");
                     return;
@@ -101,7 +101,7 @@ public class Tile implements Invokable {
                     System.out.println(getTerrain());
                     return;
                 case "setterrain":
-                    setTerrain(tmp[4]);
+                    setTerrain(tmp[2]);
                     System.out.println(getTerrain());
                     return;
                 case "getoccupyingobject":
@@ -112,7 +112,7 @@ public class Tile implements Invokable {
                     return;
                 case "setheight":
                     try {
-                        setHeight(Integer.valueOf(tmp[4]));
+                        setHeight(Integer.valueOf(tmp[2]));
                     } catch (NumberFormatException nfe) {
                         System.out.println("Invalid command.");
                         System.out.println(" @" + getClass().getName());

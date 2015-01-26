@@ -119,7 +119,7 @@ public class UIFrame extends JFrame implements MouseListener, KeyListener {
             devConsole.setVisible(!devConsole.isVisible());
             devConsole.setEnabled(!devConsole.isEnabled());
             this.requestFocus();
-        } else if (e.getKeyChar() == 'p') {
+        } else if (e.getKeyChar() == 'p' && !devConsole.isVisible()) {
             placementMode = !placementMode;
             System.out.println("Placement mode: " + placementMode);
         } else if (e.getKeyChar() == 'd') {

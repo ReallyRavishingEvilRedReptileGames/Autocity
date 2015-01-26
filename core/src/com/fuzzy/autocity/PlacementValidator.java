@@ -38,7 +38,7 @@ public class PlacementValidator {
         }
     }
 
-    public void validateWorldObject(WorldObject worldObject, int x, int y) throws WorldObjectConflictException, TileOutOfBoundsException {
+    public void validateWorldObject(WorldObject worldObject, int x, int y) throws WorldObjectConflictException, TileOutOfBoundsException, TerrainConflictException {
         int width = worldObject.getWidth();
         int height = worldObject.getHeight();
 
@@ -46,6 +46,8 @@ public class PlacementValidator {
             for (int j = y; j < y + height; j++) {
                 if (this.world.getTile(i, j).getOccupyingObject() != null) {
                     throw new WorldObjectConflictException(this.world.getTile(i, j).getOccupyingObject());
+                } else if (this.world.getTile(i, j).getTerrain() instanceof Water) {
+                    throw new TerrainConflictException(this.world.getTile(i,j).getTerrain());
                 }
             }
         }
