@@ -40,9 +40,6 @@ public class Devmode {
             case "game":
                 game.Execute(command);
                 return;
-            case "world":
-                game.getWorld().Execute(command);
-                return;
             case "pathbuilder":
                 new PathBuilder(this.game.getWorld()).Execute(command);
                 return;
