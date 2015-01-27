@@ -94,6 +94,13 @@ public class Game extends Thread implements Invokable {
                     System.out.println("Invalid command.");
                     System.out.println(" @" + Devmode.class.getName());
                 }
+                //TODO: Some sort of world object list to iterate over and compare characters for ez placement?
+            case "placeworldobject":
+                return;
+            case "placeconstructable":
+                return;
+            case "removeconstructable":
+                return;
         }
     }
 }

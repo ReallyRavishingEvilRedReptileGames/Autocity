@@ -23,6 +23,10 @@ public class Devmode {
         System.out.println("> " + command);
         String[] tmp = command.split(deLimiter);
         switch (tmp[0].toLowerCase()) {
+            case "help": {
+                System.out.println("Tile, Cursor, Game, World, Pathbuilder");
+                return;
+            }
             case "tile":
                 try {
                     game.getWorld().getTile(cursor.getX(), cursor.getY()).Execute(command);
@@ -35,6 +39,9 @@ public class Devmode {
                 return;
             case "game":
                 game.Execute(command);
+                return;
+            case "world":
+                game.getWorld().Execute(command);
                 return;
             case "pathbuilder":
                 new PathBuilder(this.game.getWorld()).Execute(command);
