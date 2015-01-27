@@ -21,11 +21,6 @@ public class PathBuilder implements Invokable {
         int xDiff = tile1.getX() - tile2.getX();
         int yDiff = tile1.getY() - tile2.getY();
 
-        //todo: improvements, e.g. if tile1 and tile2 are equal it won't spawn a tile
-        //todo: needs to be made more recursive
-        //todo: consider buildings; don't path through an existing one
-
-
         System.out.println("Generating between " + tile1.getX() + "," + tile1.getY() + " and " + tile2.getX() + "," + tile2.getY());
 
         if (xDiff == 0 && yDiff == 0) {
