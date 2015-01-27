@@ -3,7 +3,7 @@ package com.fuzzy.autocity.world.paths;
 import com.fuzzy.autocity.world.buildings.prefabs.Constructable;
 import com.fuzzy.autocity.world.paths.prefabs.Path;
 
-public class Road extends Path implements Constructable {
+public class Road extends Path {
     protected float constructionSpeed = 0.3f;
     protected float constructionTime = 0;
     protected int maxConstructionTime = 0;
