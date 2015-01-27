@@ -116,7 +116,6 @@ public class aStarPathFinder {
         int maxDepth = 0;
 
         while ((maxDepth < maxSearchDistance) && (open.size() != 0)) {
-            System.out.println("Max depth: " + maxDepth + " Max search distance: " + maxSearchDistance);
             Node current = getFirstInOpen();
             if (current == nodes[targetX][targetY]) {
                 break;
@@ -223,7 +222,6 @@ public class aStarPathFinder {
 
         if ((!invalid) && ((startX != x) || (startY != y))) {
             try {
-                System.out.println(x + "," + y);
                 return !isBlockedTile(world.getTile(x, y));
             } catch (TileOutOfBoundsException e) {
             }
