@@ -4,6 +4,7 @@ import com.fuzzy.autocity.Invokable;
 import com.fuzzy.autocity.Tile;
 import com.fuzzy.autocity.World;
 import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
+import com.fuzzy.autocity.generators.aStarPathFinder;
 import com.fuzzy.autocity.terrain.Water;
 import com.fuzzy.autocity.world.paths.Road;
 
@@ -59,6 +60,19 @@ public class PathBuilder implements Invokable {
         }
     }
 
+    public void generate(Tile startTile, Tile targetTile) {
+        aStarPathFinder f = new aStarPathFinder(world, 1000);
+        try {
+            for (Tile t : f.findPath(startTile.getX(), startTile.getY(), targetTile.getX(), targetTile.getY())) {
+                Road r = new Road();
+                t.setOccupyingObject(r);
+                this.world.addToConstructionList(r);
+            }
+        } catch (NullPointerException npe) {
+            System.out.println("No path generated!");
+        }
+    }
+
     private boolean isInvalidTile(Tile tile) {
         return tile.getTerrain() instanceof Water || tile.getOccupyingObject() != null;
     }
@@ -69,7 +83,7 @@ public class PathBuilder implements Invokable {
         switch (tmp[1]) {
             case "generate":
                 try {
-                    generateBetweenTiles(world.getTile(Integer.valueOf(tmp[2]), Integer.valueOf(tmp[3])),
+                    generate(world.getTile(Integer.valueOf(tmp[2]), Integer.valueOf(tmp[3])),
                             world.getTile(Integer.valueOf(tmp[4]), Integer.valueOf(tmp[5])));
                 } catch (NumberFormatException | TileOutOfBoundsException e) {
 
