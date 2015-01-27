@@ -8,8 +8,8 @@ import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 import java.util.HashSet;
 
 public abstract class WorldObject implements Comparable<WorldObject> {
-    protected int width = 1;
-    protected int height = 1;
+    protected int width;
+    protected int height;
     protected String customName;
     protected String name = "Unknown World Object";
     protected char character = '!';
@@ -18,10 +18,12 @@ public abstract class WorldObject implements Comparable<WorldObject> {
     protected HashSet<Tile> tiles = new HashSet<>();
 
     public WorldObject() {
+        this.width = 1;
+        this.height = 1;
     }
 
     public HashSet<Character> getVisitors() {
-        return visitors;
+        return this.visitors;
     }
 
     public void addVisitor(Character character) {
@@ -33,11 +35,11 @@ public abstract class WorldObject implements Comparable<WorldObject> {
     }
 
     public int getWidth() {
-        return width;
+        return this.width;
     }
 
     public int getHeight() {
-        return height;
+        return this.height;
     }
 
     public int compareTo(WorldObject worldObject) {
@@ -57,7 +59,7 @@ public abstract class WorldObject implements Comparable<WorldObject> {
     }
 
     public char getCharacter() {
-        return character;
+        return this.character;
     }
 
     public String toString() {

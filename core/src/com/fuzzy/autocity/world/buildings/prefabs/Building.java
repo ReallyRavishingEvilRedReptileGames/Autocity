@@ -6,17 +6,13 @@ import com.fuzzy.autocity.Tile;
 import com.fuzzy.autocity.enumeration.EBuildingStyle;
 import com.fuzzy.autocity.world.WorldObject;
 
-public abstract class Building extends WorldObject implements Constructable {
-    protected float constructionSpeed = 0.1f;
-    protected float constructionTime = 0;
-    protected int maxConstructionTime = 0;
-    protected boolean constructed = false;
+public abstract class Building extends Constructable {
+
     protected EBuildingStyle style = EBuildingStyle.Generic;
     protected int width = 3;
     protected int height = 2;
     protected Settlement settlement;
     protected Character owner;
-
 
     public void setSettlement(Settlement settlement) {
         this.settlement = settlement;
@@ -38,38 +34,4 @@ public abstract class Building extends WorldObject implements Constructable {
 
         this.onDestroy();
     }
-
-
-    @Override
-    public void Construct() {
-        if (this.constructionTime < this.maxConstructionTime) {
-            this.constructionTime += constructionSpeed * 1;
-        } else {
-            this.constructed = true;
-
-        }
-
-    }
-
-    @Override
-    public void deConstruct() {
-        if (this.constructionTime < this.maxConstructionTime) {
-            this.constructionTime -= constructionSpeed * 1;
-        } else {
-            this.constructed = false;
-            this.destroy();
-        }
-    }
-
-    @Override
-    public char getCharacter() {
-        float f = this.constructionTime * 10;
-        return this.constructed ? this.character : java.lang.Character.forDigit((int) f, 10);
-    }
-
-    @Override
-    public boolean isConstructed() {
-        return this.constructed;
-    }
-
 }
