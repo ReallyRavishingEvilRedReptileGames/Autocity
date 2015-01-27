@@ -42,6 +42,14 @@ public abstract class WorldObject implements Comparable<WorldObject> {
         return this.height;
     }
 
+    public void setWidth(int x) {
+        this.width = x;
+    }
+
+    public void setHeight(int y) {
+        this.height = y;
+    }
+
     public int compareTo(WorldObject worldObject) {
         return 0;
     }
@@ -64,6 +72,10 @@ public abstract class WorldObject implements Comparable<WorldObject> {
 
     public String toString() {
         return this.customName == null ? this.getName() : this.customName;
+    }
+
+    public void addTile(Tile t) {
+        tiles.add(t);
     }
 
     public void destroy() {

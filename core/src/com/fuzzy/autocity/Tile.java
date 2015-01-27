@@ -47,10 +47,6 @@ public class Tile implements Invokable {
     }
 
     public void setOccupyingObject(WorldObject occupyingObject) {
-        if (this.occupyingObject != null) {
-            this.occupyingObject.destroy();
-        }
-
         this.occupyingObject = occupyingObject;
     }
 

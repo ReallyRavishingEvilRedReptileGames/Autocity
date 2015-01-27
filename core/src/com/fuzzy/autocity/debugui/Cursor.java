@@ -76,12 +76,12 @@ public class Cursor implements Invokable {
     //TODO: Some sort of world object list to iterate over and compare characters for ez placement?
     public void Place(KeyEvent e) {
         PlacementValidator p = new PlacementValidator(this.world);
+        Tile tile = getSelectedTile();
         if (e.getKeyChar() == 'r') {
             try {
                 Road r = new Road();
                 p.validateWorldObject(r, x, y);
-                getSelectedTile().setOccupyingObject(r);
-                world.addToConstructionList(r);
+                world.placeConstructable(r, tile);
             } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException e1) {
 
             }
@@ -89,8 +89,7 @@ public class Cursor implements Invokable {
             try {
                 Hut h = new Hut();
                 p.validateBuilding(h, x, y);
-                getSelectedTile().placeBuilding(h);
-                world.addToConstructionList(h);
+                world.placeConstructable(h, tile);
             } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException e2) {
 
             }
@@ -98,7 +97,7 @@ public class Cursor implements Invokable {
             try {
                 Tree t = new PineTree();
                 p.validateWorldObject(t, x, y);
-                getSelectedTile().setOccupyingObject(t);
+                world.placeWorldObject(t, tile);
             } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException e3) {
 
             }
@@ -108,7 +107,7 @@ public class Cursor implements Invokable {
     public void deConstruct() {
         WorldObject wo = getSelectedTile().getOccupyingObject();
         if (wo instanceof Constructable) {
-            world.addToDeConstructionList((Constructable) wo);
+            world.removeConstructable((Constructable) wo);
         }
     }
 

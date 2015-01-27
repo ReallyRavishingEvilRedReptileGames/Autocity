@@ -1,6 +1,7 @@
 package com.fuzzy.autocity;
 
 import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
+import com.fuzzy.autocity.world.WorldObject;
 import com.fuzzy.autocity.world.buildings.prefabs.Constructable;
 
 import java.util.HashSet;
@@ -62,7 +63,7 @@ public class World {
         return this.settlements;
     }
 
-    public void addToConstructionList(Constructable c) {
+    private void addToConstructionList(Constructable c) {
         constructions.add(c);
     }
 
@@ -70,12 +71,42 @@ public class World {
         return this.constructions;
     }
 
-    public void addToDeConstructionList(Constructable c) {
+    private void addToDeConstructionList(Constructable c) {
         deconstructions.add(c);
     }
 
     public HashSet<Constructable> getDeconstructions() {
         return this.deconstructions;
+    }
+
+    public void placeWorldObject(WorldObject o, Tile t) {
+        int originX = t.getX();
+        int originY = t.getY();
+
+        for (int x = 0; x < o.getWidth(); x++) {
+            for (int y = 0; y < o.getHeight(); y++) {
+                int targetX = originX + x;
+                int targetY = originY + y;
+                if (tiles[targetX][targetY].getOccupyingObject() != null) {
+                    tiles[targetX][targetY].getOccupyingObject().destroy();
+                }
+                tiles[targetX][targetY].setOccupyingObject(o);
+                try {
+                    o.addTile(getTile(targetX, targetY));
+                } catch (TileOutOfBoundsException e) {
+
+                }
+            }
+        }
+    }
+
+    public void placeConstructable(Constructable c, Tile t) {
+        placeWorldObject(c, t);
+        addToConstructionList(c);
+    }
+
+    public void removeConstructable(Constructable c) {
+        addToDeConstructionList(c);
     }
 
 
