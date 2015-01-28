@@ -18,12 +18,12 @@ public class Cursor implements Invokable {
     private int x = 0, y = 0;
     private int width = 1, height = 1;
     private boolean buildingSelected = false;
-    private World world;
+    private Game game;
     WorldObject o = null;
     private char character = '#';
 
-    public Cursor(World world) {
-        this.world = world;
+    public Cursor(Game game) {
+        this.game = game;
     }
 
     public int getX() {
@@ -65,7 +65,7 @@ public class Cursor implements Invokable {
 
     public Tile getSelectedTile() {
         try {
-            return this.world.getTile(x, y);
+            return this.game.getWorld().getTile(x, y);
         } catch (TileOutOfBoundsException e) {
             return null;
         }
@@ -74,13 +74,13 @@ public class Cursor implements Invokable {
     public void Move(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_UP && y > 0) {
             y--;
-        } else if (e.getKeyCode() == KeyEvent.VK_DOWN && y < world.getHeight() - 1) {
+        } else if (e.getKeyCode() == KeyEvent.VK_DOWN && y < this.game.getWorld().getHeight() - 1) {
             y++;
         }
 
         if (e.getKeyCode() == KeyEvent.VK_LEFT && x > 0) {
             x--;
-        } else if (e.getKeyCode() == KeyEvent.VK_RIGHT && x < world.getWidth() - 1) {
+        } else if (e.getKeyCode() == KeyEvent.VK_RIGHT && x < this.game.getWorld().getWidth() - 1) {
             x++;
         }
     }
@@ -88,14 +88,14 @@ public class Cursor implements Invokable {
     //TODO: Some sort of world object list to iterate over and compare characters for ez placement?
     //TODO: Made this ^^^ now I just need to implement it here.
     public void Place(KeyEvent e) {
-        PlacementValidator p = new PlacementValidator(this.world);
+        PlacementValidator p = new PlacementValidator(this.game.getWorld());
         Tile tile = getSelectedTile();
 
         if (e.getKeyChar() == 'r') {
             Road r = new Road();
             try {
                 p.validateWorldObject(r, x, y);
-                world.placeConstructable(r, tile);
+                this.game.getWorld().placeConstructable(r, tile);
             } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException e1) {
 
             }
@@ -109,7 +109,7 @@ public class Cursor implements Invokable {
             } else {
                 try {
                     p.validateBuilding((Building) o, x, y);
-                    world.placeConstructable((Constructable) o, tile);
+                    this.game.getWorld().placeConstructable((Constructable) o, tile);
                 } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException e2) {
 
                 }
@@ -118,7 +118,7 @@ public class Cursor implements Invokable {
             Tree t = new PineTree();
             try {
                 p.validateWorldObject(t, x, y);
-                world.placeWorldObject(t, tile);
+                this.game.getWorld().placeWorldObject(t, tile);
             } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException e3) {
 
             }
@@ -128,7 +128,7 @@ public class Cursor implements Invokable {
     public void deConstruct() {
         WorldObject wo = getSelectedTile().getOccupyingObject();
         if (wo instanceof Constructable) {
-            world.removeConstructable((Constructable) wo);
+            this.game.getWorld().removeConstructable((Constructable) wo);
         }
     }
 

@@ -30,7 +30,7 @@ public class Game extends Thread implements Invokable {
         WorldFactory builder = new WorldFactory();
         this.world = builder.generate(155, 90);
         this.simulation = new Simulation(this);
-        this.cursor = new Cursor(this.world);
+        this.cursor = new Cursor(this);
     }
 
     private void newMap(int x, int y) {
