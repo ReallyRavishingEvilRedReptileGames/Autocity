@@ -2,8 +2,7 @@ package com.fuzzy.autocity.simulation;
 
 import com.fuzzy.autocity.Game;
 import com.fuzzy.autocity.Settlement;
-import com.fuzzy.autocity.world.buildings.prefabs.Constructable;
-import com.fuzzy.autocity.world.buildings.prefabs.Constructable;
+import com.fuzzy.autocity.world.Constructable;
 
 import java.util.HashSet;
 import java.util.Iterator;

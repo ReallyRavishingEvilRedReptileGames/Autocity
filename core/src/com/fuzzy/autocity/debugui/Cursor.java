@@ -7,7 +7,7 @@ import com.fuzzy.autocity.exceptions.WorldObjectConflictException;
 import com.fuzzy.autocity.world.WorldObject;
 import com.fuzzy.autocity.world.buildings.Hut;
 import com.fuzzy.autocity.world.buildings.prefabs.Building;
-import com.fuzzy.autocity.world.buildings.prefabs.Constructable;
+import com.fuzzy.autocity.world.Constructable;
 import com.fuzzy.autocity.world.paths.Road;
 import com.fuzzy.autocity.world.resources.PineTree;
 import com.fuzzy.autocity.world.resources.prefabs.Tree;

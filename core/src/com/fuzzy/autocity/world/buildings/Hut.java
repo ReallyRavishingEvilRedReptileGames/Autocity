@@ -1,6 +1,5 @@
 package com.fuzzy.autocity.world.buildings;
 
-import com.fuzzy.autocity.world.buildings.prefabs.Constructable;
 import com.fuzzy.autocity.world.buildings.prefabs.Residential;
 
 public class Hut extends Residential {

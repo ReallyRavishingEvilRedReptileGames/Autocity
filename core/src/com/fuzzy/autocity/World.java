@@ -2,7 +2,7 @@ package com.fuzzy.autocity;
 
 import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 import com.fuzzy.autocity.world.WorldObject;
-import com.fuzzy.autocity.world.buildings.prefabs.Constructable;
+import com.fuzzy.autocity.world.Constructable;
 
 import java.util.HashSet;
 
