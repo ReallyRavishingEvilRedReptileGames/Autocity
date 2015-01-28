@@ -20,7 +20,7 @@ public class Devmode {
     private static final String deLimiter = "\\.";
     private Game game;
     private Cursor cursor;
-    private static ArrayList<Class> worldObjectArrayList;
+    private static ArrayList<WorldObject> worldObjectArrayList;
 
     public Devmode(Game game, Cursor cursor) {
         this.game = game;
@@ -32,9 +32,19 @@ public class Devmode {
 
     private void populateList() {
         worldObjectArrayList = new ArrayList<>();
+        worldObjectArrayList.add(new PineTree());
+        worldObjectArrayList.add(new Hut());
     }
 
     public static WorldObject returnNewWorldObject(String s) {
+        try {
+            for (WorldObject w : worldObjectArrayList) {
+                if (w.getName().equalsIgnoreCase(s)) {
+                    return w.getClass().newInstance();
+                }
+            }
+        } catch (InstantiationException |IllegalAccessException e) {
+        }
         return null;
     }
 
@@ -48,23 +58,23 @@ public class Devmode {
             }
             case "tile":
                 try {
-                    game.getWorld().getTile(cursor.getX(), cursor.getY()).Execute(command);
+                    this.game.getWorld().getTile(this.cursor.getX(), this.cursor.getY()).Execute(command);
                 } catch (TileOutOfBoundsException | IndexOutOfBoundsException | NumberFormatException e) {
                     System.out.println("Invalid tile position.");
                 }
                 return;
             case "cursor":
-                cursor.Execute(command);
+                this.cursor.Execute(command);
                 return;
             case "game":
-                game.Execute(command);
+                this.game.Execute(command);
                 return;
             case "pathbuilder":
                 new PathBuilder(this.game.getWorld()).Execute(command);
                 return;
             default:
                 System.out.println("Invalid command.");
-                System.out.println(" @" + Devmode.class.getName());
+                System.out.println(" @" + this.getClass().getName());
         }
     }
 }

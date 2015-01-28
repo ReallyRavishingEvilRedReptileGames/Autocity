@@ -148,12 +148,12 @@ public class Cursor implements Invokable {
                     setCoords(Integer.valueOf(tmp[2]), Integer.valueOf(tmp[3]));
                 } catch (NumberFormatException nfe) {
                     System.out.println("Invalid command.");
-                    System.out.println(" @" + Devmode.class.getName());
+                    System.out.println(" @" + this.getClass().getName());
                 }
                 return;
             default:
                 System.out.println("Invalid command.");
-                System.out.println(" @" + Devmode.class.getName());
+                System.out.println(" @" + this.getClass().getName());
         }
     }
 }

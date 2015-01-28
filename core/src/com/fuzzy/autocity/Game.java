@@ -14,6 +14,7 @@ public class Game extends Thread implements Invokable {
     private double delta = 0;
     private Simulation simulation;
     private Cursor cursor;
+    private Devmode dev;
 
     public Game() {
         this.startGame();
@@ -22,6 +23,8 @@ public class Game extends Thread implements Invokable {
     public void restartGame() {
         this.simulation = null;
         this.world = null;
+        this.cursor = null;
+        this.dev = null;
         this.startGame();
     }
 
@@ -31,6 +34,7 @@ public class Game extends Thread implements Invokable {
         this.world = builder.generate(155, 90);
         this.simulation = new Simulation(this);
         this.cursor = new Cursor(this);
+        this.dev = new Devmode(this, this.cursor);
     }
 
     private void newMap(int x, int y) {
@@ -38,6 +42,8 @@ public class Game extends Thread implements Invokable {
         WorldFactory builder = new WorldFactory();
         this.world = builder.generate(x, y);
         this.simulation = new Simulation(this);
+        this.cursor = new Cursor(this);
+        this.dev = new Devmode(this, this.cursor);
     }
 
     public World getWorld() {
@@ -46,6 +52,10 @@ public class Game extends Thread implements Invokable {
 
     public Cursor getCursor() {
         return this.cursor;
+    }
+
+    public Devmode getDev() {
+        return this.dev;
     }
 
     public void run() {
@@ -101,27 +111,28 @@ public class Game extends Thread implements Invokable {
                     newMap(Integer.valueOf(tmp[2]), Integer.valueOf(tmp[3]));
                 } catch (NumberFormatException nfe) {
                     System.out.println("Invalid command.");
-                    System.out.println(" @" + Devmode.class.getName());
+                    System.out.println(" @" + this.getClass().getName());
                 }
             case "placeworldobject":
+            case "place":
                 try {
                     WorldObject o = Devmode.returnNewWorldObject(tmp[2]);
-                    System.out.println(o.hashCode());
-                    Tile t = world.getTile(cursor.getX(), cursor.getY());
+                    Tile t = this.world.getTile(this.cursor.getX(), this.cursor.getY());
                     if (o instanceof Constructable) {
-                        world.placeConstructable((Constructable) o, t);
+                        this.world.placeConstructable((Constructable) o, t);
                     } else {
-                        world.placeWorldObject(o, t);
+                        this.world.placeWorldObject(o, t);
                     }
                 } catch (TileOutOfBoundsException | NullPointerException e) {
                     System.out.println("Nope!");
                 }
                 return;
+
             case "removeconstructable":
                 try {
-                    WorldObject o = world.getTile(cursor.getX(), cursor.getY()).getOccupyingObject();
+                    WorldObject o = this.world.getTile(this.cursor.getX(), this.cursor.getY()).getOccupyingObject();
                     if (o instanceof Constructable) {
-                        world.removeConstructable((Constructable) o);
+                        this.world.removeConstructable((Constructable) o);
                     }
                 } catch (TileOutOfBoundsException e) {
                 }
