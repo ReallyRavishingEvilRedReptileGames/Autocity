@@ -33,13 +33,20 @@ public class Devmode {
     private void populateList() {
         worldObjectArrayList = new ArrayList<>();
         worldObjectArrayList.add(new PineTree());
+        worldObjectArrayList.add(new PalmTree());
+        worldObjectArrayList.add(new Road());
+        worldObjectArrayList.add(new TownHall());
+        worldObjectArrayList.add(new Smithy());
         worldObjectArrayList.add(new Hut());
+        worldObjectArrayList.add(new Alchemist());
     }
 
     public static WorldObject returnNewWorldObject(String s) {
         try {
             for (WorldObject w : worldObjectArrayList) {
                 if (w.getName().equalsIgnoreCase(s)) {
+                    return w.getClass().newInstance();
+                } else if (w.getCharacter() == s.charAt(0)) {
                     return w.getClass().newInstance();
                 }
             }
