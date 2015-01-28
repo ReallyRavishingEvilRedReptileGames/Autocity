@@ -28,8 +28,6 @@ public class Devmode {
         populateList();
     }
 
-    //TODO: Figure out how to populate the arraylist and have it return a new object for devving.
-
     private void populateList() {
         worldObjectArrayList = new ArrayList<>();
         worldObjectArrayList.add(new PineTree());
@@ -39,6 +37,9 @@ public class Devmode {
         worldObjectArrayList.add(new Smithy());
         worldObjectArrayList.add(new Hut());
         worldObjectArrayList.add(new Alchemist());
+        for (WorldObject o : worldObjectArrayList) {
+            System.out.println(o.getName() + ", " + o.getCharacter()); // T, P, 0, 0, 0, 0, 0
+        }
     }
 
     public static WorldObject returnNewWorldObject(String s) {
