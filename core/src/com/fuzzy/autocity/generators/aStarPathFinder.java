@@ -10,9 +10,6 @@ import com.fuzzy.autocity.world.paths.Road;
 import java.util.ArrayList;
 import java.util.Collections;
 
-/**
- * Created by Whiplash on 1/27/2015.
- */
 public class aStarPathFinder {
 
     private class Node implements Comparable {

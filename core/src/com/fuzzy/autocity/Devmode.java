@@ -3,20 +3,39 @@ package com.fuzzy.autocity;
 import com.fuzzy.autocity.debugui.Cursor;
 import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 import com.fuzzy.autocity.generators.builders.PathBuilder;
+import com.fuzzy.autocity.world.WorldObject;
+import com.fuzzy.autocity.world.buildings.Alchemist;
+import com.fuzzy.autocity.world.buildings.Hut;
+import com.fuzzy.autocity.world.buildings.Smithy;
+import com.fuzzy.autocity.world.buildings.TownHall;
+import com.fuzzy.autocity.world.paths.Road;
+import com.fuzzy.autocity.world.resources.PalmTree;
+import com.fuzzy.autocity.world.resources.PineTree;
 
-/**
- * Created by Whiplash on 1/20/2015.
- */
+import java.util.ArrayList;
+
 public class Devmode {
 
 
     private static final String deLimiter = "\\.";
     private Game game;
     private Cursor cursor;
+    private static ArrayList<Class> worldObjectArrayList;
 
     public Devmode(Game game, Cursor cursor) {
         this.game = game;
         this.cursor = cursor;
+        populateList();
+    }
+
+    //TODO: Figure out how to populate the arraylist and have it return a new object for devving.
+
+    private void populateList() {
+        worldObjectArrayList = new ArrayList<>();
+    }
+
+    public static WorldObject returnNewWorldObject(String s) {
+        return null;
     }
 
     public void commandLookup(String command) {
@@ -24,7 +43,7 @@ public class Devmode {
         String[] tmp = command.split(deLimiter);
         switch (tmp[0].toLowerCase()) {
             case "help": {
-                System.out.println("Tile, Cursor, Game, World, Pathbuilder");
+                System.out.println("Tile, Cursor, Game, Pathbuilder");
                 return;
             }
             case "tile":

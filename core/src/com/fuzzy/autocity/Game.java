@@ -1,8 +1,11 @@
 package com.fuzzy.autocity;
 
+import com.fuzzy.autocity.debugui.Cursor;
 import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 import com.fuzzy.autocity.factories.WorldFactory;
 import com.fuzzy.autocity.simulation.Simulation;
+import com.fuzzy.autocity.world.WorldObject;
+import com.fuzzy.autocity.world.buildings.prefabs.Constructable;
 
 public class Game extends Thread implements Invokable {
     private World world;
@@ -10,6 +13,7 @@ public class Game extends Thread implements Invokable {
     private long lastloop = System.nanoTime();
     private double delta = 0;
     private Simulation simulation;
+    private Cursor cursor;
 
     public Game() {
         this.startGame();
@@ -26,6 +30,7 @@ public class Game extends Thread implements Invokable {
         WorldFactory builder = new WorldFactory();
         this.world = builder.generate(155, 90);
         this.simulation = new Simulation(this);
+        this.cursor = new Cursor(this.world);
     }
 
     private void newMap(int x, int y) {
@@ -37,6 +42,10 @@ public class Game extends Thread implements Invokable {
 
     public World getWorld() {
         return this.world;
+    }
+
+    public Cursor getCursor() {
+        return this.cursor;
     }
 
     public void run() {
@@ -94,12 +103,28 @@ public class Game extends Thread implements Invokable {
                     System.out.println("Invalid command.");
                     System.out.println(" @" + Devmode.class.getName());
                 }
-                //TODO: Some sort of world object list to iterate over and compare characters for ez placement?
             case "placeworldobject":
-                return;
-            case "placeconstructable":
+                try {
+                    WorldObject o = Devmode.returnNewWorldObject(tmp[2]);
+                    System.out.println(o.hashCode());
+                    Tile t = world.getTile(cursor.getX(), cursor.getY());
+                    if (o instanceof Constructable) {
+                        world.placeConstructable((Constructable) o, t);
+                    } else {
+                        world.placeWorldObject(o, t);
+                    }
+                } catch (TileOutOfBoundsException | NullPointerException e) {
+                    System.out.println("Nope!");
+                }
                 return;
             case "removeconstructable":
+                try {
+                    WorldObject o = world.getTile(cursor.getX(), cursor.getY()).getOccupyingObject();
+                    if (o instanceof Constructable) {
+                        world.removeConstructable((Constructable) o);
+                    }
+                } catch (TileOutOfBoundsException e) {
+                }
                 return;
         }
     }

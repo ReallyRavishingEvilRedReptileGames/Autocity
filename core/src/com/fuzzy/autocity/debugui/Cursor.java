@@ -6,6 +6,7 @@ import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 import com.fuzzy.autocity.exceptions.WorldObjectConflictException;
 import com.fuzzy.autocity.world.WorldObject;
 import com.fuzzy.autocity.world.buildings.Hut;
+import com.fuzzy.autocity.world.buildings.prefabs.Building;
 import com.fuzzy.autocity.world.buildings.prefabs.Constructable;
 import com.fuzzy.autocity.world.paths.Road;
 import com.fuzzy.autocity.world.resources.PineTree;
@@ -15,7 +16,10 @@ import java.awt.event.KeyEvent;
 
 public class Cursor implements Invokable {
     private int x = 0, y = 0;
+    private int width = 1, height = 1;
+    private boolean buildingSelected = false;
     private World world;
+    WorldObject o = null;
     private char character = '#';
 
     public Cursor(World world) {
@@ -41,6 +45,14 @@ public class Cursor implements Invokable {
     public void setCoords(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    public int getWidth() {
+        return this.width;
+    }
+
+    public int getHeight() {
+        return this.height;
     }
 
     public char getCharacter() {
@@ -74,28 +86,37 @@ public class Cursor implements Invokable {
     }
 
     //TODO: Some sort of world object list to iterate over and compare characters for ez placement?
+    //TODO: Made this ^^^ now I just need to implement it here.
     public void Place(KeyEvent e) {
         PlacementValidator p = new PlacementValidator(this.world);
         Tile tile = getSelectedTile();
+
         if (e.getKeyChar() == 'r') {
+            Road r = new Road();
             try {
-                Road r = new Road();
                 p.validateWorldObject(r, x, y);
                 world.placeConstructable(r, tile);
             } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException e1) {
 
             }
-        } else if (e.getKeyChar() == 'h') {
-            try {
-                Hut h = new Hut();
-                p.validateBuilding(h, x, y);
-                world.placeConstructable(h, tile);
-            } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException e2) {
 
+        } else if (e.getKeyChar() == 'h') {
+            if (!buildingSelected) {
+                o = new Hut();
+                this.width = o.getWidth();
+                this.height = o.getHeight();
+                buildingSelected = true;
+            } else {
+                try {
+                    p.validateBuilding((Building) o, x, y);
+                    world.placeConstructable((Constructable) o, tile);
+                } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException e2) {
+
+                }
             }
         } else if (e.getKeyChar() == 't') {
+            Tree t = new PineTree();
             try {
-                Tree t = new PineTree();
                 p.validateWorldObject(t, x, y);
                 world.placeWorldObject(t, tile);
             } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException e3) {
