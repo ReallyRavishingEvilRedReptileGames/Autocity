@@ -2,7 +2,9 @@ package com.fuzzy.autocity;
 
 import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 import com.fuzzy.autocity.world.WorldObject;
-import com.fuzzy.autocity.world.Constructable;
+import com.fuzzy.autocity.world.Construction;
+import com.fuzzy.autocity.world.buildings.GenericConstruction;
+import com.fuzzy.autocity.world.buildings.prefabs.Building;
 
 import java.util.HashSet;
 
@@ -11,8 +13,8 @@ public class World {
     private int height;
     private Tile[][] tiles;
     private HashSet<Settlement> settlements;
-    private HashSet<Constructable> constructions;
-    private HashSet<Constructable> deconstructions;
+    private HashSet<GenericConstruction> constructions;
+    private HashSet<GenericConstruction> deconstructions;
 
     public World(int width, int height) {
         this.width = width;
@@ -63,19 +65,19 @@ public class World {
         return this.settlements;
     }
 
-    private void addToConstructionList(Constructable c) {
+    private void addToConstructionList(GenericConstruction c) {
         constructions.add(c);
     }
 
-    public HashSet<Constructable> getConstructions() {
+    public HashSet<GenericConstruction> getConstructions() {
         return this.constructions;
     }
 
-    private void addToDeConstructionList(Constructable c) {
+    private void addToDeConstructionList(GenericConstruction c) {
         deconstructions.add(c);
     }
 
-    public HashSet<Constructable> getDeconstructions() {
+    public HashSet<GenericConstruction> getDeconstructions() {
         return this.deconstructions;
     }
 
@@ -100,13 +102,19 @@ public class World {
         }
     }
 
-    public void placeConstructable(Constructable c, Tile t) {
-        placeWorldObject(c, t);
-        addToConstructionList(c);
+    public void buildConstruction(Construction c, Tile t) {
+        GenericConstruction con = new GenericConstruction(c);
+        placeWorldObject(con, t);
+        addToConstructionList(con);
     }
 
-    public void removeConstructable(Constructable c) {
-        addToDeConstructionList(c);
+    public void placeConstruction(Construction c, Tile t) {
+        placeWorldObject(c, t);
+    }
+
+    public void removeConstruction(Construction c) {
+        addToDeConstructionList(new GenericConstruction(c));
+        c.destroy();
     }
 
 

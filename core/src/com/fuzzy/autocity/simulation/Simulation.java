@@ -2,7 +2,8 @@ package com.fuzzy.autocity.simulation;
 
 import com.fuzzy.autocity.Game;
 import com.fuzzy.autocity.Settlement;
-import com.fuzzy.autocity.world.Constructable;
+import com.fuzzy.autocity.world.Construction;
+import com.fuzzy.autocity.world.buildings.GenericConstruction;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -16,21 +17,23 @@ public class Simulation {
 
     public void onTick() {
         HashSet<Settlement> settlements = this.game.getWorld().getSettlements();
-        HashSet<Constructable> constructions = this.game.getWorld().getConstructions();
-        HashSet<Constructable> deconstructions = this.game.getWorld().getDeconstructions();
+        HashSet<GenericConstruction> constructions = this.game.getWorld().getConstructions();
+        HashSet<GenericConstruction> deconstructions = this.game.getWorld().getDeconstructions();
 
         for (Settlement settlement : settlements) {
             settlement.getPopulation().update();
         }
-        for (Iterator<Constructable> i = constructions.iterator(); i.hasNext();) {
-            Constructable c = i.next();
-            if (c.isConstructed()) {
+        for (Iterator<GenericConstruction> i = constructions.iterator(); i.hasNext();) {
+            GenericConstruction c = i.next();
+            if (c.isConstructed() || c == null) {
+                this.game.getWorld().placeConstruction(c.getConstruction(), c.getConstruction().getOriginTile()); // Null tile
+                c.destroy();
                 i.remove();
             }
             c.Construct();
         }
-        for (Iterator<Constructable> i = deconstructions.iterator(); i.hasNext();) {
-            Constructable c = i.next();
+        for (Iterator<GenericConstruction> i = deconstructions.iterator(); i.hasNext();) {
+            GenericConstruction c = i.next();
             if (c == null || !c.isConstructed()) {
                 i.remove();
             }

@@ -33,7 +33,7 @@ public class PathBuilder implements Invokable {
                 if (!isInvalidTile(this.world.getTile(x, tile1.getY()))) {
                     System.out.println("Placing road at " + x + "," + tile1.getY());
                     Road r = new Road();
-                    this.world.placeConstructable(r, this.world.getTile(x, tile1.getY()));
+                    this.world.buildConstruction(r, this.world.getTile(x, tile1.getY()));
                 }
             }
 
@@ -45,7 +45,7 @@ public class PathBuilder implements Invokable {
                 if (!isInvalidTile(this.world.getTile(tile1.getX(), y))) {
                     System.out.println("Placing road at " + tile1.getX() + "," + y);
                     Road r = new Road();
-                    this.world.placeConstructable(r, this.world.getTile(tile1.getX(), y));
+                    this.world.buildConstruction(r, this.world.getTile(tile1.getX(), y));
                 }
             }
 
@@ -58,7 +58,7 @@ public class PathBuilder implements Invokable {
         try {
             for (Tile t : f.findPath(startTile.getX(), startTile.getY(), targetTile.getX(), targetTile.getY())) {
                 Road r = new Road();
-                this.world.placeConstructable(r, t);
+                this.world.buildConstruction(r, t);
             }
         } catch (NullPointerException npe) {
             System.out.println("No path generated!");

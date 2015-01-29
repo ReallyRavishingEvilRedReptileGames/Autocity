@@ -5,7 +5,7 @@ import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 import com.fuzzy.autocity.factories.WorldFactory;
 import com.fuzzy.autocity.simulation.Simulation;
 import com.fuzzy.autocity.world.WorldObject;
-import com.fuzzy.autocity.world.Constructable;
+import com.fuzzy.autocity.world.Construction;
 
 public class Game extends Thread implements Invokable {
     private World world;
@@ -118,8 +118,8 @@ public class Game extends Thread implements Invokable {
                 try {
                     WorldObject o = Devmode.returnNewWorldObject(tmp[2]);
                     Tile t = this.world.getTile(this.cursor.getX(), this.cursor.getY());
-                    if (o instanceof Constructable) {
-                        this.world.placeConstructable((Constructable) o, t);
+                    if (o instanceof Construction) {
+                        this.world.buildConstruction((Construction) o, t);
                     } else {
                         this.world.placeWorldObject(o, t);
                     }
@@ -131,8 +131,8 @@ public class Game extends Thread implements Invokable {
             case "removeconstructable":
                 try {
                     WorldObject o = this.world.getTile(this.cursor.getX(), this.cursor.getY()).getOccupyingObject();
-                    if (o instanceof Constructable) {
-                        this.world.removeConstructable((Constructable) o);
+                    if (o instanceof Construction) {
+                        this.world.removeConstruction((Construction) o);
                     }
                 } catch (TileOutOfBoundsException e) {
                 }

@@ -7,7 +7,7 @@ import com.fuzzy.autocity.exceptions.WorldObjectConflictException;
 import com.fuzzy.autocity.world.WorldObject;
 import com.fuzzy.autocity.world.buildings.Hut;
 import com.fuzzy.autocity.world.buildings.prefabs.Building;
-import com.fuzzy.autocity.world.Constructable;
+import com.fuzzy.autocity.world.Construction;
 import com.fuzzy.autocity.world.paths.Road;
 import com.fuzzy.autocity.world.resources.PineTree;
 import com.fuzzy.autocity.world.resources.prefabs.Tree;
@@ -95,7 +95,7 @@ public class Cursor implements Invokable {
             Road r = new Road();
             try {
                 p.validateWorldObject(r, x, y);
-                this.game.getWorld().placeConstructable(r, tile);
+                this.game.getWorld().buildConstruction(r, tile);
             } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException e1) {
 
             }
@@ -109,7 +109,7 @@ public class Cursor implements Invokable {
             } else {
                 try {
                     p.validateBuilding((Building) o, x, y);
-                    this.game.getWorld().placeConstructable((Constructable) o, tile);
+                    this.game.getWorld().buildConstruction((Construction) o, tile);
                 } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException e2) {
 
                 }
@@ -127,8 +127,8 @@ public class Cursor implements Invokable {
 
     public void deConstruct() {
         WorldObject wo = getSelectedTile().getOccupyingObject();
-        if (wo instanceof Constructable) {
-            this.game.getWorld().removeConstructable((Constructable) wo);
+        if (wo instanceof Construction) {
+            this.game.getWorld().removeConstruction((Construction) wo);
         }
     }
 

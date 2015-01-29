@@ -41,7 +41,7 @@ public class SettlementBuilder {
 
             try {
                 validator.validateBuilding(building, targetX, targetY);
-                this.settlement.getWorld().placeConstructable(building, this.settlement.getWorld().getTile(targetX, targetY));
+                this.settlement.getWorld().placeConstruction(building, this.settlement.getWorld().getTile(targetX, targetY));
                 placed = true;
             } catch (TileOutOfBoundsException e) {
                 System.out.println("Building out of map range.");

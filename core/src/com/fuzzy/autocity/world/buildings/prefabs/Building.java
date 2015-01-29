@@ -4,9 +4,9 @@ import com.fuzzy.autocity.Character;
 import com.fuzzy.autocity.Settlement;
 import com.fuzzy.autocity.Tile;
 import com.fuzzy.autocity.enumeration.EBuildingStyle;
-import com.fuzzy.autocity.world.Constructable;
+import com.fuzzy.autocity.world.Construction;
 
-public abstract class Building extends Constructable {
+public abstract class Building extends Construction {
 
     protected EBuildingStyle style = EBuildingStyle.Generic;
     protected int width = 3;
