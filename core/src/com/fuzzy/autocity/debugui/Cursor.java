@@ -111,6 +111,7 @@ public class Cursor implements Invokable {
                 try {
                     p.validateBuilding((Building) o, x, y);
                     this.game.getWorld().buildConstruction((Construction) o, tile);
+                    buildingSelected = false;
                 } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException ignored) {
 
                 }
