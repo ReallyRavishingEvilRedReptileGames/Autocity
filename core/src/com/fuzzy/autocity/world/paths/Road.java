@@ -9,4 +9,11 @@ public class Road extends Path {
         this.character = '=';
         this.maxConstructionTime = 1;
     }
+
+    public Road(Boolean b) {
+        this.name = "Road";
+        this.character = '=';
+        this.maxConstructionTime = 1;
+        this.constructed = b;
+    }
 }

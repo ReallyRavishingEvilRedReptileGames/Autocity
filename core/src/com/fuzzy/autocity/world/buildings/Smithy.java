@@ -6,4 +6,9 @@ public class Smithy extends Store {
     public Smithy() {
         this.name = "Smithy";
     }
+
+    public Smithy(Boolean b) {
+        this.name = "Smithy";
+        this.constructed = b;
+    }
 }

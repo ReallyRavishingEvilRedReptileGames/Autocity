@@ -29,15 +29,17 @@ public class Simulation {
                 this.game.getWorld().placeConstruction(c.getConstruction(), c.getConstruction().getOriginTile()); // Null tile
                 c.destroy();
                 i.remove();
+            } else {
+                c.Construct();
             }
-            c.Construct();
         }
         for (Iterator<GenericConstruction> i = deconstructions.iterator(); i.hasNext();) {
             GenericConstruction c = i.next();
             if (c == null || !c.isConstructed()) {
                 i.remove();
+            } else {
+                c.deConstruct();
             }
-            c.deConstruct();
         }
     }
 

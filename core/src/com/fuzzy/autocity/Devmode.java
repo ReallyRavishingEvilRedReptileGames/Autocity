@@ -32,11 +32,11 @@ public class Devmode {
         worldObjectArrayList = new ArrayList<>();
         worldObjectArrayList.add(new PineTree());
         worldObjectArrayList.add(new PalmTree());
-        worldObjectArrayList.add(new Road());
-        worldObjectArrayList.add(new TownHall());
-        worldObjectArrayList.add(new Smithy());
-        worldObjectArrayList.add(new Hut());
-        worldObjectArrayList.add(new Alchemist());
+        worldObjectArrayList.add(new Road(true));
+        worldObjectArrayList.add(new TownHall(true));
+        worldObjectArrayList.add(new Smithy(true));
+        worldObjectArrayList.add(new Hut(true));
+        worldObjectArrayList.add(new Alchemist(true));
         for (WorldObject o : worldObjectArrayList) {
             System.out.println(o.getName() + ", " + o.getCharacter()); // T, P, 0, 0, 0, 0, 0
         }
