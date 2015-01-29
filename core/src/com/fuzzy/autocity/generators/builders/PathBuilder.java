@@ -30,7 +30,7 @@ public class PathBuilder implements Invokable {
             System.out.println("Going across x axis.");
 
             for (int x = tile1.getX(); x <= tile1.getX() + Math.abs(xDiff); x++) {
-                if (!isInvalidTile(this.world.getTile(x, tile1.getY()))) {
+                if (isInvalidTile(this.world.getTile(x, tile1.getY()))) {
                     System.out.println("Placing road at " + x + "," + tile1.getY());
                     Road r = new Road();
                     this.world.buildConstruction(r, this.world.getTile(x, tile1.getY()));
@@ -42,7 +42,7 @@ public class PathBuilder implements Invokable {
             System.out.println("Going across y axis.");
 
             for (int y = tile1.getY(); y <= tile1.getY() + Math.abs(yDiff); y++) {
-                if (!isInvalidTile(this.world.getTile(tile1.getX(), y))) {
+                if (isInvalidTile(this.world.getTile(tile1.getX(), y))) {
                     System.out.println("Placing road at " + tile1.getX() + "," + y);
                     Road r = new Road();
                     this.world.buildConstruction(r, this.world.getTile(tile1.getX(), y));
@@ -66,7 +66,7 @@ public class PathBuilder implements Invokable {
     }
 
     private boolean isInvalidTile(Tile tile) {
-        return tile.getTerrain() instanceof Water || tile.getOccupyingObject() != null;
+        return !(tile.getTerrain() instanceof Water) || tile.getOccupyingObject() == null;
     }
 
     @Override
@@ -77,7 +77,7 @@ public class PathBuilder implements Invokable {
                 try {
                     generate(world.getTile(Integer.valueOf(tmp[2]), Integer.valueOf(tmp[3])),
                             world.getTile(Integer.valueOf(tmp[4]), Integer.valueOf(tmp[5])));
-                } catch (NumberFormatException | TileOutOfBoundsException e) {
+                } catch (NumberFormatException | TileOutOfBoundsException ignored) {
 
                 }
         }

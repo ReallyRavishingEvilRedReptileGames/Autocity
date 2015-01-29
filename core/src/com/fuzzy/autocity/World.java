@@ -2,10 +2,8 @@ package com.fuzzy.autocity;
 
 import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 import com.fuzzy.autocity.world.WorldObject;
-import com.fuzzy.autocity.world.Construction;
+import com.fuzzy.autocity.world.buildings.prefabs.Construction;
 import com.fuzzy.autocity.world.buildings.GenericConstruction;
-import com.fuzzy.autocity.world.buildings.prefabs.Building;
-import sun.net.www.content.text.Generic;
 
 import java.util.HashSet;
 
@@ -99,7 +97,7 @@ public class World {
                     if (o instanceof GenericConstruction) {
                         ((GenericConstruction) o).getConstruction().addTile(getTile(targetX, targetY));
                     }
-                } catch (TileOutOfBoundsException e) {
+                } catch (TileOutOfBoundsException ignored) {
 
                 }
             }

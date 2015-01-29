@@ -4,7 +4,6 @@ import com.fuzzy.autocity.Character;
 import com.fuzzy.autocity.Settlement;
 import com.fuzzy.autocity.Tile;
 import com.fuzzy.autocity.enumeration.EBuildingStyle;
-import com.fuzzy.autocity.world.Construction;
 
 public abstract class Building extends Construction {
 

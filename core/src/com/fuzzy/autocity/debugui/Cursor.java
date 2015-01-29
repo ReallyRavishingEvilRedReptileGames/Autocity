@@ -7,7 +7,7 @@ import com.fuzzy.autocity.exceptions.WorldObjectConflictException;
 import com.fuzzy.autocity.world.WorldObject;
 import com.fuzzy.autocity.world.buildings.Hut;
 import com.fuzzy.autocity.world.buildings.prefabs.Building;
-import com.fuzzy.autocity.world.Construction;
+import com.fuzzy.autocity.world.buildings.prefabs.Construction;
 import com.fuzzy.autocity.world.paths.Road;
 import com.fuzzy.autocity.world.resources.PineTree;
 import com.fuzzy.autocity.world.resources.prefabs.Tree;
@@ -21,7 +21,8 @@ public class Cursor implements Invokable {
     private Game game;
     WorldObject o = null;
     private char character = '#';
-
+//TODO: Make it so the cursor can have a displayed width and height like buildings,
+//TODO: so we can preview where the building is going to be placed before placing it.
     public Cursor(Game game) {
         this.game = game;
     }
@@ -96,7 +97,7 @@ public class Cursor implements Invokable {
             try {
                 p.validateWorldObject(r, x, y);
                 this.game.getWorld().buildConstruction(r, tile);
-            } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException e1) {
+            } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException ignored) {
 
             }
 
@@ -110,7 +111,7 @@ public class Cursor implements Invokable {
                 try {
                     p.validateBuilding((Building) o, x, y);
                     this.game.getWorld().buildConstruction((Construction) o, tile);
-                } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException e2) {
+                } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException ignored) {
 
                 }
             }
@@ -119,7 +120,7 @@ public class Cursor implements Invokable {
             try {
                 p.validateWorldObject(t, x, y);
                 this.game.getWorld().placeWorldObject(t, tile);
-            } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException e3) {
+            } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException ignored) {
 
             }
         }

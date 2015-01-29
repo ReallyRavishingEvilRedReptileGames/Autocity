@@ -1,10 +1,7 @@
-package com.fuzzy.autocity.world;
+package com.fuzzy.autocity.world.buildings.prefabs;
 
 import com.fuzzy.autocity.world.WorldObject;
 
-/**
- * Created by Whiplash on 1/25/2015.
- */
 public abstract class Construction extends WorldObject {
     protected float constructionSpeed = 0.1f;
     protected float constructionTime = 0;

@@ -1,16 +1,10 @@
 package com.fuzzy.autocity.world.buildings;
 
-import com.fuzzy.autocity.Tile;
-import com.fuzzy.autocity.world.Construction;
-import com.fuzzy.autocity.world.buildings.prefabs.Building;
-
-import java.util.HashSet;
+import com.fuzzy.autocity.world.buildings.prefabs.Construction;
 
 public class GenericConstruction extends Construction {
     private Construction construction;
 
-    //TODO: Pass the GenericConstruction tiles hashset to the
-    //TODO: construction object in a way that doesn't fuck over the construction object.
     public GenericConstruction(Construction c) {
         this.construction = c;
         this.width = c.getWidth();

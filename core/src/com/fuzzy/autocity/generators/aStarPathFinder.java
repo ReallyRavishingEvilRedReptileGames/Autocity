@@ -5,7 +5,6 @@ import com.fuzzy.autocity.World;
 import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 import com.fuzzy.autocity.terrain.Grass;
 import com.fuzzy.autocity.terrain.Water;
-import com.fuzzy.autocity.world.paths.Road;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -77,9 +76,9 @@ public class aStarPathFinder {
     private ArrayList closed = new ArrayList();
     private SortedList open = new SortedList();
     private int maxSearchDistance;
-    World world;
-    Node[][] nodes;
-    Boolean[][] visitedTiles;
+    private World world;
+    private Node[][] nodes;
+    private Boolean[][] visitedTiles;
 
     public aStarPathFinder(World world, int maxSearchDistance) {
         this.world = world;
@@ -101,7 +100,7 @@ public class aStarPathFinder {
 
                 return null;
             }
-        } catch (TileOutOfBoundsException e) {
+        } catch (TileOutOfBoundsException ignored) {
         }
 
         nodes[startX][startY].cost = 0;
@@ -135,7 +134,7 @@ public class aStarPathFinder {
                     int yp = y + current.y;
 
                     if (isValidLocation(startX, startY, xp, yp)) {
-                        float nextStepCost = current.cost + getTilePathingCost(current.x, current.y, xp, yp);
+                        float nextStepCost = current.cost + getTilePathCost(current.x, current.y, xp, yp);
                         Node neighbor = nodes[xp][yp];
                         setVisitedTile(xp, yp);
 
@@ -169,38 +168,38 @@ public class aStarPathFinder {
                 target = target.parent;
             }
             t.add(0, world.getTile(startX, startY));
-        } catch (TileOutOfBoundsException e) {
+        } catch (TileOutOfBoundsException ignored) {
 
         }
         return t;
     }
 
 
-    protected Node getFirstInOpen() {
+    Node getFirstInOpen() {
         return (Node) open.first();
     }
 
-    protected void addToOpen(Node node) {
+    void addToOpen(Node node) {
         open.add(node);
     }
 
-    protected boolean inOpenList(Node node) {
+    boolean inOpenList(Node node) {
         return open.contains(node);
     }
 
-    protected void removeFromOpen(Node node) {
+    void removeFromOpen(Node node) {
         open.remove(node);
     }
 
-    protected void addToClosed(Node node) {
+    void addToClosed(Node node) {
         closed.add(node);
     }
 
-    protected boolean inClosedList(Node node) {
+    boolean inClosedList(Node node) {
         return closed.contains(node);
     }
 
-    protected void removeFromClosed(Node node) {
+    void removeFromClosed(Node node) {
         closed.remove(node);
     }
 
@@ -208,25 +207,22 @@ public class aStarPathFinder {
         if (tile.getOccupyingObject() != null) {
             return true;
         }
-        if (tile.getTerrain() instanceof Water) {
-            return true;
-        }
-        return false;
+        return tile.getTerrain() instanceof Water;
     }
 
-    protected boolean isValidLocation(int startX, int startY, int x, int y) {
+    boolean isValidLocation(int startX, int startY, int x, int y) {
         boolean invalid = (x < 0) || (y < 0) || (x >= world.getWidth()) || (y >= world.getHeight());
 
         if ((!invalid) && ((startX != x) || (startY != y))) {
             try {
                 return !isBlockedTile(world.getTile(x, y));
-            } catch (TileOutOfBoundsException e) {
+            } catch (TileOutOfBoundsException ignored) {
             }
         }
         return !invalid;
     }
 
-    private float getTilePathingCost(int x, int y, int targetX, int targetY) {
+    private float getTilePathCost(int x, int y, int targetX, int targetY) {
         try {
             Tile current = world.getTile(x, y);
             Tile target = world.getTile(targetX, targetY);
@@ -237,7 +233,7 @@ public class aStarPathFinder {
                     return 0.5f;
                 }
             }
-        } catch (TileOutOfBoundsException e) {
+        } catch (TileOutOfBoundsException ignored) {
         }
         return 0.0f;
 

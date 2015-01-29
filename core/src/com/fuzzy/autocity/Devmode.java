@@ -37,9 +37,6 @@ public class Devmode {
         worldObjectArrayList.add(new Smithy());
         worldObjectArrayList.add(new Hut());
         worldObjectArrayList.add(new Alchemist());
-        for (WorldObject o : worldObjectArrayList) {
-            System.out.println(o.getName() + ", " + o.getCharacter()); // T, P, 0, 0, 0, 0, 0
-        }
     }
 
     public static WorldObject returnNewWorldObject(String s) {
@@ -51,7 +48,7 @@ public class Devmode {
                     return w.getClass().newInstance();
                 }
             }
-        } catch (InstantiationException |IllegalAccessException e) {
+        } catch (InstantiationException |IllegalAccessException | IndexOutOfBoundsException ignored) {
         }
         return null;
     }
@@ -60,10 +57,9 @@ public class Devmode {
         System.out.println("> " + command);
         String[] tmp = command.split(deLimiter);
         switch (tmp[0].toLowerCase()) {
-            case "help": {
+            case "help":
                 System.out.println("Tile, Cursor, Game, Pathbuilder");
                 return;
-            }
             case "tile":
                 try {
                     this.game.getWorld().getTile(this.cursor.getX(), this.cursor.getY()).Execute(command);

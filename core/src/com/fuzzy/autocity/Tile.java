@@ -1,6 +1,5 @@
 package com.fuzzy.autocity;
 
-import com.fuzzy.autocity.simulation.Simulation;
 import com.fuzzy.autocity.terrain.*;
 import com.fuzzy.autocity.world.WorldObject;
 import com.fuzzy.autocity.world.buildings.prefabs.Building;

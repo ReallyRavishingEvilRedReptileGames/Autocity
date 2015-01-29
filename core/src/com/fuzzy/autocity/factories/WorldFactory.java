@@ -9,7 +9,6 @@ import com.fuzzy.autocity.generators.fractals.DiamondSquareFractal;
 import com.fuzzy.autocity.terrain.Grass;
 import com.fuzzy.autocity.terrain.Sand;
 import com.fuzzy.autocity.terrain.Water;
-import com.fuzzy.autocity.world.resources.PineTree;
 
 import java.util.Random;
 

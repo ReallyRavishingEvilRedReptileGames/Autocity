@@ -1,6 +1,5 @@
 package com.fuzzy.autocity.debugui;
 
-import com.fuzzy.autocity.Devmode;
 import com.fuzzy.autocity.Game;
 import com.fuzzy.autocity.Tile;
 import com.fuzzy.autocity.World;
@@ -11,10 +10,10 @@ import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
  */
 public class DebugUI extends Thread {
     private boolean isRunning = true;
-    private long lastloop = System.nanoTime();
+    private long lastLoop = System.nanoTime();
     private double delta = 0;
-    private int targetfps = 5;
-    private double targettime = 2 / (double) targetfps;
+    private int targetFPS = 5;
+    private double targetTime = 2 / (double) targetFPS;
 
     private Game game;
     private UIFrame uiFrame;
@@ -38,11 +37,11 @@ public class DebugUI extends Thread {
     private void main() {
         while (isRunning) {
             long now = System.nanoTime();
-            long updateLength = now - lastloop;
+            long updateLength = now - lastLoop;
             delta += ((double) updateLength / 1000000000);
-            lastloop = now;
+            lastLoop = now;
 
-            if (delta >= targettime) {
+            if (delta >= targetTime) {
                 // Do stuff
                 try {
                     this.redraw();
@@ -54,19 +53,16 @@ public class DebugUI extends Thread {
                 Thread.yield();
                 try {
                     Thread.sleep(1);
-                } catch (Exception e) {
+                } catch (Exception ignored) {
                 }
             }
         }
     }
 
     private void redraw() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(this.getMapText());
 
         this.uiFrame.setStatusText(this.getStatusText());
-        this.uiFrame.setText(sb.toString());
+        this.uiFrame.setText(String.valueOf(this.getMapText()));
     }
 
     private String getStatusText() {

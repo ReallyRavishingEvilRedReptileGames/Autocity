@@ -1,8 +1,5 @@
 package com.fuzzy.autocity;
 
-/**
- * Created by Whiplash on 1/19/2015.
- */
 public interface Invokable {
 
     final String delimiter = "\\.";

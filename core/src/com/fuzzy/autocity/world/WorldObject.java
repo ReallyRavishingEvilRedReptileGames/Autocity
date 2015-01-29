@@ -17,11 +17,6 @@ public abstract class WorldObject implements Comparable<WorldObject> {
     protected HashSet<Character> visitors = new HashSet<>();
     protected HashSet<Tile> tiles = new HashSet<>();
 
-    public WorldObject() {
-        this.width = 1;
-        this.height = 1;
-    }
-
     public HashSet<Character> getVisitors() {
         return this.visitors;
     }
@@ -42,11 +37,11 @@ public abstract class WorldObject implements Comparable<WorldObject> {
         return this.height;
     }
 
-    public void setWidth(int x) {
+    protected void setWidth(int x) {
         this.width = x;
     }
 
-    public void setHeight(int y) {
+    protected void setHeight(int y) {
         this.height = y;
     }
 
@@ -97,7 +92,7 @@ public abstract class WorldObject implements Comparable<WorldObject> {
     public void placeAt(World world, int x, int y) {
         try {
             world.getTile(x, y).setOccupyingObject(this);
-        } catch (TileOutOfBoundsException e) {
+        } catch (TileOutOfBoundsException ignored) {
 
         }
     }

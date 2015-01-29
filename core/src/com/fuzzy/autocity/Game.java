@@ -5,12 +5,12 @@ import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 import com.fuzzy.autocity.factories.WorldFactory;
 import com.fuzzy.autocity.simulation.Simulation;
 import com.fuzzy.autocity.world.WorldObject;
-import com.fuzzy.autocity.world.Construction;
+import com.fuzzy.autocity.world.buildings.prefabs.Construction;
 
 public class Game extends Thread implements Invokable {
     private World world;
     private boolean isRunning = true;
-    private long lastloop = System.nanoTime();
+    private long lastLoop = System.nanoTime();
     private double delta = 0;
     private Simulation simulation;
     private Cursor cursor;
@@ -69,9 +69,9 @@ public class Game extends Thread implements Invokable {
         while (isRunning) {
 
             long now = System.nanoTime();
-            long updateLength = now - lastloop;
+            long updateLength = now - lastLoop;
             delta += ((double) updateLength / 1000000000);
-            lastloop = now;
+            lastLoop = now;
 //TODO: Do we really want the game logic to only update once a second? That seems awfully slow.
             if (delta >= 1) {
                 this.onTick();
@@ -80,7 +80,7 @@ public class Game extends Thread implements Invokable {
                 Thread.yield();
                 try {
                     Thread.sleep(1);
-                } catch (Exception e) {
+                } catch (Exception ignored) {
                 }
             }
 
@@ -123,20 +123,17 @@ public class Game extends Thread implements Invokable {
                     } else {
                         this.world.placeWorldObject(o, t);
                     }
-                } catch (TileOutOfBoundsException | NullPointerException e) {
-                    System.out.println("Nope!");
+                } catch (TileOutOfBoundsException | NullPointerException ignored) {
                 }
                 return;
-
             case "removeconstructable":
                 try {
                     WorldObject o = this.world.getTile(this.cursor.getX(), this.cursor.getY()).getOccupyingObject();
                     if (o instanceof Construction) {
                         this.world.removeConstruction((Construction) o);
                     }
-                } catch (TileOutOfBoundsException e) {
+                } catch (TileOutOfBoundsException ignored) {
                 }
-                return;
         }
     }
 }
