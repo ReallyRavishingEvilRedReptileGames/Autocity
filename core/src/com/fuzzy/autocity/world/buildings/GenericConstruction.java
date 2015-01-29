@@ -18,6 +18,7 @@ public class GenericConstruction extends Construction {
         this.constructionSpeed = c.getConstructionSpeed();
         this.maxConstructionTime = c.getMaxConstructionTime();
         this.tiles.forEach(construction::addTile);
+        this.character = '%';
     }
 
 
