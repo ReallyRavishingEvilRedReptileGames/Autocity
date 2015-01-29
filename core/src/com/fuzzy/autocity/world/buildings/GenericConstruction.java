@@ -39,6 +39,12 @@ public class GenericConstruction extends Construction {
         }
     }
 
+    @Override
+    public char getCharacter() {
+        float f = this.constructionTime * 10;
+        return this.constructed ? this.character : java.lang.Character.forDigit((int) f, 10);
+    }
+
     public Construction getConstruction() {
         return this.construction;
     }

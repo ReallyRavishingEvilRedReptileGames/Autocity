@@ -23,17 +23,18 @@ public class Simulation {
         for (Settlement settlement : settlements) {
             settlement.getPopulation().update();
         }
-        for (Iterator<GenericConstruction> i = constructions.iterator(); i.hasNext();) {
+        for (Iterator<GenericConstruction> i = constructions.iterator(); i.hasNext(); ) {
             GenericConstruction c = i.next();
             if (c.isConstructed() || c == null) {
-                this.game.getWorld().placeConstruction(c.getConstruction(), c.getConstruction().getOriginTile()); // Null tile
+                Construction b = c.getConstruction();
                 c.destroy();
+                this.game.getWorld().placeConstruction(b);
                 i.remove();
             } else {
                 c.Construct();
             }
         }
-        for (Iterator<GenericConstruction> i = deconstructions.iterator(); i.hasNext();) {
+        for (Iterator<GenericConstruction> i = deconstructions.iterator(); i.hasNext(); ) {
             GenericConstruction c = i.next();
             if (c == null || !c.isConstructed()) {
                 i.remove();

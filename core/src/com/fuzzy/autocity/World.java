@@ -5,6 +5,7 @@ import com.fuzzy.autocity.world.WorldObject;
 import com.fuzzy.autocity.world.Construction;
 import com.fuzzy.autocity.world.buildings.GenericConstruction;
 import com.fuzzy.autocity.world.buildings.prefabs.Building;
+import sun.net.www.content.text.Generic;
 
 import java.util.HashSet;
 
@@ -95,6 +96,9 @@ public class World {
                 tiles[targetX][targetY].setOccupyingObject(o);
                 try {
                     o.addTile(getTile(targetX, targetY));
+                    if (o instanceof GenericConstruction) {
+                        ((GenericConstruction) o).getConstruction().addTile(getTile(targetX, targetY));
+                    }
                 } catch (TileOutOfBoundsException e) {
 
                 }
@@ -112,6 +116,12 @@ public class World {
         placeWorldObject(c, t);
     }
 
+    public void placeConstruction(Construction c) {
+        for (Tile t : c.getTiles()) {
+            this.tiles[t.getX()][t.getY()].setOccupyingObject(c);
+        }
+    }
+//TODO: Fix this.
     public void removeConstruction(Construction c) {
         addToDeConstructionList(new GenericConstruction(c));
         c.destroy();

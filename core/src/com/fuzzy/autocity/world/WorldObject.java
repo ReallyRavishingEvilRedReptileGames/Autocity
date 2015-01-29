@@ -78,11 +78,8 @@ public abstract class WorldObject implements Comparable<WorldObject> {
         tiles.add(t);
     }
 
-    public Tile getOriginTile() {
-        if (tiles.size() != 0) {
-            return tiles.iterator().next();
-        }
-        return null;
+    public HashSet<Tile> getTiles() {
+        return tiles;
     }
 
     public void destroy() {

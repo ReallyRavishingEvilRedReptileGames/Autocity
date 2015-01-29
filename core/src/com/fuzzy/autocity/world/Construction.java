@@ -32,11 +32,11 @@ public abstract class Construction extends WorldObject {
 //        }
 //    }
 
-    @Override
-    public char getCharacter() {
-        float f = this.constructionTime * 10;
-        return this.constructed ? this.character : java.lang.Character.forDigit((int) f, 10);
-    }
+//    @Override
+//    public char getCharacter() {
+//        float f = this.constructionTime * 10;
+//        return this.constructed ? this.character : java.lang.Character.forDigit((int) f, 10);
+//    }
 
     public boolean isConstructed() {
         return this.constructed;

@@ -33,13 +33,13 @@ public class SettlementFactory {
 
         place();
         addRoads();
-        addBuilding(new TownHall(true));
+        addBuilding(new TownHall());
 
         // Add 2-4 huts
         int hutCount = new Random().nextInt(2) + 2;
 
         for (int i = 0; i < hutCount; i++) {
-            addBuilding(new Hut(true));
+            addBuilding(new Hut());
         }
 
         addPopulation();

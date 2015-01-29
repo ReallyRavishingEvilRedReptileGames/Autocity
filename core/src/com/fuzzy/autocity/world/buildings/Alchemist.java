@@ -7,9 +7,4 @@ public class Alchemist extends Research {
         this.name = "Alchemist";
     }
 
-    public Alchemist(Boolean b) {
-        this.name = "Alchemist";
-        this.constructed = b;
-    }
-
 }
