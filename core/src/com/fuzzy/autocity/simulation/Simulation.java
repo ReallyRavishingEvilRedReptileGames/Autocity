@@ -25,7 +25,7 @@ public class Simulation {
         }
         for (Iterator<GenericConstruction> i = constructions.iterator(); i.hasNext(); ) {
             GenericConstruction c = i.next();
-            if (c.isConstructed() || c == null) {
+            if (c.isConstructed()) {
                 Construction b = c.getConstruction();
                 c.destroy();
                 this.game.getWorld().placeConstruction(b);
