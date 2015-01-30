@@ -8,8 +8,8 @@ import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 import java.util.HashSet;
 
 public abstract class WorldObject implements Comparable<WorldObject> {
-    protected int width;
-    protected int height;
+    protected int width = 1;
+    protected int height = 1;
     protected String customName;
     protected String name = "Unknown World Object";
     protected char character = '!';
