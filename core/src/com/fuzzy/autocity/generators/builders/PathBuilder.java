@@ -12,6 +12,7 @@ public class PathBuilder implements Invokable {
     private World world;
     private int range = 2;
     private int min = 2;
+    private int defaultMaxSearchDistance = 100;
 
     public PathBuilder(World world) {
         this.world = world;
@@ -53,8 +54,20 @@ public class PathBuilder implements Invokable {
         }
     }
 
+    public void generate(Tile startTile, Tile targetTile, int maxSearchDistance) {
+        aStarPathFinder f = new aStarPathFinder(this.world, maxSearchDistance);
+        try {
+            for (Tile t : f.findPath(startTile.getX(), startTile.getY(), targetTile.getX(), targetTile.getY())) {
+                Road r = new Road();
+                this.world.buildConstruction(r, t);
+            }
+        } catch (NullPointerException npe) {
+            System.out.println("No path generated!");
+        }
+    }
+
     public void generate(Tile startTile, Tile targetTile) {
-        aStarPathFinder f = new aStarPathFinder(world, 1000);
+        aStarPathFinder f = new aStarPathFinder(world, defaultMaxSearchDistance);
         try {
             for (Tile t : f.findPath(startTile.getX(), startTile.getY(), targetTile.getX(), targetTile.getY())) {
                 Road r = new Road();
