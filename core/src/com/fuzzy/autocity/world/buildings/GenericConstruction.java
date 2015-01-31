@@ -15,6 +15,17 @@ public class GenericConstruction extends Construction {
         this.character = '%';
     }
 
+    public GenericConstruction(Construction c, boolean b) {
+        this.construction = c;
+        this.width = c.getWidth();
+        this.height = c.getHeight();
+        this.constructionSpeed = c.getConstructionSpeed();
+        this.maxConstructionTime = c.getMaxConstructionTime();
+        this.tiles.forEach(construction::addTile);
+        this.character = '%';
+        this.constructed = b;
+    }
+
 
     public void Construct() {
         if (this.constructionTime < this.maxConstructionTime) {
@@ -26,8 +37,9 @@ public class GenericConstruction extends Construction {
     }
 
     public void deConstruct() {
+        System.out.println(this.constructionTime);
         if (this.constructionTime < this.maxConstructionTime) {
-            this.constructionTime -= constructionSpeed * 1;
+            this.constructionTime += constructionSpeed * 1;
         } else {
             this.constructed = false;
             this.destroy();

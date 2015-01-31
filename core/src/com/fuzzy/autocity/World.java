@@ -119,10 +119,16 @@ public class World {
             this.tiles[t.getX()][t.getY()].setOccupyingObject(c);
         }
     }
-//TODO: Fix this.
+
+    //TODO: Fix this.
     public void removeConstruction(Construction c) {
-        addToDeConstructionList(new GenericConstruction(c));
+        HashSet<Tile> tmp = c.getTiles();
+        GenericConstruction gc = new GenericConstruction(c, true);
         c.destroy();
+        for (Tile t : tmp) {
+            tiles[t.getX()][t.getY()].setOccupyingObject(gc);
+        }
+        addToDeConstructionList(gc);
     }
 
 
