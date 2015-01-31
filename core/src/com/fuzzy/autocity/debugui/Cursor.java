@@ -28,11 +28,11 @@ public class Cursor implements Invokable {
     }
 
     public int getX() {
-        return x;
+        return this.x;
     }
 
     public int getY() {
-        return y;
+        return this.y;
     }
 
     public void setX(int x) {
@@ -57,7 +57,7 @@ public class Cursor implements Invokable {
     }
 
     public char getCharacter() {
-        return character;
+        return this.character;
     }
 
     public void setCharacter(char character) {
@@ -73,16 +73,16 @@ public class Cursor implements Invokable {
     }
 
     public void Move(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_UP && y > 0) {
-            y--;
-        } else if (e.getKeyCode() == KeyEvent.VK_DOWN && y < this.game.getWorld().getHeight() - 1) {
-            y++;
+        if (e.getKeyCode() == KeyEvent.VK_UP && this.y > 0) {
+            this.y--;
+        } else if (e.getKeyCode() == KeyEvent.VK_DOWN && this.y < this.game.getWorld().getHeight() - 1) {
+            this.y++;
         }
 
-        if (e.getKeyCode() == KeyEvent.VK_LEFT && x > 0) {
-            x--;
+        if (e.getKeyCode() == KeyEvent.VK_LEFT && this.x > 0) {
+            this.x--;
         } else if (e.getKeyCode() == KeyEvent.VK_RIGHT && x < this.game.getWorld().getWidth() - 1) {
-            x++;
+            this.x++;
         }
     }
 
@@ -95,23 +95,23 @@ public class Cursor implements Invokable {
         if (e.getKeyChar() == 'r') {
             Road r = new Road();
             try {
-                p.validateWorldObject(r, x, y);
+                p.validateWorldObject(r, this.x, this.y);
                 this.game.getWorld().buildConstruction(r, tile);
+
             } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException ignored) {
 
             }
-
         } else if (e.getKeyChar() == 'h') {
-            if (!buildingSelected) {
-                o = new Hut();
+            if (!this.buildingSelected) {
+                this.o = new Hut();
                 this.width = o.getWidth();
                 this.height = o.getHeight();
-                buildingSelected = true;
+                this.buildingSelected = true;
             } else {
                 try {
-                    p.validateBuilding((Building) o, x, y);
+                    p.validateBuilding((Building) o, this.x, this.y);
                     this.game.getWorld().buildConstruction((Construction) o, tile);
-                    buildingSelected = false;
+                    this.buildingSelected = false;
                 } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException ignored) {
 
                 }
@@ -119,12 +119,13 @@ public class Cursor implements Invokable {
         } else if (e.getKeyChar() == 't') {
             Tree t = new PineTree();
             try {
-                p.validateWorldObject(t, x, y);
+                p.validateWorldObject(t, this.x, this.y);
                 this.game.getWorld().placeWorldObject(t, tile);
             } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException ignored) {
 
             }
         }
+        this.o = null;
     }
 
     public void deConstruct() {

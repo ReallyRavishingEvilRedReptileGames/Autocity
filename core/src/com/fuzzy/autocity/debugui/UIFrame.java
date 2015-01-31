@@ -1,6 +1,7 @@
 package com.fuzzy.autocity.debugui;
 
 import com.fuzzy.autocity.Devmode;
+import com.fuzzy.autocity.Game;
 
 import javax.swing.*;
 import javax.swing.text.DefaultStyledDocument;
@@ -16,19 +17,15 @@ public class UIFrame extends JFrame implements MouseListener, KeyListener {
     private DefaultStyledDocument styledDocument;
     private DebugUI debugUI;
     private JMenu status;
-    private Cursor cursor;
     private JTextField devConsole;
-    private Devmode dev;
     private boolean placementMode;
 
-    public UIFrame(DebugUI debugUI, Cursor cursor, Devmode dev) {
+    public UIFrame(DebugUI debugUI) {
         super("Autocity SimpleUI");
         this.textPane = new JTextPane();
         this.styledDocument = new DefaultStyledDocument();
         this.textPane.setFont(new Font("Consolas", Font.PLAIN, 7));
         this.debugUI = debugUI;
-        this.cursor = cursor;
-        this.dev = dev;
         this.devConsole = new JTextField();
         this.placementMode = false;
 
@@ -110,10 +107,10 @@ public class UIFrame extends JFrame implements MouseListener, KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         if (placementMode && !devConsole.isVisible()) {
-            cursor.Place(e);
+            this.debugUI.getGame().getCursor().Place(e);
         }
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            dev.commandLookup(devConsole.getText());
+            this.debugUI.getGame().getDev().commandLookup(devConsole.getText());
             devConsole.setText("");
         } else if (e.getKeyChar() == '`') {
             devConsole.setVisible(!devConsole.isVisible());
@@ -123,9 +120,9 @@ public class UIFrame extends JFrame implements MouseListener, KeyListener {
             placementMode = !placementMode;
             System.out.println("Placement mode: " + placementMode);
         } else if (e.getKeyChar() == 'd') {
-            cursor.deConstruct();
+            this.debugUI.getGame().getCursor().deConstruct();
         } else {
-            cursor.Move(e);
+            this.debugUI.getGame().getCursor().Move(e);
         }
 
     }

@@ -17,12 +17,10 @@ public class DebugUI extends Thread {
 
     private Game game;
     private UIFrame uiFrame;
-    private Cursor cursor;
 
     public DebugUI(Game game) {
         this.game = game;
-        this.cursor = game.getCursor();
-        this.uiFrame = new UIFrame(this, cursor, this.game.getDev());
+        this.uiFrame = new UIFrame(this);
 
     }
 
@@ -67,6 +65,7 @@ public class DebugUI extends Thread {
 
     private String getStatusText() {
         World world = this.game.getWorld();
+        Cursor cursor = this.game.getCursor();
         int width = world.getWidth();
         int height = world.getHeight();
         int x = cursor.getX();
@@ -77,6 +76,7 @@ public class DebugUI extends Thread {
 
     private StringBuffer getMapText() {
         World world = this.game.getWorld();
+        Cursor cursor = this.game.getCursor();
         int width = world.getWidth();
         int height = world.getHeight();
 
