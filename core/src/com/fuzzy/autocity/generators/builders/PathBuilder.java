@@ -42,10 +42,6 @@ public class PathBuilder implements Invokable {
         }
     }
 
-    private boolean isInvalidTile(Tile tile) {
-        return !(tile.getTerrain() instanceof Water) || tile.getOccupyingObject() == null;
-    }
-
     @Override
     public void Execute(String command) {
         String[] tmp = command.split(delimiter);

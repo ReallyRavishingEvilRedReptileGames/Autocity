@@ -85,7 +85,7 @@ public class SettlementFactory {
         PathBuilder builder = new PathBuilder(settlement.getWorld());
 
         try {
-            builder.generateBetweenTiles(settlement.getOriginTile(), settlement.getOriginTile());
+            builder.generate(settlement.getOriginTile(), settlement.getOriginTile());
         } catch (TileOutOfBoundsException e) {
             System.out.println("Tile out of bounds!!!");
         }
