@@ -2,9 +2,8 @@ package com.fuzzy.autocity;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Intersector;
@@ -13,6 +12,9 @@ import com.badlogic.gdx.math.Plane;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
 import com.fuzzy.autocity.debugui.DebugUI;
+import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
+
+import java.awt.*;
 
 public class IsoCamTest extends AutocityGDX implements InputProcessor {
     Texture texture;
@@ -35,7 +37,7 @@ public class IsoCamTest extends AutocityGDX implements InputProcessor {
 
         sprites = new Sprite[game.getWorld().getWidth()][game.getWorld().getHeight()];
 
-        texture = new Texture(Gdx.files.internal("badlogic.jpg"));
+//        texture = new Texture();
 
         cam = new OrthographicCamera(10, 10 * (Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth()));
         cam.position.set(5, 5, 10);
@@ -47,7 +49,10 @@ public class IsoCamTest extends AutocityGDX implements InputProcessor {
 
         for (int z = 0; z < game.getWorld().getHeight(); z++) {
             for (int x = 0; x < game.getWorld().getWidth(); x++) {
-                sprites[x][z] = new Sprite(texture);
+                try {
+                    sprites[x][z] = new Sprite(game.getWorld().getTile(x, z).getTerrain().getTexture());
+                } catch (TileOutOfBoundsException ignored) {
+                }
                 sprites[x][z].setPosition(x, z);
                 sprites[x][z].setSize(1, 1);
             }
