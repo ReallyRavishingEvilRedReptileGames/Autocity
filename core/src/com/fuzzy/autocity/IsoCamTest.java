@@ -2,9 +2,7 @@ package com.fuzzy.autocity;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.*;
@@ -51,7 +49,7 @@ public class IsoCamTest extends AutocityGDX implements InputProcessor {
 
         for (int z = 0; z < game.getWorld().getHeight(); z++) {
             for (int x = 0; x < game.getWorld().getWidth(); x++) {
-                terrainTiles[x][z] = new Sprite(texture);
+                terrainTiles[x][z] = new Sprite(game.getWorld().getTile(x, z).getTerrain().getTexture());
                 terrainTiles[x][z].setPosition(x, z);
                 terrainTiles[x][z].setSize(1, 1);
 
