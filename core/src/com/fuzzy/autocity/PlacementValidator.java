@@ -20,7 +20,7 @@ public class PlacementValidator {
         for (int i = x - requiredSettlementFreeRadius; i < x + requiredSettlementFreeRadius; i++) {
             for (int j = y - requiredSettlementFreeRadius; j < y + requiredSettlementFreeRadius; j++) {
                 try {
-                    Tile tile = world.getTile(i, j);
+                    Tile tile = world.getTileSafe(i, j);
 
                     WorldObject worldObject = tile.getOccupyingObject();
 
@@ -44,10 +44,10 @@ public class PlacementValidator {
 
         for (int i = x; i < x + width; i++) {
             for (int j = y; j < y + height; j++) {
-                if (this.world.getTile(i, j).getOccupyingObject() != null) {
-                    throw new WorldObjectConflictException(this.world.getTile(i, j).getOccupyingObject());
-                } else if (this.world.getTile(i, j).getTerrain() instanceof Water) {
-                    throw new TerrainConflictException(this.world.getTile(i,j).getTerrain());
+                if (this.world.getTileSafe(i, j).getOccupyingObject() != null) {
+                    throw new WorldObjectConflictException(this.world.getTileSafe(i, j).getOccupyingObject());
+                } else if (this.world.getTileSafe(i, j).getTerrain() instanceof Water) {
+                    throw new TerrainConflictException(this.world.getTileSafe(i, j).getTerrain());
                 }
             }
         }

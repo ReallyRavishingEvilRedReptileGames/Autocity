@@ -5,7 +5,6 @@ import com.fuzzy.autocity.Tile;
 import com.fuzzy.autocity.World;
 import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 import com.fuzzy.autocity.generators.aStarPathFinder;
-import com.fuzzy.autocity.terrain.Water;
 import com.fuzzy.autocity.world.paths.Road;
 
 public class PathBuilder implements Invokable {
@@ -48,8 +47,8 @@ public class PathBuilder implements Invokable {
         switch (tmp[1]) {
             case "generate":
                 try {
-                    generate(world.getTile(Integer.valueOf(tmp[2]), Integer.valueOf(tmp[3])),
-                            world.getTile(Integer.valueOf(tmp[4]), Integer.valueOf(tmp[5])));
+                    generate(world.getTileSafe(Integer.valueOf(tmp[2]), Integer.valueOf(tmp[3])),
+                            world.getTileSafe(Integer.valueOf(tmp[4]), Integer.valueOf(tmp[5])));
                 } catch (NumberFormatException | TileOutOfBoundsException ignored) {
 
                 }

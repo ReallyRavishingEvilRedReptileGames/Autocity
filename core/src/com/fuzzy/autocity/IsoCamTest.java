@@ -7,20 +7,19 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.math.Plane;
-import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.math.collision.Ray;
-import com.fuzzy.autocity.debugui.DebugUI;
 
 public class IsoCamTest extends AutocityGDX implements InputProcessor {
     Texture texture;
+    Texture testBuildingTexture;
     OrthographicCamera cam;
     SpriteBatch batch;
-    Sprite[][] sprites;
+    Sprite[][] terrainTiles;
+    Sprite[][] worldObjectTiles;
 
-    final Matrix4 matrix = new Matrix4();
+    final Matrix4 terrainMatrix = new Matrix4();
+    final Matrix4 worldObjectMatrix = new Matrix4();
     final Plane xzPlane = new Plane(new Vector3(0, 1, 0), 0);
     final Vector3 intersection = new Vector3();
     Sprite lastSelectedTile = null;
@@ -30,26 +29,39 @@ public class IsoCamTest extends AutocityGDX implements InputProcessor {
 
     @Override
     public void create() {
+        // Start game instance
         game = new Game();
         game.start();
 
-        sprites = new Sprite[game.getWorld().getWidth()][game.getWorld().getHeight()];
-
-        texture = new Texture(Gdx.files.internal("badlogic.jpg"));
-
-        cam = new OrthographicCamera(10, 10 * (Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth()));
+        // Configure the camera
+        cam = new OrthographicCamera(20, 20 * (Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth()));
         cam.position.set(5, 5, 10);
         cam.direction.set(-1, -1, -1);
         cam.near = 1;
         cam.far = 100;
 
-        matrix.setToRotation(new Vector3(1, 0, 0), 90);
+        terrainTiles = new Sprite[game.getWorld().getWidth()][game.getWorld().getHeight()];
+        worldObjectTiles = new Sprite[game.getWorld().getWidth()][game.getWorld().getHeight()];
+
+        texture = new Texture(Gdx.files.internal("dev_grass.png"));
+        testBuildingTexture = new Texture(Gdx.files.internal("blue_cube.png"));
+
+        terrainMatrix.setToRotation(new Vector3(1, 0, 0), 90);
+        worldObjectMatrix.setToRotation(new Vector3(), 0);
 
         for (int z = 0; z < game.getWorld().getHeight(); z++) {
             for (int x = 0; x < game.getWorld().getWidth(); x++) {
-                sprites[x][z] = new Sprite(texture);
-                sprites[x][z].setPosition(x, z);
-                sprites[x][z].setSize(1, 1);
+                terrainTiles[x][z] = new Sprite(texture);
+                terrainTiles[x][z].setPosition(x, z);
+                terrainTiles[x][z].setSize(1, 1);
+
+                Tile tile = game.getWorld().getTile(x, z);
+
+                if (tile.getOccupyingObject() != null) {
+                    worldObjectTiles[x][z] = new Sprite(testBuildingTexture);
+                    worldObjectTiles[x][z].setPosition(x, z);
+                    worldObjectTiles[x][z].setSize(1, 1);
+                }
             }
         }
 
@@ -64,14 +76,21 @@ public class IsoCamTest extends AutocityGDX implements InputProcessor {
         cam.update();
 
         batch.setProjectionMatrix(cam.combined);
-        batch.setTransformMatrix(matrix);
+        batch.setTransformMatrix(terrainMatrix);
         batch.begin();
 
         for(int z = 0; z < game.getWorld().getHeight(); z++) {
             for(int x = 0; x < game.getWorld().getWidth(); x++) {
-                sprites[x][z].draw(batch);
+                terrainTiles[x][z].draw(batch);
+
+                if (worldObjectTiles[x][z] != null) {
+                    worldObjectTiles[x][z].draw(batch);
+                }
             }
         }
+
+
+
         batch.end();
 
         checkTileTouched();
@@ -85,7 +104,7 @@ public class IsoCamTest extends AutocityGDX implements InputProcessor {
             int z = (int)intersection.z;
             if(x >= 0 && x < game.getWorld().getWidth() && z >= 0 && z < game.getWorld().getHeight()) {
                 if(lastSelectedTile != null) lastSelectedTile.setColor(1, 1, 1, 1);
-                Sprite sprite = sprites[x][z];
+                Sprite sprite = terrainTiles[x][z];
                 sprite.setColor(1, 0, 0, 1);
                 lastSelectedTile = sprite;
             }

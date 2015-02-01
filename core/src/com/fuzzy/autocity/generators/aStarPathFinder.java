@@ -96,7 +96,7 @@ public class aStarPathFinder {
     public ArrayList<Tile> findPath(int startX, int startY, int targetX, int targetY) {
 
         try {
-            if (isBlockedTile(world.getTile(targetX, targetY))) {
+            if (isBlockedTile(world.getTileSafe(targetX, targetY))) {
 
                 return null;
             }
@@ -164,10 +164,10 @@ public class aStarPathFinder {
             t = new ArrayList<>();
             Node target = nodes[targetX][targetY];
             while (target != nodes[startX][startY]) {
-                t.add(0, world.getTile(target.x, target.y));
+                t.add(0, world.getTileSafe(target.x, target.y));
                 target = target.parent;
             }
-            t.add(0, world.getTile(startX, startY));
+            t.add(0, world.getTileSafe(startX, startY));
         } catch (TileOutOfBoundsException ignored) {
 
         }
@@ -215,7 +215,7 @@ public class aStarPathFinder {
 
         if ((!invalid) && ((startX != x) || (startY != y))) {
             try {
-                return !isBlockedTile(world.getTile(x, y));
+                return !isBlockedTile(world.getTileSafe(x, y));
             } catch (TileOutOfBoundsException ignored) {
             }
         }
@@ -224,8 +224,8 @@ public class aStarPathFinder {
 
     private float getTilePathCost(int x, int y, int targetX, int targetY) {
         try {
-            Tile current = world.getTile(x, y);
-            Tile target = world.getTile(targetX, targetY);
+            Tile current = world.getTileSafe(x, y);
+            Tile target = world.getTileSafe(targetX, targetY);
             if (current.getTerrain() instanceof Grass) {
                 if (target.getTerrain() instanceof Grass) {
                     return 1.0f;

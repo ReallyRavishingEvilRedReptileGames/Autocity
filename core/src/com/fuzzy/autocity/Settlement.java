@@ -95,7 +95,7 @@ public class Settlement {
     }
 
     public Tile getOriginTile() throws TileOutOfBoundsException {
-        return this.world.getTile(this.originX, this.originY);
+        return this.world.getTileSafe(this.originX, this.originY);
     }
 
     public int getPopulationCapacity() {

@@ -31,7 +31,7 @@ public class Game extends Thread implements Invokable {
     public void startGame() {
         System.out.println("Generating world...");
         WorldFactory builder = new WorldFactory();
-        this.world = builder.generate(155, 90);
+        this.world = builder.generate(15, 10);
         this.simulation = new Simulation(this);
         this.cursor = new Cursor(this);
         this.dev = new Devmode(this, this.cursor);
@@ -117,7 +117,7 @@ public class Game extends Thread implements Invokable {
             case "place":
                 try {
                     WorldObject o = Devmode.returnNewWorldObject(tmp[2]);
-                    Tile t = this.world.getTile(this.cursor.getX(), this.cursor.getY());
+                    Tile t = this.world.getTileSafe(this.cursor.getX(), this.cursor.getY());
                     if (o instanceof Construction) {
                         this.world.buildConstruction((Construction) o, t);
                     } else {
@@ -128,7 +128,7 @@ public class Game extends Thread implements Invokable {
                 return;
             case "removeconstructable":
                 try {
-                    WorldObject o = this.world.getTile(this.cursor.getX(), this.cursor.getY()).getOccupyingObject();
+                    WorldObject o = this.world.getTileSafe(this.cursor.getX(), this.cursor.getY()).getOccupyingObject();
                     if (o instanceof Construction) {
                         this.world.removeConstruction((Construction) o);
                     }

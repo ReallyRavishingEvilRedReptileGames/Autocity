@@ -91,7 +91,7 @@ public abstract class WorldObject implements Comparable<WorldObject> {
 
     public void placeAt(World world, int x, int y) {
         try {
-            world.getTile(x, y).setOccupyingObject(this);
+            world.getTileSafe(x, y).setOccupyingObject(this);
         } catch (TileOutOfBoundsException ignored) {
 
         }

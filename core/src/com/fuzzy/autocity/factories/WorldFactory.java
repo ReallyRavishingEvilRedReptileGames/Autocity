@@ -64,7 +64,7 @@ public class WorldFactory {
         for (int x = 0; x < world.getWidth(); x++) {
             for (int y = 0; y < world.getHeight(); y++) {
                 try {
-                    world.getTile(x, y).setHeight((int) (map[x][y] * 255));
+                    world.getTileSafe(x, y).setHeight((int) (map[x][y] * 255));
                 } catch (TileOutOfBoundsException e) {
                     // Nah
                 }
@@ -76,7 +76,7 @@ public class WorldFactory {
         for (int x = 0; x < world.getWidth(); x++) {
             for (int y = 0; y < world.getHeight(); y++) {
                 try {
-                    Tile tile = world.getTile(x, y);
+                    Tile tile = world.getTileSafe(x, y);
                     int height = tile.getHeight();
 
                     if (height >= 64) {
@@ -106,7 +106,7 @@ public class WorldFactory {
         for (int x = 0; x < world.getWidth(); x++) {
             for (int y = 0; y < world.getHeight(); y++) {
                 try {
-                    Tile tile = world.getTile(x, y);
+                    Tile tile = world.getTileSafe(x, y);
 
                     if ((map[x][y] > this.foliageRequiredFractalValue) && (random.nextDouble() <= tile.getTerrain().getRandomEntitySpawnRate())) {
                         tile.setOccupyingObject(tile.getTerrain().getRandomTerrainObject());

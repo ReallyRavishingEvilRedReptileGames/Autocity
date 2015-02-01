@@ -62,7 +62,7 @@ public class Devmode {
                 return;
             case "tile":
                 try {
-                    this.game.getWorld().getTile(this.cursor.getX(), this.cursor.getY()).Execute(command);
+                    this.game.getWorld().getTileSafe(this.cursor.getX(), this.cursor.getY()).Execute(command);
                 } catch (TileOutOfBoundsException | IndexOutOfBoundsException | NumberFormatException e) {
                     System.out.println("Invalid tile position.");
                 }

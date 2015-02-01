@@ -88,7 +88,7 @@ public class DebugUI extends Thread {
                     sb.append(cursor.getCharacter());
                 } else {
                     try {
-                        Tile tile = world.getTile(j, i);
+                        Tile tile = world.getTileSafe(j, i);
 
                         sb.append(tile.getCharacter());
                     } catch (TileOutOfBoundsException e) {

@@ -48,9 +48,32 @@ public class World {
         return width;
     }
 
-    public Tile getTile(int x, int y) throws TileOutOfBoundsException {
+    /**
+     * A safe getTile that throws an exception. Deprecated.
+     * @param x
+     * @param y
+     * @return Tile
+     * @throws TileOutOfBoundsException
+     */
+
+    @Deprecated
+    public Tile getTileSafe(int x, int y) throws TileOutOfBoundsException {
         if (x < 0 || x >= this.width || y < 0 || y >= this.height) {
             throw new TileOutOfBoundsException();
+        }
+
+        return this.tiles[x][y];
+    }
+
+    /**
+     * Get the tile at this position.
+     * @param x
+     * @param y
+     * @return Tile
+     */
+    public Tile getTile(int x, int y) {
+        if (x < 0 || x >= this.width || y < 0 || y >= this.height) {
+            return null;
         }
 
         return this.tiles[x][y];
@@ -93,9 +116,9 @@ public class World {
                 }
                 tiles[targetX][targetY].setOccupyingObject(o);
                 try {
-                    o.addTile(getTile(targetX, targetY));
+                    o.addTile(getTileSafe(targetX, targetY));
                     if (o instanceof GenericConstruction) {
-                        ((GenericConstruction) o).getConstruction().addTile(getTile(targetX, targetY));
+                        ((GenericConstruction) o).getConstruction().addTile(getTileSafe(targetX, targetY));
                     }
                 } catch (TileOutOfBoundsException ignored) {
 
