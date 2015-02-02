@@ -63,11 +63,7 @@ public class WorldFactory {
 
         for (int x = 0; x < world.getWidth(); x++) {
             for (int y = 0; y < world.getHeight(); y++) {
-                try {
-                    world.getTileSafe(x, y).setHeight((int) (map[x][y] * 255));
-                } catch (TileOutOfBoundsException e) {
-                    // Nah
-                }
+                    world.getTile(x, y).setHeight((int) (map[x][y] * 255));
             }
         }
     }
@@ -75,8 +71,7 @@ public class WorldFactory {
     private void generateTerrain() {
         for (int x = 0; x < world.getWidth(); x++) {
             for (int y = 0; y < world.getHeight(); y++) {
-                try {
-                    Tile tile = world.getTileSafe(x, y);
+                    Tile tile = world.getTile(x, y);
                     int height = tile.getHeight();
 
                     if (height >= 64) {
@@ -86,9 +81,6 @@ public class WorldFactory {
                     } else {
                         tile.setTerrain(new Water());
                     }
-                } catch (TileOutOfBoundsException e) {
-                    //derp
-                }
             }
         }
 
@@ -105,15 +97,12 @@ public class WorldFactory {
 
         for (int x = 0; x < world.getWidth(); x++) {
             for (int y = 0; y < world.getHeight(); y++) {
-                try {
-                    Tile tile = world.getTileSafe(x, y);
+
+                    Tile tile = world.getTile(x, y);
 
                     if ((map[x][y] > this.foliageRequiredFractalValue) && (random.nextDouble() <= tile.getTerrain().getRandomEntitySpawnRate())) {
                         tile.setOccupyingObject(tile.getTerrain().getRandomTerrainObject());
                     }
-                } catch (TileOutOfBoundsException e) {
-                    // Nah
-                }
             }
         }
     }

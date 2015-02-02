@@ -115,14 +115,10 @@ public class World {
                     tiles[targetX][targetY].getOccupyingObject().destroy();
                 }
                 tiles[targetX][targetY].setOccupyingObject(o);
-                try {
-                    o.addTile(getTileSafe(targetX, targetY));
+                    o.addTile(getTile(targetX, targetY));
                     if (o instanceof GenericConstruction) {
-                        ((GenericConstruction) o).getConstruction().addTile(getTileSafe(targetX, targetY));
+                        ((GenericConstruction) o).getConstruction().addTile(getTile(targetX, targetY));
                     }
-                } catch (TileOutOfBoundsException ignored) {
-
-                }
             }
         }
     }

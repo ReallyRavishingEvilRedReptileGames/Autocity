@@ -65,11 +65,7 @@ public class Cursor implements Invokable {
     }
 
     public Tile getSelectedTile() {
-        try {
-            return this.game.getWorld().getTileSafe(x, y);
-        } catch (TileOutOfBoundsException e) {
-            return null;
-        }
+            return this.game.getWorld().getTile(x, y);
     }
 
     public void Move(KeyEvent e) {

@@ -95,13 +95,10 @@ public class aStarPathFinder {
 
     public ArrayList<Tile> findPath(int startX, int startY, int targetX, int targetY) {
 
-        try {
-            if (isBlockedTile(world.getTileSafe(targetX, targetY))) {
+            if (isBlockedTile(world.getTile(targetX, targetY))) {
 
                 return null;
             }
-        } catch (TileOutOfBoundsException ignored) {
-        }
 
         nodes[startX][startY].cost = 0;
         nodes[startX][startY].depth = 0;
@@ -160,17 +157,13 @@ public class aStarPathFinder {
             return null;
         }
         ArrayList<Tile> t = null;
-        try {
             t = new ArrayList<>();
             Node target = nodes[targetX][targetY];
             while (target != nodes[startX][startY]) {
-                t.add(0, world.getTileSafe(target.x, target.y));
+                t.add(0, world.getTile(target.x, target.y));
                 target = target.parent;
             }
-            t.add(0, world.getTileSafe(startX, startY));
-        } catch (TileOutOfBoundsException ignored) {
-
-        }
+            t.add(0, world.getTile(startX, startY));
         return t;
     }
 
@@ -214,26 +207,21 @@ public class aStarPathFinder {
         boolean invalid = (x < 0) || (y < 0) || (x >= world.getWidth()) || (y >= world.getHeight());
 
         if ((!invalid) && ((startX != x) || (startY != y))) {
-            try {
-                return !isBlockedTile(world.getTileSafe(x, y));
-            } catch (TileOutOfBoundsException ignored) {
-            }
+            return !isBlockedTile(world.getTile(x, y));
         }
         return !invalid;
     }
 
     private float getTilePathCost(int x, int y, int targetX, int targetY) {
-        try {
-            Tile current = world.getTileSafe(x, y);
-            Tile target = world.getTileSafe(targetX, targetY);
-            if (current.getTerrain() instanceof Grass) {
-                if (target.getTerrain() instanceof Grass) {
-                    return 1.0f;
-                } else {
-                    return 0.5f;
-                }
+
+        Tile current = world.getTile(x, y);
+        Tile target = world.getTile(targetX, targetY);
+        if (current.getTerrain() instanceof Grass) {
+            if (target.getTerrain() instanceof Grass) {
+                return 1.0f;
+            } else {
+                return 0.5f;
             }
-        } catch (TileOutOfBoundsException ignored) {
         }
         return 0.0f;
 

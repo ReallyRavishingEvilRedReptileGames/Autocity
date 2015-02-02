@@ -47,10 +47,9 @@ public class PathBuilder implements Invokable {
         switch (tmp[1]) {
             case "generate":
                 try {
-                    generate(world.getTileSafe(Integer.valueOf(tmp[2]), Integer.valueOf(tmp[3])),
-                            world.getTileSafe(Integer.valueOf(tmp[4]), Integer.valueOf(tmp[5])));
-                } catch (NumberFormatException | TileOutOfBoundsException ignored) {
-
+                    generate(world.getTile(Integer.valueOf(tmp[2]), Integer.valueOf(tmp[3])),
+                            world.getTile(Integer.valueOf(tmp[4]), Integer.valueOf(tmp[5])));
+                } catch (NumberFormatException ignored) {
                 }
         }
     }

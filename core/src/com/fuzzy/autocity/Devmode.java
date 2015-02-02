@@ -61,11 +61,7 @@ public class Devmode {
                 System.out.println("Tile, Cursor, Game, Pathbuilder");
                 return;
             case "tile":
-                try {
-                    this.game.getWorld().getTileSafe(this.cursor.getX(), this.cursor.getY()).Execute(command);
-                } catch (TileOutOfBoundsException | IndexOutOfBoundsException | NumberFormatException e) {
-                    System.out.println("Invalid tile position.");
-                }
+                    this.game.getWorld().getTile(this.cursor.getX(), this.cursor.getY()).Execute(command);
                 return;
             case "cursor":
                 this.cursor.Execute(command);
