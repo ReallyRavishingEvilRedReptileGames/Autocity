@@ -37,7 +37,6 @@ public class Simulation {
         for (Iterator<GenericConstruction> i = deconstructions.iterator(); i.hasNext(); ) {
             GenericConstruction c = i.next();
             if (c == null || !c.isConstructed()) {
-                c.destroy();
                 i.remove();
             } else {
                 c.deConstruct();

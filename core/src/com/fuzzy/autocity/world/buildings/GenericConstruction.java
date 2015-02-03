@@ -1,11 +1,13 @@
 package com.fuzzy.autocity.world.buildings;
 
+import com.fuzzy.autocity.Tile;
 import com.fuzzy.autocity.world.buildings.prefabs.Construction;
 
 public class GenericConstruction extends Construction {
     private Construction construction;
 
     public GenericConstruction(Construction c) {
+        this.name = "Construction";
         this.construction = c;
         this.width = c.getWidth();
         this.height = c.getHeight();
@@ -16,6 +18,7 @@ public class GenericConstruction extends Construction {
     }
 
     public GenericConstruction(Construction c, boolean b) {
+        this.name = "Construction";
         this.construction = c;
         this.width = c.getWidth();
         this.height = c.getHeight();
@@ -37,19 +40,13 @@ public class GenericConstruction extends Construction {
     }
 
     public void deConstruct() {
-        System.out.println(this.constructionTime);
         if (this.constructionTime < this.maxConstructionTime) {
             this.constructionTime += constructionSpeed * 1;
         } else {
+            System.out.println(tiles);
             this.constructed = false;
             this.destroy();
         }
-    }
-
-    @Override
-    public char getCharacter() {
-        float f = this.constructionTime * 10;
-        return this.constructed ? this.character : java.lang.Character.forDigit((int) f, 10);
     }
 
     public Construction getConstruction() {

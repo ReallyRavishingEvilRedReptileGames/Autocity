@@ -81,7 +81,6 @@ public abstract class WorldObject implements Comparable<WorldObject> {
         for (Tile tile : tiles) {
             tile.setOccupyingObject(null);
         }
-
         this.onDestroy();
     }
 

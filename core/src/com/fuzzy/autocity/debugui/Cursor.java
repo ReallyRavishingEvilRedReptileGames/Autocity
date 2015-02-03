@@ -9,6 +9,7 @@ import com.fuzzy.autocity.world.buildings.Hut;
 import com.fuzzy.autocity.world.buildings.prefabs.Building;
 import com.fuzzy.autocity.world.buildings.prefabs.Construction;
 import com.fuzzy.autocity.world.paths.Road;
+import com.fuzzy.autocity.world.paths.prefabs.Path;
 import com.fuzzy.autocity.world.resources.PineTree;
 import com.fuzzy.autocity.world.resources.prefabs.Tree;
 
@@ -89,11 +90,11 @@ public class Cursor implements Invokable {
         Tile tile = getSelectedTile();
 
         if (e.getKeyChar() == 'r') {
-            Road r = new Road();
+            this.o = new Road();
             try {
-                p.validateWorldObject(r, this.x, this.y);
-                this.game.getWorld().buildConstruction(r, tile);
-
+                p.validateWorldObject(o, this.x, this.y);
+                this.game.getWorld().buildConstruction((Path)o, tile);
+                this.o = null;
             } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException ignored) {
 
             }
@@ -108,20 +109,22 @@ public class Cursor implements Invokable {
                     p.validateBuilding((Building) o, this.x, this.y);
                     this.game.getWorld().buildConstruction((Construction) o, tile);
                     this.buildingSelected = false;
+                    this.o = null;
                 } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException ignored) {
 
                 }
             }
         } else if (e.getKeyChar() == 't') {
-            Tree t = new PineTree();
+            this.o = new PineTree();
             try {
-                p.validateWorldObject(t, this.x, this.y);
-                this.game.getWorld().placeWorldObject(t, tile);
+                p.validateWorldObject(o, this.x, this.y);
+                this.game.getWorld().placeWorldObject(o, tile);
+                this.o = null;
             } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException ignored) {
 
             }
         }
-        this.o = null;
+
     }
 
     public void deConstruct() {

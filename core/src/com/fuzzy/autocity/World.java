@@ -145,6 +145,7 @@ public class World {
         GenericConstruction gc = new GenericConstruction(c, true);
         c.destroy();
         for (Tile t : tmp) {
+            gc.addTile(t);
             tiles[t.getX()][t.getY()].setOccupyingObject(gc);
         }
         addToDeConstructionList(gc);
