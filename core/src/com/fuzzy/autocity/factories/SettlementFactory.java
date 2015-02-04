@@ -30,16 +30,21 @@ public class SettlementFactory {
 
     public Settlement generate(World world) throws PlacementAttemptsExceededException {
         settlement = new Settlement(world);
-
+        BuildingFactory bf = BuildingFactory.initialize();
         place();
         addRoads();
-        addBuilding(new TownHall());
+        addBuilding(bf.createResidentialBuilding("town hall"));
 
         // Add 2-4 huts
         int hutCount = new Random().nextInt(2) + 2;
 
         for (int i = 0; i < hutCount; i++) {
-            addBuilding(new Hut());
+            Building b = bf.createResidentialBuilding("hut");
+            System.out.println(b.getName());
+            System.out.println(b.getWidth());
+            System.out.println(b.getHeight());
+            System.out.println(b.getCharacter());
+            addBuilding(b);
         }
 
         addPopulation();

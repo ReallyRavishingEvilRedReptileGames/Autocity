@@ -4,12 +4,12 @@ import com.fuzzy.autocity.Character;
 
 import java.util.HashSet;
 
-public abstract class Residential extends Building {
+public class Residential extends Building {
     protected HashSet<Character> residents = new HashSet<>();
     protected int baseCapacity = 4;
 
     public Residential() {
-        this.name = "Residential";
+//        this.name = "Residential";
     }
 
     public int getBaseCapacity() {

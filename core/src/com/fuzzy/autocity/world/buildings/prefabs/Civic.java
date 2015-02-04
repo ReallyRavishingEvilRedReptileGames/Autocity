@@ -1,7 +1,7 @@
 package com.fuzzy.autocity.world.buildings.prefabs;
 
-public abstract class Civic extends Building {
+public class Civic extends Building {
     public Civic() {
-        this.name = "Civic";
+//        this.name = "Civic";
     }
 }

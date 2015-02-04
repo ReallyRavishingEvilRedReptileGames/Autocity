@@ -11,4 +11,12 @@ public class Hut extends Residential {
         this.maxConstructionTime = 1;
     }
 
+    public Hut(Hut h) {
+        this.name = h.getName();
+        this.setWidth(h.getWidth());
+        this.setHeight(h.getHeight());
+        this.character = h.getCharacter();
+        this.maxConstructionTime = h.getMaxConstructionTime();
+    }
+
 }

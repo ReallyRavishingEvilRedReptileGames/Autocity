@@ -5,6 +5,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 import com.fuzzy.autocity.debugui.Cursor;
 import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
+import com.fuzzy.autocity.factories.BuildingFactory;
 import com.fuzzy.autocity.factories.WorldFactory;
 import com.fuzzy.autocity.simulation.Simulation;
 import com.fuzzy.autocity.world.WorldObject;
@@ -36,7 +37,7 @@ public class Game extends Thread implements Invokable {
     public void startGame() {
         System.out.println("Generating world...");
         WorldFactory builder = new WorldFactory();
-        this.world = builder.generate(15, 10);
+        this.world = builder.generate(150, 100);
         this.simulation = new Simulation(this);
         this.cursor = new Cursor(this);
         this.dev = new Devmode(this, this.cursor);

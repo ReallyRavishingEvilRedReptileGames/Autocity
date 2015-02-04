@@ -11,10 +11,10 @@ public class Water extends Terrain {
         this.name = "Water";
         this.character = '~';
         this.randomEntitySpawnRate = -1;
-        Pixmap p = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-        p.setColor(Color.NAVY);
-        p.fill();
-        this.texture = new Texture(p);
+//        Pixmap p = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+//        p.setColor(Color.NAVY);
+//        p.fill();
+//        this.texture = new Texture(p);
     }
 
     public WorldObject getRandomTerrainObject() {

@@ -49,7 +49,7 @@ public class IsoCamTest extends AutocityGDX implements InputProcessor {
 
         for (int z = 0; z < game.getWorld().getHeight(); z++) {
             for (int x = 0; x < game.getWorld().getWidth(); x++) {
-                terrainTiles[x][z] = new Sprite(game.getWorld().getTile(x, z).getTerrain().getTexture());
+                terrainTiles[x][z] = new Sprite(texture);
                 terrainTiles[x][z].setPosition(x, z);
                 terrainTiles[x][z].setSize(1, 1);
 

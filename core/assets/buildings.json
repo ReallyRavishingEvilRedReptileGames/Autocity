@@ -1,0 +1,17 @@
+{
+"buildings": [{
+"class" : "com.fuzzy.autocity.world.buildings.prefabs.Residential",
+"name" : "Hut",
+"width" : 2,
+"height" : 2,
+"character" : ^,
+"maxConstructionTime" : 1,
+},
+{
+"class" : "com.fuzzy.autocity.world.buildings.prefabs.Civic",
+"name" : "Town Hall",
+"width" : 3,
+"height" : 2,
+"character" : H,
+}]
+}

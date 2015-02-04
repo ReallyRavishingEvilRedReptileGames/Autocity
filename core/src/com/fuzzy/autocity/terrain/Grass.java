@@ -12,10 +12,10 @@ public class Grass extends Terrain {
         this.name = "Grass";
         this.character = '.';
         this.randomEntitySpawnRate = 0.25;
-        Pixmap p = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-        p.setColor(Color.OLIVE);
-        p.fill();
-        this.texture = new Texture(p);
+//        Pixmap p = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+//        p.setColor(Color.OLIVE);
+//        p.fill();
+//        this.texture = new Texture(p);
     }
 
     public WorldObject getRandomTerrainObject() {
