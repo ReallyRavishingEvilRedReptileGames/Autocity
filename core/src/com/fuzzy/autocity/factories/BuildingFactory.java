@@ -3,6 +3,8 @@ package com.fuzzy.autocity.factories;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Json;
 import com.fuzzy.autocity.world.buildings.prefabs.Building;
+import com.fuzzy.autocity.world.buildings.prefabs.Civic;
+import com.fuzzy.autocity.world.buildings.prefabs.Residential;
 
 import java.util.ArrayList;
 
@@ -23,11 +25,17 @@ public class BuildingFactory {
     }
 
     public Building createResidentialBuilding(String s) {
+        Building returnable = null;
         for (Building b : buildings) {
             System.out.println(b.getClass());
             if (s.equalsIgnoreCase(b.getName())) {
-                    return b;
+                    returnable = b;
             }
+        }
+        if (returnable instanceof Civic) {
+            return new Civic((Civic)returnable);
+        } else if (returnable instanceof Residential) {
+            return new Residential((Residential) returnable);
         }
         return null;
     }
