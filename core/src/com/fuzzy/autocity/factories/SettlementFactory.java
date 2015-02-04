@@ -10,8 +10,6 @@ import com.fuzzy.autocity.exceptions.TerrainConflictException;
 import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 import com.fuzzy.autocity.generators.builders.PathBuilder;
 import com.fuzzy.autocity.generators.builders.SettlementBuilder;
-import com.fuzzy.autocity.world.buildings.Hut;
-import com.fuzzy.autocity.world.buildings.TownHall;
 import com.fuzzy.autocity.world.buildings.prefabs.Building;
 
 import java.util.Random;
@@ -33,13 +31,13 @@ public class SettlementFactory {
         BuildingFactory bf = BuildingFactory.initialize();
         place();
         addRoads();
-        addBuilding(bf.createResidentialBuilding("town hall"));
+        addBuilding(bf.create("town hall"));
 
         // Add 2-4 huts
         int hutCount = new Random().nextInt(2) + 2;
 
         for (int i = 0; i < hutCount; i++) {
-            Building b = bf.createResidentialBuilding("hut");
+            Building b = bf.create("hut");
             System.out.println(b.getName());
             System.out.println(b.getWidth());
             System.out.println(b.getHeight());

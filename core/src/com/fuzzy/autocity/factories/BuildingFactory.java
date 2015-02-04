@@ -18,13 +18,7 @@ public class BuildingFactory {
         return b;
     }
 
-    public Building create(int i) {
-//        Building b = buildings.get(i);
-//        return null;
-        return (buildings.get(i));
-    }
-
-    public Building createResidentialBuilding(String s) {
+    public Building create(String s) {
         Building returnable = null;
         for (Building b : buildings) {
             System.out.println(b.getClass());
