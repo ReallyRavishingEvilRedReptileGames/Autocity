@@ -15,6 +15,15 @@ public class PathFactory {
         return loader.fromJson(PathFactory.class, Gdx.files.internal("paths.json"));
     }
 
+    public Path create(String s) {
+        for (Path p : paths) {
+            if (p.getName().equalsIgnoreCase(s)) {
+                return new Path(p);
+            }
+        }
+        return null;
+    }
+
     public ArrayList<Path> getList() {
         return this.paths;
     }

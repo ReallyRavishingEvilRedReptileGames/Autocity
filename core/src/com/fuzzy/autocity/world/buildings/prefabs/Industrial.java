@@ -1,12 +1,12 @@
 package com.fuzzy.autocity.world.buildings.prefabs;
 
-public class Store extends Building {
+public class Industrial extends Building {
 
-    public Store() {
+    public Industrial() {
 
     }
 
-    public Store(Store s) {
+    public Industrial(Industrial s) {
         this.name = s.getName();
         this.width = s.getWidth();
         this.height = s.getHeight();

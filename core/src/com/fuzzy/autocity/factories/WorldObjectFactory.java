@@ -1,7 +1,5 @@
 package com.fuzzy.autocity.factories;
 
-import com.badlogic.gdx.utils.Json;
-import com.fuzzy.autocity.World;
 import com.fuzzy.autocity.world.WorldObject;
 import com.fuzzy.autocity.world.buildings.prefabs.*;
 import com.fuzzy.autocity.world.paths.prefabs.Path;
@@ -42,10 +40,10 @@ public class WorldObjectFactory {
                     return new Civic((Civic) w);
                 } else if (w instanceof Residential) {
                     return new Residential((Residential) w);
-                } else if (w instanceof Research) {
-                    return new Research((Research) w);
+                } else if (w instanceof Special) {
+                    return new Special((Special) w);
                 } else {
-                    return new Store((Store) w);
+                    return new Industrial((Industrial) w);
                 }
             }
         }

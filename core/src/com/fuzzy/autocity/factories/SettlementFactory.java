@@ -37,12 +37,7 @@ public class SettlementFactory {
         int hutCount = new Random().nextInt(2) + 2;
 
         for (int i = 0; i < hutCount; i++) {
-            Building b = bf.create("hut");
-            System.out.println(b.getName());
-            System.out.println(b.getWidth());
-            System.out.println(b.getHeight());
-            System.out.println(b.getCharacter());
-            addBuilding(b);
+            addBuilding(bf.create("hut"));
         }
 
         addPopulation();

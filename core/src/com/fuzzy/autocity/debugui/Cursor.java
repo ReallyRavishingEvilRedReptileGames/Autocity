@@ -6,11 +6,12 @@ import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 import com.fuzzy.autocity.exceptions.WorldObjectConflictException;
 import com.fuzzy.autocity.factories.WorldObjectFactory;
 import com.fuzzy.autocity.world.WorldObject;
-import com.fuzzy.autocity.world.buildings.prefabs.Building;
 import com.fuzzy.autocity.world.buildings.prefabs.Construction;
-import com.fuzzy.autocity.world.paths.prefabs.Path;
 
 import java.awt.event.KeyEvent;
+import java.lang.Character;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Cursor implements Invokable {
     private int x = 0, y = 0;
@@ -19,10 +20,16 @@ public class Cursor implements Invokable {
     private Game game;
     WorldObject o = null;
     private char character = '#';
-//TODO: Make it so the cursor can have a displayed width and height like buildings,
+    private Map<Character, String> keyCodes;
+
+    //TODO: Make it so the cursor can have a displayed width and height like buildings,
 //TODO: so we can preview where the building is going to be placed before placing it.
     public Cursor(Game game) {
         this.game = game;
+        keyCodes = new HashMap<>();
+        keyCodes.put('r', "road");
+        keyCodes.put('h', "hut");
+        keyCodes.put('t', "pine tree");
     }
 
     public int getX() {
@@ -63,7 +70,7 @@ public class Cursor implements Invokable {
     }
 
     public Tile getSelectedTile() {
-            return this.game.getWorld().getTile(x, y);
+        return this.game.getWorld().getTile(x, y);
     }
 
     public void Move(KeyEvent e) {
@@ -80,48 +87,30 @@ public class Cursor implements Invokable {
         }
     }
 
-    //TODO: Some sort of world object list to iterate over and compare characters for ez placement?
-    //TODO: Made this ^^^ now I just need to implement it here.
     public void Place(KeyEvent e) {
         PlacementValidator p = new PlacementValidator(this.game.getWorld());
         Tile tile = getSelectedTile();
         WorldObjectFactory wof = new WorldObjectFactory();
-        if (e.getKeyChar() == 'r') {
-            this.o = wof.createWorldObject("road");
-            try {
-                p.validateWorldObject(o, this.x, this.y);
-                this.game.getWorld().buildConstruction((Path)o, tile);
-                this.o = null;
-            } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException ignored) {
-
-            }
-        } else if (e.getKeyChar() == 'h') {
-            if (!this.buildingSelected) {
-                this.o = wof.createWorldObject("hut");
-                this.width = o.getWidth();
-                this.height = o.getHeight();
-                this.buildingSelected = true;
-            } else {
-                try {
-                    p.validateBuilding((Building) o, this.x, this.y);
-                    this.game.getWorld().buildConstruction((Construction) o, tile);
-                    this.buildingSelected = false;
-                    this.o = null;
-                } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException ignored) {
-
-                }
-            }
-        } else if (e.getKeyChar() == 't') {
-            this.o = wof.createWorldObject("pine tree");
-            try {
-                p.validateWorldObject(o, this.x, this.y);
-                this.game.getWorld().placeWorldObject(o, tile);
-                this.o = null;
-            } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException ignored) {
-
-            }
+        if (e.getKeyCode() == KeyEvent.VK_UP
+                || e.getKeyCode() == KeyEvent.VK_DOWN
+                || e.getKeyCode() == KeyEvent.VK_LEFT
+                || e.getKeyCode() == KeyEvent.VK_RIGHT
+                || e.getKeyChar() == 'p') {
+            return;
         }
+        try {
+            this.o = wof.createWorldObject(keyCodes.get(e.getKeyChar()));
+            p.validateWorldObject(o, this.x, this.y);
+            if (o instanceof Construction) {
+                this.game.getWorld().buildConstruction((Construction) o, tile);
+                this.buildingSelected = false;
+            } else {
+                this.game.getWorld().placeWorldObject(o, tile);
+            }
+            this.o = null;
+        } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException ignored) {
 
+        }
     }
 
     public void deConstruct() {

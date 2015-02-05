@@ -16,6 +16,18 @@ public class ResourceFactory {
         return loader.fromJson(ResourceFactory.class, Gdx.files.internal("resources.json"));
     }
 
+    public Resource create(String s) {
+        for (Resource r : resources) {
+            System.out.println(r.getWidth());
+            if (s.equalsIgnoreCase(r.getName())) {
+                if (r instanceof Tree) {
+                    return new Tree((Tree) r);
+                }
+            }
+        }
+        return null;
+    }
+
     public ArrayList<Resource> getList() {
         return this.resources;
     }

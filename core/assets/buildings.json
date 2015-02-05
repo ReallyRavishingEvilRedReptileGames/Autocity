@@ -1,5 +1,8 @@
 {
   "buildings": [
+    /*
+    RESIDENTIAL
+    */
     {
       "class": "com.fuzzy.autocity.world.buildings.prefabs.Residential",
       "width": 2,
@@ -8,6 +11,9 @@
       "character": "^",
       "maxConstructionTime": 1
     },
+    /*
+CIVIC
+*/
     {
       "class": "com.fuzzy.autocity.world.buildings.prefabs.Civic",
       "name": "Town Hall",
@@ -16,21 +22,37 @@
       "character": "H",
       "maxConstructionTime": 1
     },
+    /*
+SPECIAL
+*/
     {
-      "class": "com.fuzzy.autocity.world.buildings.prefabs.Research",
+      "class": "com.fuzzy.autocity.world.buildings.prefabs.Special",
       "width": 2,
       "height": 2,
       "name": "Alchemist Lab",
       "character": "@",
       "maxConstructionTime": 1
     },
+    /*
+INDUSTRY
+*/
     {
-      "class": "com.fuzzy.autocity.world.buildings.prefabs.Store",
+      "class": "com.fuzzy.autocity.world.buildings.prefabs.Industrial",
       "width": 2,
       "height": 2,
       "name": "Smithy",
       "character": "?",
       "maxConstructionTime": 1
+    },
+    /*
+MILITARY
+*/
+    {
+      "class": "com.fuzzy.autocity.world.buildings.prefabs.Military",
+      "name": "Output",
+      "width": 1,
+      "height": 1,
+      "character": "+"
     }
   ]
 }
