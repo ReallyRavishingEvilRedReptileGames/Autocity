@@ -9,7 +9,7 @@
       "height": 2,
       "name": "Hut",
       "character": "^",
-      "maxConstructionTime": 1
+      "maxConstructionTime": 5
     },
     /*
 CIVIC
@@ -20,7 +20,7 @@ CIVIC
       "width": 3,
       "height": 2,
       "character": "H",
-      "maxConstructionTime": 1
+      "maxConstructionTime": 10
     },
     /*
 SPECIAL
@@ -31,7 +31,7 @@ SPECIAL
       "height": 2,
       "name": "Alchemist Lab",
       "character": "@",
-      "maxConstructionTime": 1
+      "maxConstructionTime": 20
     },
     /*
 INDUSTRY
@@ -42,17 +42,18 @@ INDUSTRY
       "height": 2,
       "name": "Smithy",
       "character": "?",
-      "maxConstructionTime": 1
+      "maxConstructionTime": 20
     },
     /*
 MILITARY
 */
     {
       "class": "com.fuzzy.autocity.world.buildings.prefabs.Military",
-      "name": "Output",
+      "name": "Outpost",
       "width": 1,
       "height": 1,
-      "character": "+"
+      "character": "+",
+      "maxConstructionTime": 5
     }
   ]
 }

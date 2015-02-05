@@ -10,5 +10,6 @@ public class Civic extends Building {
         this.width = c.getWidth();
         this.height = c.getHeight();
         this.character = c.getCharacter();
+        this.maxConstructionTime = c.getMaxConstructionTime();
     }
 }

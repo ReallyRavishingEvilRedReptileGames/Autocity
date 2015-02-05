@@ -3,8 +3,8 @@ package com.fuzzy.autocity.world.buildings.prefabs;
 import com.fuzzy.autocity.world.WorldObject;
 
 public abstract class Construction extends WorldObject {
-    protected float constructionSpeed = 0.1f;
-    protected float constructionTime = 0;
+    protected int constructionSpeed = 1;
+    protected int constructionTime = 0;
     protected int maxConstructionTime = 0;
     protected boolean constructed = false;
 
@@ -12,7 +12,7 @@ public abstract class Construction extends WorldObject {
         return this.constructed;
     }
 
-    public float getConstructionSpeed() {
+    public int getConstructionSpeed() {
         return this.constructionSpeed;
     }
 

@@ -42,8 +42,10 @@ public class WorldObjectFactory {
                     return new Residential((Residential) w);
                 } else if (w instanceof Special) {
                     return new Special((Special) w);
-                } else {
+                } else if (w instanceof Industrial) {
                     return new Industrial((Industrial) w);
+                } else if (w instanceof Military) {
+                    return new Military((Military) w);
                 }
             }
         }

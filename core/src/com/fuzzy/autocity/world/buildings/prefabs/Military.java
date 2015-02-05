@@ -10,5 +10,6 @@ public class Military extends Building {
         this.width = m.getWidth();
         this.height = m.getHeight();
         this.character = m.getCharacter();
+        this.maxConstructionTime = m.getMaxConstructionTime();
     }
 }

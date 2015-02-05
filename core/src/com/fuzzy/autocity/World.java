@@ -139,7 +139,6 @@ public class World {
         }
     }
 
-    //TODO: Fix this.
     public void removeConstruction(Construction c) {
         HashSet<Tile> tmp = c.getTiles();
         GenericConstruction gc = new GenericConstruction(c, true);
