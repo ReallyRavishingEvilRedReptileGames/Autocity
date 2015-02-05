@@ -21,7 +21,7 @@ public abstract class Terrain {
         return this.randomEntitySpawnRate;
     }
 
-    public abstract WorldObject getRandomTerrainObject();
+    public abstract String getRandomTerrainObject();
 
     public String toString() {
         return this.name;

@@ -14,7 +14,7 @@ public class Water extends Terrain {
 //        this.texture = new Texture(p);
     }
 
-    public WorldObject getRandomTerrainObject() {
+    public String getRandomTerrainObject() {
         return null;
     }
 }

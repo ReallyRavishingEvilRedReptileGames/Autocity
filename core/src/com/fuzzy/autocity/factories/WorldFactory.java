@@ -62,7 +62,7 @@ public class WorldFactory {
 
         for (int x = 0; x < world.getWidth(); x++) {
             for (int y = 0; y < world.getHeight(); y++) {
-                    world.getTile(x, y).setHeight((int) (map[x][y] * 255));
+                world.getTile(x, y).setHeight((int) (map[x][y] * 255));
             }
         }
     }
@@ -70,16 +70,16 @@ public class WorldFactory {
     private void generateTerrain() {
         for (int x = 0; x < world.getWidth(); x++) {
             for (int y = 0; y < world.getHeight(); y++) {
-                    Tile tile = world.getTile(x, y);
-                    int height = tile.getHeight();
+                Tile tile = world.getTile(x, y);
+                int height = tile.getHeight();
 
-                    if (height >= 64) {
-                        tile.setTerrain(new Grass());
-                    } else if (height >= 16) {
-                        tile.setTerrain(new Sand());
-                    } else {
-                        tile.setTerrain(new Water());
-                    }
+                if (height >= 64) {
+                    tile.setTerrain(new Grass());
+                } else if (height >= 16) {
+                    tile.setTerrain(new Sand());
+                } else {
+                    tile.setTerrain(new Water());
+                }
             }
         }
 
@@ -91,17 +91,18 @@ public class WorldFactory {
         diamondSquareFractal.setSize(Math.max(this.sizeX, this.sizeY));
 
         Random random = new Random();
+        WorldObjectFactory wof = new WorldObjectFactory();
 
         Double[][] map = diamondSquareFractal.generate();
 
         for (int x = 0; x < world.getWidth(); x++) {
             for (int y = 0; y < world.getHeight(); y++) {
 
-                    Tile tile = world.getTile(x, y);
+                Tile tile = world.getTile(x, y);
 
-                    if ((map[x][y] > this.foliageRequiredFractalValue) && (random.nextDouble() <= tile.getTerrain().getRandomEntitySpawnRate())) {
-                        tile.setOccupyingObject(tile.getTerrain().getRandomTerrainObject());
-                    }
+                if ((map[x][y] > this.foliageRequiredFractalValue) && (random.nextDouble() <= tile.getTerrain().getRandomEntitySpawnRate())) {
+                    tile.setOccupyingObject(wof.createWorldObject(tile.getTerrain().getRandomTerrainObject()));
+                }
             }
         }
     }

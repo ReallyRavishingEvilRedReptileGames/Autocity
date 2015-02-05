@@ -1,8 +1,8 @@
 package com.fuzzy.autocity.terrain;
 
 import com.fuzzy.autocity.Terrain;
+import com.fuzzy.autocity.factories.WorldObjectFactory;
 import com.fuzzy.autocity.world.WorldObject;
-import com.fuzzy.autocity.world.resources.PineTree;
 
 public class Grass extends Terrain {
     public Grass() {
@@ -15,7 +15,7 @@ public class Grass extends Terrain {
 //        this.texture = new Texture(p);
     }
 
-    public WorldObject getRandomTerrainObject() {
-        return new PineTree();
+    public String getRandomTerrainObject() {
+        return "pine tree";
     }
 }

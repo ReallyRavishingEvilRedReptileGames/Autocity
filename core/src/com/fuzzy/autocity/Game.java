@@ -2,6 +2,7 @@ package com.fuzzy.autocity;
 
 import com.fuzzy.autocity.debugui.Cursor;
 import com.fuzzy.autocity.factories.WorldFactory;
+import com.fuzzy.autocity.factories.WorldObjectFactory;
 import com.fuzzy.autocity.simulation.Simulation;
 import com.fuzzy.autocity.world.WorldObject;
 import com.fuzzy.autocity.world.buildings.prefabs.Construction;
@@ -115,7 +116,7 @@ public class Game extends Thread implements Invokable {
                 return;
             case "placeworldobject":
             case "place":
-                WorldObject o = Devmode.returnNewWorldObject(tmp[2]);
+                WorldObject o = new WorldObjectFactory().createWorldObject(tmp[2]);
                 Tile t = this.world.getTile(this.cursor.getX(), this.cursor.getY());
                 if (o instanceof Construction) {
                     this.world.buildConstruction((Construction) o, t);

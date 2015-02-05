@@ -1,7 +1,16 @@
 package com.fuzzy.autocity.world.buildings.prefabs;
 
-public abstract class Research extends Building {
+public class Research extends Building {
+
     public Research() {
-        this.name = "Research";
+
+    }
+
+    public Research(Research r) {
+        this.name = r.getName();
+        this.width = r.getWidth();
+        this.height = r.getHeight();
+        this.character = r.getCharacter();
+        this.maxConstructionTime = r.getMaxConstructionTime();
     }
 }

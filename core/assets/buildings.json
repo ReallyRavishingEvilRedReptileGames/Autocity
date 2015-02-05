@@ -13,7 +13,24 @@
       "name": "Town Hall",
       "width": 3,
       "height": 2,
-      "character": "H"
+      "character": "H",
+      "maxConstructionTime": 1
+    },
+    {
+      "class": "com.fuzzy.autocity.world.buildings.prefabs.Research",
+      "width": 2,
+      "height": 2,
+      "name": "Alchemist Lab",
+      "character": "@",
+      "maxConstructionTime": 1
+    },
+    {
+      "class": "com.fuzzy.autocity.world.buildings.prefabs.Store",
+      "width": 2,
+      "height": 2,
+      "name": "Smithy",
+      "character": "?",
+      "maxConstructionTime": 1
     }
   ]
 }

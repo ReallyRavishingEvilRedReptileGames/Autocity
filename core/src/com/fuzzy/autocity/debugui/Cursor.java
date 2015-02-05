@@ -4,13 +4,11 @@ import com.fuzzy.autocity.*;
 import com.fuzzy.autocity.exceptions.TerrainConflictException;
 import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 import com.fuzzy.autocity.exceptions.WorldObjectConflictException;
+import com.fuzzy.autocity.factories.WorldObjectFactory;
 import com.fuzzy.autocity.world.WorldObject;
-import com.fuzzy.autocity.world.buildings.Hut;
 import com.fuzzy.autocity.world.buildings.prefabs.Building;
 import com.fuzzy.autocity.world.buildings.prefabs.Construction;
-import com.fuzzy.autocity.world.paths.Road;
 import com.fuzzy.autocity.world.paths.prefabs.Path;
-import com.fuzzy.autocity.world.resources.PineTree;
 
 import java.awt.event.KeyEvent;
 
@@ -87,9 +85,9 @@ public class Cursor implements Invokable {
     public void Place(KeyEvent e) {
         PlacementValidator p = new PlacementValidator(this.game.getWorld());
         Tile tile = getSelectedTile();
-
+        WorldObjectFactory wof = new WorldObjectFactory();
         if (e.getKeyChar() == 'r') {
-            this.o = new Road();
+            this.o = wof.createWorldObject("road");
             try {
                 p.validateWorldObject(o, this.x, this.y);
                 this.game.getWorld().buildConstruction((Path)o, tile);
@@ -99,7 +97,7 @@ public class Cursor implements Invokable {
             }
         } else if (e.getKeyChar() == 'h') {
             if (!this.buildingSelected) {
-                this.o = new Hut();
+                this.o = wof.createWorldObject("hut");
                 this.width = o.getWidth();
                 this.height = o.getHeight();
                 this.buildingSelected = true;
@@ -114,7 +112,7 @@ public class Cursor implements Invokable {
                 }
             }
         } else if (e.getKeyChar() == 't') {
-            this.o = new PineTree();
+            this.o = wof.createWorldObject("pine tree");
             try {
                 p.validateWorldObject(o, this.x, this.y);
                 this.game.getWorld().placeWorldObject(o, tile);

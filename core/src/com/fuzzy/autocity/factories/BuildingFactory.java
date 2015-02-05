@@ -33,6 +33,10 @@ public class BuildingFactory {
         return null;
     }
 
+    public ArrayList<Building> getList() {
+        return this.buildings;
+    }
+
 
     public void read() {
         for (Building b : buildings) {

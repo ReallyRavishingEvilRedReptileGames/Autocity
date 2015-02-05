@@ -1,0 +1,10 @@
+{
+  "paths": [
+    {
+      "class": "com.fuzzy.autocity.world.paths.prefabs.Path",
+      "name": "Road",
+      "character": "=",
+      "maxConstructionTime": 1
+    }
+  ]
+}
