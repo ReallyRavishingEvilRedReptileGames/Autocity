@@ -1,17 +1,10 @@
 package com.fuzzy.autocity;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.utils.Json;
 import com.fuzzy.autocity.debugui.Cursor;
-import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
-import com.fuzzy.autocity.factories.BuildingFactory;
 import com.fuzzy.autocity.factories.WorldFactory;
 import com.fuzzy.autocity.simulation.Simulation;
 import com.fuzzy.autocity.world.WorldObject;
-import com.fuzzy.autocity.world.buildings.Hut;
 import com.fuzzy.autocity.world.buildings.prefabs.Construction;
-import com.fuzzy.autocity.world.buildings.prefabs.Residential;
 
 public class Game extends Thread implements Invokable {
     private World world;
@@ -122,22 +115,23 @@ public class Game extends Thread implements Invokable {
                 return;
             case "placeworldobject":
             case "place":
-                    WorldObject o = Devmode.returnNewWorldObject(tmp[2]);
-                    Tile t = this.world.getTile(this.cursor.getX(), this.cursor.getY());
-                    if (o instanceof Construction) {
-                        this.world.buildConstruction((Construction) o, t);
-                    } else {
-                        this.world.placeWorldObject(o, t);
-                    }
+                WorldObject o = Devmode.returnNewWorldObject(tmp[2]);
+                Tile t = this.world.getTile(this.cursor.getX(), this.cursor.getY());
+                if (o instanceof Construction) {
+                    this.world.buildConstruction((Construction) o, t);
+                } else {
+                    this.world.placeWorldObject(o, t);
+                }
                 return;
             case "removeconstructable":
-                    WorldObject ro = this.world.getTile(this.cursor.getX(), this.cursor.getY()).getOccupyingObject();
-                    if (ro instanceof Construction) {
-                        this.world.removeConstruction((Construction) ro);
-                    }
+                WorldObject ro = this.world.getTile(this.cursor.getX(), this.cursor.getY()).getOccupyingObject();
+                if (ro instanceof Construction) {
+                    this.world.removeConstruction((Construction) ro);
+                }
                 return;
             default:
-                return;
+                System.out.println("Invalid command.");
+                System.out.println(" @" + this.getClass().getName());
         }
     }
 }

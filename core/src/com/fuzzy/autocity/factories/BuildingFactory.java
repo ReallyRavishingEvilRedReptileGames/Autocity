@@ -21,7 +21,7 @@ public class BuildingFactory {
     public Building create(String s) {
         Building returnable = null;
         for (Building b : buildings) {
-            System.out.println(b.getClass());
+            System.out.println(b.getWidth());
             if (s.equalsIgnoreCase(b.getName())) {
                     returnable = b;
             }

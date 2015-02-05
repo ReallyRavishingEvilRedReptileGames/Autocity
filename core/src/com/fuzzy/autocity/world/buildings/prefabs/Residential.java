@@ -14,7 +14,7 @@ public class Residential extends Building {
 
     public Residential(Residential r) {
         this.name = r.getName();
-        this.width = r.getWidth();
+        this.setWidth(r.getWidth());
         this.height = r.getHeight();
         this.character = r.getCharacter();
         this.maxConstructionTime = r.getMaxConstructionTime();
