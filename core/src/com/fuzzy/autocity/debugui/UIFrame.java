@@ -1,8 +1,5 @@
 package com.fuzzy.autocity.debugui;
 
-import com.fuzzy.autocity.Devmode;
-import com.fuzzy.autocity.Game;
-
 import javax.swing.*;
 import javax.swing.text.DefaultStyledDocument;
 import java.awt.*;

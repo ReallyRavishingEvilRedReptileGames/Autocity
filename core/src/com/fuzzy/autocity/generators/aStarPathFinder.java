@@ -2,7 +2,6 @@ package com.fuzzy.autocity.generators;
 
 import com.fuzzy.autocity.Tile;
 import com.fuzzy.autocity.World;
-import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 import com.fuzzy.autocity.terrain.Grass;
 import com.fuzzy.autocity.terrain.Water;
 
@@ -45,7 +44,7 @@ public class aStarPathFinder {
     }
 
     private class SortedList {
-        private ArrayList list = new ArrayList();
+        private ArrayList<Node> list = new ArrayList<Node>();
 
         public Object first() {
             return list.get(0);
@@ -55,12 +54,12 @@ public class aStarPathFinder {
             list.clear();
         }
 
-        public void add(Object o) {
+        public void add(Node o) {
             list.add(o);
             Collections.sort(list);
         }
 
-        public void remove(Object o) {
+        public void remove(Node o) {
             list.remove(o);
         }
 
@@ -68,12 +67,12 @@ public class aStarPathFinder {
             return list.size();
         }
 
-        public boolean contains(Object o) {
+        public boolean contains(Node o) {
             return list.contains(o);
         }
     }
 
-    private ArrayList closed = new ArrayList();
+    private ArrayList<Node> closed = new ArrayList<Node>();
     private SortedList open = new SortedList();
     private int maxSearchDistance;
     private World world;
@@ -156,7 +155,7 @@ public class aStarPathFinder {
         if (nodes[targetX][targetY].parent == null) {
             return null;
         }
-        ArrayList<Tile> t = null;
+        ArrayList<Tile> t;
             t = new ArrayList<>();
             Node target = nodes[targetX][targetY];
             while (target != nodes[startX][startY]) {
@@ -197,10 +196,7 @@ public class aStarPathFinder {
     }
 
     private boolean isBlockedTile(Tile tile) {
-        if (tile.getOccupyingObject() != null) {
-            return true;
-        }
-        return tile.getTerrain() instanceof Water;
+        return tile.getOccupyingObject() != null || tile.getTerrain() instanceof Water;
     }
 
     boolean isValidLocation(int startX, int startY, int x, int y) {

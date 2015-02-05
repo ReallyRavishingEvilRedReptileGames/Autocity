@@ -3,7 +3,6 @@ package com.fuzzy.autocity.debugui;
 import com.fuzzy.autocity.Game;
 import com.fuzzy.autocity.Tile;
 import com.fuzzy.autocity.World;
-import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 
 /**
  * Warning: only supports Windows because Consolas

@@ -4,7 +4,6 @@ import com.fuzzy.autocity.Settlement;
 import com.fuzzy.autocity.Tile;
 import com.fuzzy.autocity.World;
 import com.fuzzy.autocity.exceptions.PlacementAttemptsExceededException;
-import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 import com.fuzzy.autocity.generators.fractals.DiamondSquareFractal;
 import com.fuzzy.autocity.terrain.Grass;
 import com.fuzzy.autocity.terrain.Sand;

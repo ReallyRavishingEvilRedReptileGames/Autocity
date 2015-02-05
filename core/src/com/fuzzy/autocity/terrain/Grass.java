@@ -1,8 +1,5 @@
 package com.fuzzy.autocity.terrain;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
 import com.fuzzy.autocity.Terrain;
 import com.fuzzy.autocity.world.WorldObject;
 import com.fuzzy.autocity.world.resources.PineTree;

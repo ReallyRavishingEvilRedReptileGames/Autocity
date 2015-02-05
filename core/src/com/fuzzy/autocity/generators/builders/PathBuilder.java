@@ -3,7 +3,6 @@ package com.fuzzy.autocity.generators.builders;
 import com.fuzzy.autocity.Invokable;
 import com.fuzzy.autocity.Tile;
 import com.fuzzy.autocity.World;
-import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 import com.fuzzy.autocity.generators.aStarPathFinder;
 import com.fuzzy.autocity.world.paths.Road;
 

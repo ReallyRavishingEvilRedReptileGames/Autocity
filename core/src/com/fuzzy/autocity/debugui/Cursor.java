@@ -11,7 +11,6 @@ import com.fuzzy.autocity.world.buildings.prefabs.Construction;
 import com.fuzzy.autocity.world.paths.Road;
 import com.fuzzy.autocity.world.paths.prefabs.Path;
 import com.fuzzy.autocity.world.resources.PineTree;
-import com.fuzzy.autocity.world.resources.prefabs.Tree;
 
 import java.awt.event.KeyEvent;
 

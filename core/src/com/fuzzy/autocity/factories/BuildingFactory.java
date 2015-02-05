@@ -14,8 +14,7 @@ public class BuildingFactory {
 
     public static BuildingFactory initialize() {
         Json j = new Json();
-        BuildingFactory b = j.fromJson(BuildingFactory.class, Gdx.files.internal("buildings.json"));
-        return b;
+        return j.fromJson(BuildingFactory.class, Gdx.files.internal("buildings.json"));
     }
 
     public Building create(String s) {

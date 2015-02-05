@@ -1,7 +1,6 @@
 package com.fuzzy.autocity;
 
 import com.fuzzy.autocity.debugui.Cursor;
-import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 import com.fuzzy.autocity.generators.builders.PathBuilder;
 import com.fuzzy.autocity.world.WorldObject;
 import com.fuzzy.autocity.world.buildings.Alchemist;
