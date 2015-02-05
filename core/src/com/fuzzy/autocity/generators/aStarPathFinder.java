@@ -4,6 +4,7 @@ import com.fuzzy.autocity.Tile;
 import com.fuzzy.autocity.World;
 import com.fuzzy.autocity.terrain.Grass;
 import com.fuzzy.autocity.terrain.Water;
+import com.fuzzy.autocity.world.paths.prefabs.Path;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -196,7 +197,7 @@ public class aStarPathFinder {
     }
 
     private boolean isBlockedTile(Tile tile) {
-        return tile.getOccupyingObject() != null || tile.getTerrain() instanceof Water;
+        return tile.getOccupyingObject() != null && !isPath(tile) || tile.getTerrain() instanceof Water;
     }
 
     boolean isValidLocation(int startX, int startY, int x, int y) {
@@ -206,6 +207,10 @@ public class aStarPathFinder {
             return !isBlockedTile(world.getTile(x, y));
         }
         return !invalid;
+    }
+
+    private boolean isPath(Tile tile) {
+        return tile.getOccupyingObject() instanceof Path;
     }
 
     private float getTilePathCost(int x, int y, int targetX, int targetY) {

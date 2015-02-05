@@ -32,8 +32,9 @@ public class PathBuilder implements Invokable {
         aStarPathFinder f = new aStarPathFinder(world, defaultMaxSearchDistance);
         try {
             for (Tile t : f.findPath(startTile.getX(), startTile.getY(), targetTile.getX(), targetTile.getY())) {
-                Road r = new Road();
-                this.world.buildConstruction(r, t);
+                if (t.getOccupyingObject() == null) {
+                    this.world.buildConstruction(new Road(), t);
+                }
             }
         } catch (NullPointerException npe) {
             System.out.println("No path generated!");
