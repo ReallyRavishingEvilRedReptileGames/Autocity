@@ -1,13 +1,14 @@
 package com.fuzzy.autocity.world;
 
 import com.fuzzy.autocity.Character;
+import com.fuzzy.autocity.PlayerOwnable;
 import com.fuzzy.autocity.Tile;
 import com.fuzzy.autocity.World;
 import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 
 import java.util.HashSet;
 
-public abstract class WorldObject implements Comparable<WorldObject> {
+public abstract class WorldObject extends PlayerOwnable implements Comparable<WorldObject> {
     protected int width = 1;
     protected int height = 1;
     protected String customName;

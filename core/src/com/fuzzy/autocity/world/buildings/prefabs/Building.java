@@ -1,6 +1,7 @@
 package com.fuzzy.autocity.world.buildings.prefabs;
 
 import com.fuzzy.autocity.Character;
+import com.fuzzy.autocity.Player;
 import com.fuzzy.autocity.Settlement;
 import com.fuzzy.autocity.Tile;
 import com.fuzzy.autocity.enumeration.EBuildingStyle;
@@ -15,6 +16,7 @@ public abstract class Building extends Construction {
 
     public void setSettlement(Settlement settlement) {
         this.settlement = settlement;
+        this.player = settlement.getPlayer();
     }
 
     @Override

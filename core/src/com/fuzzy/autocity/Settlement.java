@@ -8,13 +8,12 @@ import com.fuzzy.autocity.world.buildings.prefabs.Residential;
 
 import java.util.HashSet;
 
-public class Settlement {
+public class Settlement extends PlayerOwnable {
     private HashSet<Building> buildings;
     private HashSet<Villager> citizens;
     private World world;
     private int originX;
     private int originY;
-    private Player owner;
     private Population population;
 
     public Settlement(World world, int originX, int originY) {
@@ -27,8 +26,8 @@ public class Settlement {
         this.initialize(world);
     }
 
-    public Settlement(World world, Player owner) {
-        this.initialize(world, owner);
+    public Settlement(World world, Player player) {
+        this.initialize(world, player);
     }
 
     public double getBirthRate() {
@@ -42,9 +41,9 @@ public class Settlement {
         this.population = new Population(this);
     }
 
-    private void initialize(World world, Player owner) {
+    private void initialize(World world, Player player) {
         this.world = world;
-        this.owner = owner;
+        this.player = player;
         this.buildings = new HashSet<>();
         this.citizens = new HashSet<>();
         this.population = new Population(this);
@@ -78,12 +77,18 @@ public class Settlement {
         return this.buildings;
     }
 
-    public Player getOwner() {
-        return this.owner;
+    public Player getPlayer() {
+        return this.player;
     }
 
-    public void setOwner(Player owner) {
-        this.owner = owner;
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    private void setBuildingPlayer(Player player) {
+        for (Building b : buildings) {
+            b.setPlayer(player);
+        }
     }
 
     public int getOriginX() {

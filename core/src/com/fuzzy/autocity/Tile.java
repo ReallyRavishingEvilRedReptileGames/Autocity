@@ -119,6 +119,12 @@ public class Tile implements Invokable {
                 case "getcharacter":
                     System.out.println(getCharacter());
                     return;
+                case "getowner":
+                    try {
+                        System.out.println(getOccupyingObject().getPlayer().getName());
+                    } catch (NullPointerException ignored) {
+                    }
+                    return;
                 default:
                     System.out.println("Invalid command.");
                     System.out.println(" @" + getClass().getName());

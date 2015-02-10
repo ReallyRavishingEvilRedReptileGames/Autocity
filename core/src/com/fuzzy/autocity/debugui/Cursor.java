@@ -108,7 +108,7 @@ public class Cursor implements Invokable {
                 this.game.getWorld().placeWorldObject(o, tile);
             }
             this.o = null;
-        } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException ignored) {
+        } catch (TileOutOfBoundsException | WorldObjectConflictException | TerrainConflictException | NullPointerException ignored) {
 
         }
     }
