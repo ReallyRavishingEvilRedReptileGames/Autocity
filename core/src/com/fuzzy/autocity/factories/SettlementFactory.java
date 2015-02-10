@@ -1,6 +1,7 @@
 package com.fuzzy.autocity.factories;
 
 import com.fuzzy.autocity.PlacementValidator;
+import com.fuzzy.autocity.Player;
 import com.fuzzy.autocity.Settlement;
 import com.fuzzy.autocity.World;
 import com.fuzzy.autocity.civilians.prefabs.Villager;
@@ -26,8 +27,8 @@ public class SettlementFactory {
         this.placementAttempts = placementAttempts;
     }
 
-    public Settlement generate(World world) throws PlacementAttemptsExceededException {
-        settlement = new Settlement(world);
+    public Settlement generate(World world, Player p) throws PlacementAttemptsExceededException {
+        settlement = new Settlement(world, p);
         BuildingFactory bf = BuildingFactory.initialize();
         place();
         addRoads();
@@ -38,6 +39,7 @@ public class SettlementFactory {
 
         for (int i = 0; i < hutCount; i++) {
             addBuilding(bf.create("hut"));
+
         }
 
         addPopulation();
@@ -91,6 +93,8 @@ public class SettlementFactory {
 
     private void addBuilding(Building building) {
         System.out.println("Adding building " + building);
+
+        this.settlement.addBuilding(building);
 
         building.setSettlement(this.settlement);
 

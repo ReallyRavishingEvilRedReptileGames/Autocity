@@ -27,12 +27,24 @@ public class Settlement {
         this.initialize(world);
     }
 
+    public Settlement(World world, Player owner) {
+        this.initialize(world, owner);
+    }
+
     public double getBirthRate() {
         return 0.1;
     }
 
     private void initialize(World world) {
         this.world = world;
+        this.buildings = new HashSet<>();
+        this.citizens = new HashSet<>();
+        this.population = new Population(this);
+    }
+
+    private void initialize(World world, Player owner) {
+        this.world = world;
+        this.owner = owner;
         this.buildings = new HashSet<>();
         this.citizens = new HashSet<>();
         this.population = new Population(this);

@@ -17,7 +17,6 @@ public class BuildingFactory {
 
     public Building create(String s) {
         for (Building b : buildings) {
-            System.out.println(b.getWidth());
             if (s.equalsIgnoreCase(b.getName())) {
                 if (b instanceof Civic) {
                     return new Civic((Civic) b);

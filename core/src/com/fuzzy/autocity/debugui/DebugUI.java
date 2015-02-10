@@ -70,7 +70,7 @@ public class DebugUI extends Thread {
         int x = cursor.getX();
         int y = cursor.getY();
 
-        return String.format("Rrerr~ Map Format: %dx%d, Number of settlements: %d, X: %d Y: %d", width, height, world.getSettlements().size(), x, y);
+        return String.format("Rrerr~ Map Format: %dx%d, Number of settlements: %d, X: %d Y: %d Player: %s", width, height, world.getSettlements().size(), x, y, this.game.getPlayer().getName());
     }
 
     private StringBuffer getMapText() {

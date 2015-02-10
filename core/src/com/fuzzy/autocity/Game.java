@@ -7,6 +7,8 @@ import com.fuzzy.autocity.simulation.Simulation;
 import com.fuzzy.autocity.world.WorldObject;
 import com.fuzzy.autocity.world.buildings.prefabs.Construction;
 
+import java.util.ArrayList;
+
 public class Game extends Thread implements Invokable {
     private World world;
     private boolean isRunning = true;
@@ -15,6 +17,7 @@ public class Game extends Thread implements Invokable {
     private Simulation simulation;
     private Cursor cursor;
     private Devmode dev;
+    private static ArrayList<Player> playerList = new ArrayList<>();
 
     public Game() {
         this.startGame();
@@ -25,10 +28,12 @@ public class Game extends Thread implements Invokable {
         this.world = null;
         this.cursor = null;
         this.dev = null;
+        playerList.clear();
         this.startGame();
     }
 
     public void startGame() {
+        playerList.add(new HumanPlayer());
         System.out.println("Generating world...");
         WorldFactory builder = new WorldFactory();
         this.world = builder.generate(150, 100);
@@ -56,6 +61,14 @@ public class Game extends Thread implements Invokable {
 
     public Devmode getDev() {
         return this.dev;
+    }
+
+    public static Player getPlayer() {
+        return playerList.get(0);
+    }
+
+    public static ArrayList<Player> getPlayerList() {
+        return playerList;
     }
 
     public void run() {

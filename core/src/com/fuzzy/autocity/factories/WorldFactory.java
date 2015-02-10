@@ -1,8 +1,6 @@
 package com.fuzzy.autocity.factories;
 
-import com.fuzzy.autocity.Settlement;
-import com.fuzzy.autocity.Tile;
-import com.fuzzy.autocity.World;
+import com.fuzzy.autocity.*;
 import com.fuzzy.autocity.exceptions.PlacementAttemptsExceededException;
 import com.fuzzy.autocity.generators.fractals.DiamondSquareFractal;
 import com.fuzzy.autocity.terrain.Grass;
@@ -16,6 +14,7 @@ public class WorldFactory {
     private int sizeX;
     private int sizeY;
     private World world;
+    private int regenAttempts = 0;
 
     private double foliageRequiredFractalValue = 0.4;
 
@@ -35,21 +34,23 @@ public class WorldFactory {
         this.generateHeight();
         this.generateTerrain();
         this.generateFoliage();
-        this.generateSettlements();
+        try {
+            this.generateSettlements();
+        } catch (PlacementAttemptsExceededException e) {
+            generate(sizeX, sizeY);
+            regenAttempts++;
+            System.out.print("Attempt #" + regenAttempts + " ");
+        }
 
         return this.world;
     }
 
-    private void generateSettlements() {
+    private void generateSettlements() throws PlacementAttemptsExceededException {
         SettlementFactory settlementFactory = new SettlementFactory();
 
-        for (int i = 0; i < 5; i++) {
-            try {
-                Settlement settlement = settlementFactory.generate(world);
-                world.addSettlement(settlement);
-            } catch (PlacementAttemptsExceededException e) {
-                //
-            }
+        for (Player p : Game.getPlayerList()) {
+            Settlement settlement = settlementFactory.generate(world, p);
+            world.addSettlement(settlement);
         }
     }
 
