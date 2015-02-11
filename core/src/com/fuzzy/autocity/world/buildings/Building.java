@@ -26,7 +26,7 @@ public class Building extends Construction {
         this.width = b.getWidth();
         this.height = b.getHeight();
         this.character = b.getCharacter();
-        this.maxConstructionTime = b.getMaxConstructionTime();
+        this.constructionDuration = b.getConstructionDuration();
         //this.archetype = b.archetype;
         //this.baseCapacity = b.getBaseCapacity();
     }
