@@ -5,13 +5,14 @@ import com.fuzzy.autocity.Player;
 import com.fuzzy.autocity.Settlement;
 import com.fuzzy.autocity.World;
 import com.fuzzy.autocity.civilians.prefabs.Villager;
+import com.fuzzy.autocity.dictionary.Buildings;
 import com.fuzzy.autocity.exceptions.BuildingConflictException;
 import com.fuzzy.autocity.exceptions.PlacementAttemptsExceededException;
 import com.fuzzy.autocity.exceptions.TerrainConflictException;
 import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 import com.fuzzy.autocity.generators.builders.PathBuilder;
 import com.fuzzy.autocity.generators.builders.SettlementBuilder;
-import com.fuzzy.autocity.world.buildings.prefabs.Building;
+import com.fuzzy.autocity.world.buildings.Building;
 
 import java.util.Random;
 
@@ -29,16 +30,17 @@ public class SettlementFactory {
 
     public Settlement generate(World world, Player p) throws PlacementAttemptsExceededException {
         settlement = new Settlement(world, p);
-        BuildingFactory bf = BuildingFactory.initialize();
+        Buildings bf = Buildings.getInstance();
+
         place();
         addRoads();
-        addBuilding(bf.create("town hall"));
+        addBuilding(bf.create("Town Hall"));
 
         // Add 2-4 huts
         int hutCount = new Random().nextInt(2) + 2;
 
         for (int i = 0; i < hutCount; i++) {
-            addBuilding(bf.create("hut"));
+            addBuilding(bf.create("Hut"));
 
         }
 

@@ -6,7 +6,7 @@ import com.fuzzy.autocity.enumeration.EDirection;
 import com.fuzzy.autocity.exceptions.TerrainConflictException;
 import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 import com.fuzzy.autocity.exceptions.WorldObjectConflictException;
-import com.fuzzy.autocity.world.buildings.prefabs.Building;
+import com.fuzzy.autocity.world.buildings.Building;
 
 /**
  * A builder class designed to

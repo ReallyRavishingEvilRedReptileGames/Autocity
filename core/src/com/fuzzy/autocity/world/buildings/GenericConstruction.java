@@ -1,7 +1,5 @@
 package com.fuzzy.autocity.world.buildings;
 
-import com.fuzzy.autocity.world.buildings.prefabs.Construction;
-
 public class GenericConstruction extends Construction {
     private Construction construction;
 

@@ -2,7 +2,7 @@ package com.fuzzy.autocity;
 
 import com.fuzzy.autocity.terrain.*;
 import com.fuzzy.autocity.world.WorldObject;
-import com.fuzzy.autocity.world.buildings.prefabs.Building;
+import com.fuzzy.autocity.world.buildings.Building;
 
 public class Tile implements Invokable {
     protected char character;

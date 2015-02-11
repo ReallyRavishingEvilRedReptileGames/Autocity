@@ -6,7 +6,7 @@ import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 import com.fuzzy.autocity.exceptions.WorldObjectConflictException;
 import com.fuzzy.autocity.terrain.Water;
 import com.fuzzy.autocity.world.WorldObject;
-import com.fuzzy.autocity.world.buildings.prefabs.Building;
+import com.fuzzy.autocity.world.buildings.Building;
 
 public class PlacementValidator {
     private World world;

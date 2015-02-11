@@ -1,59 +1,39 @@
 {
-  "buildings": [
-    /*
-    RESIDENTIAL
-    */
-    {
-      "class": "com.fuzzy.autocity.world.buildings.prefabs.Residential",
+  "buildings": {
+    "Hut": {
       "width": 2,
       "height": 2,
       "name": "Hut",
       "character": "^",
       "maxConstructionTime": 5
     },
-    /*
-CIVIC
-*/
-    {
-      "class": "com.fuzzy.autocity.world.buildings.prefabs.Civic",
+    "Town Hall": {
       "name": "Town Hall",
       "width": 3,
       "height": 2,
       "character": "H",
       "maxConstructionTime": 10
     },
-    /*
-SPECIAL
-*/
-    {
-      "class": "com.fuzzy.autocity.world.buildings.prefabs.Special",
+    "Alchemist Lab": {
       "width": 2,
       "height": 2,
       "name": "Alchemist Lab",
       "character": "@",
       "maxConstructionTime": 20
     },
-    /*
-INDUSTRY
-*/
-    {
-      "class": "com.fuzzy.autocity.world.buildings.prefabs.Industrial",
+    "Smithy": {
       "width": 2,
       "height": 2,
       "name": "Smithy",
       "character": "?",
       "maxConstructionTime": 20
     },
-    /*
-MILITARY
-*/
-    {
-      "class": "com.fuzzy.autocity.world.buildings.prefabs.Military",
+    "Outpost": {
       "name": "Outpost",
       "width": 1,
       "height": 1,
       "character": "+",
       "maxConstructionTime": 5
     }
-  ]
+  }
 }

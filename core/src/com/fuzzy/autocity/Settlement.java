@@ -3,8 +3,8 @@ package com.fuzzy.autocity;
 import com.fuzzy.autocity.civilians.prefabs.Villager;
 import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 import com.fuzzy.autocity.simulation.Population;
-import com.fuzzy.autocity.world.buildings.prefabs.Building;
-import com.fuzzy.autocity.world.buildings.prefabs.Residential;
+import com.fuzzy.autocity.world.buildings.Building;
+import com.fuzzy.autocity.world.buildings.EArchetype;
 
 import java.util.HashSet;
 
@@ -119,8 +119,8 @@ public class Settlement extends PlayerOwnable {
         int capacity = 0;
 
         for (Building building : this.buildings) {
-            if (building instanceof Residential) {
-                capacity += ((Residential) building).getBaseCapacity();
+            if (building.hasArchetype(EArchetype.Residential)) {
+                capacity += building.getBaseCapacity();
             }
         }
 

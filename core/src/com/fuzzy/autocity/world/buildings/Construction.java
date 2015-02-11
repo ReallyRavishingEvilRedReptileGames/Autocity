@@ -1,4 +1,4 @@
-package com.fuzzy.autocity.world.buildings.prefabs;
+package com.fuzzy.autocity.world.buildings;
 
 import com.fuzzy.autocity.world.WorldObject;
 

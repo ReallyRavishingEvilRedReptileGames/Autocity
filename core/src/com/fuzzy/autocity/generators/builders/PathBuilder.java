@@ -5,7 +5,7 @@ import com.fuzzy.autocity.Tile;
 import com.fuzzy.autocity.World;
 import com.fuzzy.autocity.factories.WorldObjectFactory;
 import com.fuzzy.autocity.generators.aStarPathFinder;
-import com.fuzzy.autocity.world.buildings.prefabs.Construction;
+import com.fuzzy.autocity.world.buildings.Construction;
 
 public class PathBuilder implements Invokable {
     private World world;

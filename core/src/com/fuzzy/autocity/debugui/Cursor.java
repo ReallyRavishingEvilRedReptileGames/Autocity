@@ -6,7 +6,7 @@ import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 import com.fuzzy.autocity.exceptions.WorldObjectConflictException;
 import com.fuzzy.autocity.factories.WorldObjectFactory;
 import com.fuzzy.autocity.world.WorldObject;
-import com.fuzzy.autocity.world.buildings.prefabs.Construction;
+import com.fuzzy.autocity.world.buildings.Construction;
 
 import java.awt.event.KeyEvent;
 import java.lang.Character;

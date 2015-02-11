@@ -1,6 +1,6 @@
 package com.fuzzy.autocity.exceptions;
 
-import com.fuzzy.autocity.world.buildings.prefabs.Building;
+import com.fuzzy.autocity.world.buildings.Building;
 
 public class BuildingConflictException extends Exception {
     private Building building;

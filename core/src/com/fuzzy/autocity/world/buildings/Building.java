@@ -1,18 +1,35 @@
-package com.fuzzy.autocity.world.buildings.prefabs;
+package com.fuzzy.autocity.world.buildings;
 
 import com.fuzzy.autocity.Character;
-import com.fuzzy.autocity.Player;
 import com.fuzzy.autocity.Settlement;
 import com.fuzzy.autocity.Tile;
 import com.fuzzy.autocity.enumeration.EBuildingStyle;
 
-public abstract class Building extends Construction {
+import java.util.ArrayList;
+
+public class Building extends Construction {
 
     protected EBuildingStyle style = EBuildingStyle.Generic;
     protected int width = 3;
     protected int height = 2;
     protected Settlement settlement;
     protected Character owner;
+    //protected EArchetype archetype;
+    //protected int baseCapacity;
+
+    public Building() {
+
+    }
+
+    public Building(Building b) {
+        this.name = b.getName();
+        this.width = b.getWidth();
+        this.height = b.getHeight();
+        this.character = b.getCharacter();
+        this.maxConstructionTime = b.getMaxConstructionTime();
+        //this.archetype = b.archetype;
+        //this.baseCapacity = b.getBaseCapacity();
+    }
 
     public void setSettlement(Settlement settlement) {
         this.settlement = settlement;
@@ -34,5 +51,14 @@ public abstract class Building extends Construction {
         this.owner = null;
 
         this.onDestroy();
+    }
+
+    public boolean hasArchetype(EArchetype archetype) {
+        return true; //todo
+    }
+
+    public int getBaseCapacity() {
+        //return baseCapacity;
+        return 0;
     }
 }

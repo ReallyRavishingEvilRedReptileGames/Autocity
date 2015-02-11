@@ -1,7 +1,7 @@
 package com.fuzzy.autocity;
 
 import com.fuzzy.autocity.enumeration.EThoughtType;
-import com.fuzzy.autocity.world.buildings.prefabs.Building;
+import com.fuzzy.autocity.world.buildings.Building;
 
 public class Thought {
     private EThoughtType type;
