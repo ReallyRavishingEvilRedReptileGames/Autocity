@@ -31,7 +31,7 @@ public class GenericConstruction extends Construction {
 
     public void Construct() {
         if (this.constructionTime < this.maxConstructionTime) {
-            this.constructionTime += constructionSpeed * 1;
+            this.constructionTime += constructionSpeed;
         } else {
             this.constructed = true;
         }
@@ -40,7 +40,7 @@ public class GenericConstruction extends Construction {
 
     public void deConstruct() {
         if (this.constructionTime < this.maxConstructionTime) {
-            this.constructionTime += constructionSpeed * 1;
+            this.constructionTime += constructionSpeed;
         } else {
             System.out.println(tiles);
             this.constructed = false;
