@@ -1,8 +1,12 @@
 package com.fuzzy.autocity;
 
-public interface Invokable {
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import static java.lang.annotation.ElementType.*;
 
-    final String delimiter = "\\.";
-
-    void Execute(String command);
+@Retention(RetentionPolicy.RUNTIME)
+@Target(value={METHOD, TYPE})
+public @interface Invokable {
+// Marks a class or method so it can be invoked at runtime.
 }

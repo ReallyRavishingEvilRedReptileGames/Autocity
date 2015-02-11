@@ -4,7 +4,8 @@ import com.fuzzy.autocity.terrain.*;
 import com.fuzzy.autocity.world.WorldObject;
 import com.fuzzy.autocity.world.buildings.Building;
 
-public class Tile implements Invokable {
+@Invokable
+public class Tile {
     protected char character;
     private WorldObject occupyingObject;
     private Terrain terrain;
@@ -17,6 +18,7 @@ public class Tile implements Invokable {
         this.y = y;
     }
 
+    @Invokable
     public Terrain getTerrain() {
         return terrain;
     }
@@ -25,7 +27,8 @@ public class Tile implements Invokable {
         this.terrain = terrain;
     }
 
-    private void setTerrain(String s) {
+    @Invokable
+    public void setTerrain(String s) {
         switch (s.toLowerCase()) {
             case "grass":
                 this.terrain = new Grass();
@@ -41,6 +44,7 @@ public class Tile implements Invokable {
         }
     }
 
+    @Invokable
     public WorldObject getOccupyingObject() {
         return occupyingObject;
     }
@@ -49,6 +53,7 @@ public class Tile implements Invokable {
         this.occupyingObject = occupyingObject;
     }
 
+    @Invokable
     public void placeBuilding(Building b) {
         if (this.occupyingObject != null) {
             this.occupyingObject.destroy();
@@ -64,10 +69,12 @@ public class Tile implements Invokable {
         return y;
     }
 
+    @Invokable
     public int getHeight() {
         return height;
     }
 
+    @Invokable
     public void setHeight(int height) {
         this.height = height;
     }
@@ -84,54 +91,4 @@ public class Tile implements Invokable {
         }
     }
 
-    @Override
-    public void Execute(String command) {
-        String[] tmp = command.split(delimiter);
-        try {
-            switch (tmp[1].toLowerCase()) {
-                case "help":
-                    System.out.println("GetTerrain, SetTerrain, GetOccupyingObject, GetHeight, ToString, GetCharacter");
-                    return;
-                case "getterrain":
-                    System.out.println(getTerrain());
-                    return;
-                case "setterrain":
-                    setTerrain(tmp[2]);
-                    System.out.println(getTerrain());
-                    return;
-                case "getoccupyingobject":
-                    System.out.println(getOccupyingObject());
-                    return;
-                case "getheight":
-                    System.out.println(getHeight());
-                    return;
-                case "setheight":
-                    try {
-                        setHeight(Integer.valueOf(tmp[2]));
-                    } catch (NumberFormatException nfe) {
-                        System.out.println("Invalid command.");
-                        System.out.println(" @" + getClass().getName());
-                    }
-                    return;
-                case "tostring":
-                    System.out.println(toString());
-                    return;
-                case "getcharacter":
-                    System.out.println(getCharacter());
-                    return;
-                case "getowner":
-                    try {
-                        System.out.println(getOccupyingObject().getPlayer().getName());
-                    } catch (NullPointerException ignored) {
-                    }
-                    return;
-                default:
-                    System.out.println("Invalid command.");
-                    System.out.println(" @" + getClass().getName());
-            }
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Invalid command.");
-            System.out.println(" @" + getClass().getName());
-        }
-    }
 }

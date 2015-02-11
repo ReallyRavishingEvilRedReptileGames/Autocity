@@ -11,6 +11,6 @@ public class Path extends Construction {
     public Path(Path p) {
         this.name = p.getName();
         this.character = p.getCharacter();
-        this.maxConstructionTime = p.getMaxConstructionTime();
+        this.constructionDuration = p.getConstructionDuration();
     }
 }

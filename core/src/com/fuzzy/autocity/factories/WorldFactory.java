@@ -41,7 +41,7 @@ public class WorldFactory {
             regenAttempts++;
             System.out.print("Attempt #" + regenAttempts + " ");
         }
-
+        System.out.println();
         return this.world;
     }
 

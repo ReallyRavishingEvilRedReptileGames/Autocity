@@ -5,35 +5,35 @@
       "height": 2,
       "name": "Hut",
       "character": "^",
-      "maxConstructionTime": 5
+      "constructionDuration": 5
     },
     "Town Hall": {
       "name": "Town Hall",
       "width": 3,
       "height": 2,
       "character": "H",
-      "maxConstructionTime": 10
+      "constructionDuration": 10
     },
     "Alchemist Lab": {
       "width": 2,
       "height": 2,
       "name": "Alchemist Lab",
       "character": "@",
-      "maxConstructionTime": 20
+      "constructionDuration": 20
     },
     "Smithy": {
       "width": 2,
       "height": 2,
       "name": "Smithy",
       "character": "?",
-      "maxConstructionTime": 20
+      "constructionDuration": 20
     },
     "Outpost": {
       "name": "Outpost",
       "width": 1,
       "height": 1,
       "character": "+",
-      "maxConstructionTime": 5
+      "constructionDuration": 5
     }
   }
 }

@@ -9,46 +9,56 @@ import com.fuzzy.autocity.world.buildings.Construction;
 
 import java.util.ArrayList;
 
-public class Game extends Thread implements Invokable {
+@Invokable
+public class Game extends Thread {
     private World world;
     private boolean isRunning = true;
     private long lastLoop = System.nanoTime();
     private double delta = 0;
     private Simulation simulation;
     private Cursor cursor;
-    private Devmode dev;
+    private DevelopmentMode dev;
     private static ArrayList<Player> playerList = new ArrayList<>();
 
     public Game() {
+        playerList.add(new HumanPlayer());
         this.startGame();
     }
 
+    @Invokable
     public void restartGame() {
         this.simulation = null;
         this.world = null;
         this.cursor = null;
         this.dev = null;
-        playerList.clear();
         this.startGame();
     }
 
+    @Invokable
+    public void restartGame(int x, int y) {
+        this.simulation = null;
+        this.world = null;
+        this.cursor = null;
+        this.dev = null;
+        this.startGame(x, y);
+    }
+
     public void startGame() {
-        playerList.add(new HumanPlayer());
         System.out.println("Generating world...");
         WorldFactory builder = new WorldFactory();
         this.world = builder.generate(150, 100);
         this.simulation = new Simulation(this);
         this.cursor = new Cursor(this);
-        this.dev = new Devmode(this, this.cursor);
+        this.dev = new DevelopmentMode(this, this.cursor);
     }
 
-    private void newMap(int x, int y) {
+    private void startGame(int x, int y) {
         System.out.println("Generating world...");
         WorldFactory builder = new WorldFactory();
         this.world = builder.generate(x, y);
         this.simulation = new Simulation(this);
         this.cursor = new Cursor(this);
-        this.dev = new Devmode(this, this.cursor);
+        this.dev = new DevelopmentMode(this, this.cursor);
     }
 
     public World getWorld() {
@@ -59,10 +69,11 @@ public class Game extends Thread implements Invokable {
         return this.cursor;
     }
 
-    public Devmode getDev() {
+    public DevelopmentMode getDev() {
         return this.dev;
     }
 
+    @Invokable
     public static Player getPlayer() {
         return playerList.get(0);
     }
@@ -114,37 +125,4 @@ public class Game extends Thread implements Invokable {
         this.simulation.onTick();
     }
 
-    @Override
-    public void Execute(String command) {
-        String[] tmp = command.split(delimiter);
-        switch (tmp[1]) {
-            case "newmap":
-                try {
-                    newMap(Integer.valueOf(tmp[2]), Integer.valueOf(tmp[3]));
-                } catch (NumberFormatException nfe) {
-                    System.out.println("Invalid command.");
-                    System.out.println(" @" + this.getClass().getName());
-                }
-                return;
-            case "placeworldobject":
-            case "place":
-                WorldObject o = new WorldObjectFactory().createWorldObject(tmp[2]);
-                Tile t = this.world.getTile(this.cursor.getX(), this.cursor.getY());
-                if (o instanceof Construction) {
-                    this.world.buildConstruction((Construction) o, t);
-                } else {
-                    this.world.placeWorldObject(o, t);
-                }
-                return;
-            case "removeconstructable":
-                WorldObject ro = this.world.getTile(this.cursor.getX(), this.cursor.getY()).getOccupyingObject();
-                if (ro instanceof Construction) {
-                    this.world.removeConstruction((Construction) ro);
-                }
-                return;
-            default:
-                System.out.println("Invalid command.");
-                System.out.println(" @" + this.getClass().getName());
-        }
-    }
 }

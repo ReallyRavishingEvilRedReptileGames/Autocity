@@ -7,7 +7,10 @@ import com.fuzzy.autocity.factories.WorldObjectFactory;
 import com.fuzzy.autocity.generators.aStarPathFinder;
 import com.fuzzy.autocity.world.buildings.Construction;
 
-public class PathBuilder implements Invokable {
+import java.util.Arrays;
+
+@Invokable
+public class PathBuilder {
     private World world;
     private int range = 2;
     private int min = 2;
@@ -43,16 +46,4 @@ public class PathBuilder implements Invokable {
         }
     }
 
-    @Override
-    public void Execute(String command) {
-        String[] tmp = command.split(delimiter);
-        switch (tmp[1]) {
-            case "generate":
-                try {
-                    generate(world.getTile(Integer.valueOf(tmp[2]), Integer.valueOf(tmp[3])),
-                            world.getTile(Integer.valueOf(tmp[4]), Integer.valueOf(tmp[5])));
-                } catch (NumberFormatException ignored) {
-                }
-        }
-    }
 }

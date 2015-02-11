@@ -8,8 +8,7 @@ public class GenericConstruction extends Construction {
         this.construction = c;
         this.width = c.getWidth();
         this.height = c.getHeight();
-        this.constructionSpeed = c.getConstructionSpeed();
-        this.maxConstructionTime = c.getMaxConstructionTime();
+        this.constructionDuration = c.getConstructionDuration();
         this.tiles.forEach(construction::addTile);
         this.character = '%';
     }
@@ -19,8 +18,7 @@ public class GenericConstruction extends Construction {
         this.construction = c;
         this.width = c.getWidth();
         this.height = c.getHeight();
-        this.constructionSpeed = c.getConstructionSpeed();
-        this.maxConstructionTime = c.getMaxConstructionTime();
+        this.constructionDuration = c.getConstructionDuration();
         this.tiles.forEach(construction::addTile);
         this.character = '%';
         this.constructed = b;
@@ -28,8 +26,9 @@ public class GenericConstruction extends Construction {
 
 
     public void Construct() {
-        if (this.constructionTime < this.maxConstructionTime) {
-            this.constructionTime += constructionSpeed;
+        System.out.println(this.constructionProgress);
+        if (this.constructionProgress < this.constructionDuration) {
+            this.constructionProgress += constructionSpeed;
         } else {
             this.constructed = true;
         }
@@ -37,10 +36,9 @@ public class GenericConstruction extends Construction {
     }
 
     public void deConstruct() {
-        if (this.constructionTime < this.maxConstructionTime) {
-            this.constructionTime += constructionSpeed;
+        if (this.constructionProgress < this.constructionDuration) {
+            this.constructionProgress += constructionSpeed;
         } else {
-            System.out.println(tiles);
             this.constructed = false;
             this.destroy();
         }

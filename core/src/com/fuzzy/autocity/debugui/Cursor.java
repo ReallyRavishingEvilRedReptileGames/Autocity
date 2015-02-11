@@ -13,7 +13,8 @@ import java.lang.Character;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Cursor implements Invokable {
+@Invokable
+public class Cursor {
     private int x = 0, y = 0;
     private int width = 1, height = 1;
     private boolean buildingSelected = false;
@@ -120,28 +121,4 @@ public class Cursor implements Invokable {
         }
     }
 
-
-    @Override
-    public void Execute(String command) {
-        String[] tmp = command.split(delimiter);
-        switch (tmp[1]) {
-            case "help":
-                System.out.println("GetCoords, SetCoords");
-                return;
-            case "getcoords":
-                System.out.println("X: " + getX() + " Y: " + getY());
-                return;
-            case "setcoords":
-                try {
-                    setCoords(Integer.valueOf(tmp[2]), Integer.valueOf(tmp[3]));
-                } catch (NumberFormatException nfe) {
-                    System.out.println("Invalid command.");
-                    System.out.println(" @" + this.getClass().getName());
-                }
-                return;
-            default:
-                System.out.println("Invalid command.");
-                System.out.println(" @" + this.getClass().getName());
-        }
-    }
 }
