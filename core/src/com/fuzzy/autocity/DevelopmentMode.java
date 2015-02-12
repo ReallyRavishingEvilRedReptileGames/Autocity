@@ -1,7 +1,10 @@
 package com.fuzzy.autocity;
 
 import com.fuzzy.autocity.debugui.Cursor;
+import com.fuzzy.autocity.factories.WorldObjectFactory;
 import com.fuzzy.autocity.generators.builders.PathBuilder;
+import com.fuzzy.autocity.world.WorldObject;
+import com.fuzzy.autocity.world.buildings.Construction;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -35,8 +38,12 @@ public class DevelopmentMode {
             case "Pathbuilder":
                 commandLookup(command, new PathBuilder(this.game.getWorld()));
                 return;
+            case "World":
+                commandLookup(command, this.game.getWorld());
+                return;
             case "Help":
                 System.out.println("Usage: \"[module] Help\" \n Example: \"Game Help\"");
+                System.out.println("Valid modules:\n Tile \n Game \n Object \n Pathbuilder \n World");
 
         }
     }
@@ -70,13 +77,22 @@ public class DevelopmentMode {
                     } else if (invokable.getParameterTypes()[x].equals(Integer.TYPE)) {
                         args[x] = Integer.valueOf(command[x + 2]);
                     } else if (invokable.getParameterTypes()[x].equals(Tile.class)) {
-                        int i = x + 2;
-                        int j = x + 3;
-                        if (x != 0) { // Magic
-                            i++;
-                            j++;
+                        if (command[0].contains("Pathbuilder")) { // Pathbuilder has to be handled differently
+                            int i = x + 2;
+                            int j = x + 3;
+                            if (x != 0) { // Array offsetting stuff to get correct index
+                                i++;
+                                j++;
+                            }
+                            args[x] = this.game.getWorld().getTile(Integer.valueOf(command[i]), Integer.valueOf(command[j]));
+                        } else {
+                            args[x] = this.game.getWorld().getTile(this.cursor.getX(), this.cursor.getY());
                         }
-                        args[x] = this.game.getWorld().getTile(Integer.valueOf(command[i]), Integer.valueOf(command[j]));
+                        // Can't create any world objects that have spaces in their name right now.
+                    } else if (invokable.getParameterTypes()[x].equals(Construction.class)) {
+                        args[x] = new WorldObjectFactory().createWorldObject(command[x + 2]);
+                    } else if (invokable.getParameterTypes()[x].equals(WorldObject.class)) {
+                        args[x] = new WorldObjectFactory().createWorldObject(command[x + 2]);
                     } else {
                         System.out.println(invokable.getParameterTypes()[x].toString());
                         System.out.println("Can't let you do that STARFOX!");
@@ -93,7 +109,5 @@ public class DevelopmentMode {
             System.out.println(invokable.getName() + " " + invokable.invoke(invokingObject));
         }
     }
-
-
 }
 
