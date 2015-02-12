@@ -4,6 +4,7 @@ import com.fuzzy.autocity.debugui.Cursor;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 public class DevelopmentMode {
 
@@ -16,28 +17,35 @@ public class DevelopmentMode {
         this.cursor = cursor;
     }
 
-    public void commandLookup(String command) { // This is still being worked on
+    public void Execute(String command) {
         System.out.println(">" + command);
         String[] tmp = command.split(deLimiter);
+
+        switch (tmp[0]) {
+            case "Tile":
+                commandLookup(command, this.game.getWorld().getTile(this.cursor.getX(), this.cursor.getY()));
+                return;
+            case "Game":
+                commandLookup(command, this.game);
+                return;
+            case "Help":
+                System.out.println("Usage: \"[module] Help\" \n Example: \"Game Help\"");
+
+        }
+    }
+
+    private void commandLookup(String command, Object invokingObject) {
+        String[] tmp = command.split(deLimiter);
         try {
-            switch (tmp[0]) {
-                case "tile":
-                    for (Method invokable : Tile.class.getDeclaredMethods()) {
-                        if (invokable.isAnnotationPresent(Invokable.class)) {
-                            System.out.println(invokable.getName());
-                        }
+            for (Method invokable : invokingObject.getClass().getDeclaredMethods()) {
+                if (invokable.isAnnotationPresent(Invokable.class)) {
+                    if (tmp[1].contains("Help")) {
+                        System.out.println(invokable.getName() + Arrays.toString(invokable.getParameterTypes()) + " returns type: " + invokable.getReturnType());
+                    } else if (invokable.getName().contains(tmp[1])) {
+                        invokeCommand(invokable, invokingObject, tmp);
+                        return;
                     }
-                    return;
-                case "game":
-                    for (Method invokable : this.game.getClass().getDeclaredMethods()) {
-                        if (invokable.isAnnotationPresent(Invokable.class)) {
-                            System.out.println(invokable.getName());
-                            if (invokable.getName().contains(tmp[1])) {
-                                invokeCommand(invokable, this.game, tmp);
-                                return;
-                            }
-                        }
-                    }
+                }
             }
         } catch (Exception e) {
             System.out.println("Invalid command @" + e.toString());
@@ -47,23 +55,26 @@ public class DevelopmentMode {
     private void invokeCommand(Method invokable, Object invokingObject, String[] command) throws InvocationTargetException, IllegalAccessException {
 
         if (invokable.getReturnType().equals(Void.TYPE)) {
-            if (invokable.getGenericParameterTypes() != null) {
-                Object[] args = new Object[invokable.getGenericParameterTypes().length];
+            if (invokable.getParameterCount() != 0) {
+                Object[] args = new Object[invokable.getParameterCount()];
 //TODO I have to manually define cases for each possible parameter type ;3;
+                for (int x = 0; x < invokable.getParameterCount(); x++) {
+                    if (invokable.getParameterTypes()[x].equals(Boolean.TYPE)) {
+                        args[x] = command[x + 2].contains("True");
+                    } else if (invokable.getParameterTypes()[x].equals(Integer.TYPE)) {
+                        args[x] = Integer.valueOf(command[x + 2]);
+                    }
+                }
+                System.out.println(Arrays.toString(invokable.getParameterTypes()));
+                System.out.println(Arrays.toString(args));
+                invokable.invoke(invokingObject, args);
             } else { // Void functions without params are simple, we just run them
                 invokable.invoke(invokingObject);
             }
         } else {
-            // These four return types can be displayed right away.
-            if (invokable.getReturnType().equals(String.class)
-                    || invokable.getReturnType().equals(Integer.class)
-                    || invokable.getReturnType().equals(java.lang.Character.class)
-                    || invokable.getReturnType().equals(Boolean.class)) {
-                System.out.println(invokable.getName() + " returns:");
-                System.out.println(invokable.invoke(invokingObject));
-            } else { // It'll need to be setup differently to be human readable
-                System.out.println("rrerr");
-            }
+
+            System.out.println(invokable.getName() + " " + invokable.invoke(invokingObject));
+
         }
     }
 

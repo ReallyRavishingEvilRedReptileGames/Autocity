@@ -107,7 +107,7 @@ public class UIFrame extends JFrame implements MouseListener, KeyListener {
             this.debugUI.getGame().getCursor().Place(e);
         }
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            this.debugUI.getGame().getDev().commandLookup(devConsole.getText());
+            this.debugUI.getGame().getDev().Execute(devConsole.getText());
             devConsole.setText("");
         } else if (e.getKeyChar() == '`') {
             devConsole.setVisible(!devConsole.isVisible());

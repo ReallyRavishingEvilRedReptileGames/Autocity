@@ -23,4 +23,9 @@ public class Player {
     public void setHasCivilization(boolean hasCivilization) {
         this.hasCivilization = hasCivilization;
     }
+
+    @Override
+    public String toString() {
+        return getClass().getName() + "@" + Integer.toHexString(hashCode()) + " " + this.name;
+    }
 }

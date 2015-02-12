@@ -4,7 +4,6 @@ import com.fuzzy.autocity.terrain.*;
 import com.fuzzy.autocity.world.WorldObject;
 import com.fuzzy.autocity.world.buildings.Building;
 
-@Invokable
 public class Tile {
     protected char character;
     private WorldObject occupyingObject;
@@ -28,7 +27,7 @@ public class Tile {
     }
 
     @Invokable
-    public void setTerrain(String s) {
+    public void setTerrain(String s) { // Eventually this will use a dictionary lookup to set the terrain
         switch (s.toLowerCase()) {
             case "grass":
                 this.terrain = new Grass();

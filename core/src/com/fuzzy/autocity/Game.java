@@ -14,9 +14,10 @@ public class Game extends Thread {
     private Simulation simulation;
     private Cursor cursor;
     private DevelopmentMode dev;
-    private static ArrayList<Player> playerList = new ArrayList<>();
+    private static ArrayList<Player> playerList;
 
     public Game() {
+        playerList = new ArrayList<>();
         playerList.add(new HumanPlayer());
         this.startGame();
     }
@@ -30,6 +31,7 @@ public class Game extends Thread {
         this.startGame();
     }
 
+//    @Invokable
     public void restartGame(int x, int y) {
         this.simulation = null;
         this.world = null;
@@ -39,6 +41,7 @@ public class Game extends Thread {
     }
 
     public void startGame() {
+        System.out.println(getPlayer());
         System.out.println("Generating world...");
         WorldFactory builder = new WorldFactory();
         this.world = builder.generate(150, 100);
