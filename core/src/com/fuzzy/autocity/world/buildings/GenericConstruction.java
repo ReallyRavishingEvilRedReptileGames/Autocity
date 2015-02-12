@@ -26,7 +26,6 @@ public class GenericConstruction extends Construction {
 
 
     public void Construct() {
-        System.out.println(this.constructionProgress);
         if (this.constructionProgress < this.constructionDuration) {
             this.constructionProgress += constructionSpeed;
         } else {
