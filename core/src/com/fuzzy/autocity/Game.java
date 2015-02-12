@@ -2,14 +2,10 @@ package com.fuzzy.autocity;
 
 import com.fuzzy.autocity.debugui.Cursor;
 import com.fuzzy.autocity.factories.WorldFactory;
-import com.fuzzy.autocity.factories.WorldObjectFactory;
 import com.fuzzy.autocity.simulation.Simulation;
-import com.fuzzy.autocity.world.WorldObject;
-import com.fuzzy.autocity.world.buildings.Construction;
 
 import java.util.ArrayList;
 
-@Invokable
 public class Game extends Thread {
     private World world;
     private boolean isRunning = true;
@@ -34,7 +30,6 @@ public class Game extends Thread {
         this.startGame();
     }
 
-    @Invokable
     public void restartGame(int x, int y) {
         this.simulation = null;
         this.world = null;
