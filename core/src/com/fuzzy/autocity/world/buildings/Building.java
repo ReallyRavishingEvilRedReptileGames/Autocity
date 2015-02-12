@@ -1,6 +1,7 @@
 package com.fuzzy.autocity.world.buildings;
 
 import com.fuzzy.autocity.Character;
+import com.fuzzy.autocity.Invokable;
 import com.fuzzy.autocity.Settlement;
 import com.fuzzy.autocity.Tile;
 import com.fuzzy.autocity.enumeration.EBuildingStyle;
@@ -37,6 +38,7 @@ public class Building extends Construction {
     }
 
     @Override
+    @Invokable
     public void destroy() {
         for (Tile tile : tiles) {
             tile.setOccupyingObject(null);

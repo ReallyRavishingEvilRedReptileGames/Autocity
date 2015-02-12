@@ -1,9 +1,7 @@
 package com.fuzzy.autocity.world;
 
+import com.fuzzy.autocity.*;
 import com.fuzzy.autocity.Character;
-import com.fuzzy.autocity.PlayerOwnable;
-import com.fuzzy.autocity.Tile;
-import com.fuzzy.autocity.World;
 import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 
 import java.util.HashSet;
@@ -22,10 +20,12 @@ public abstract class WorldObject extends PlayerOwnable implements Comparable<Wo
         return this.visitors;
     }
 
+    @Invokable
     public void addVisitor(Character character) {
         this.visitors.add(character);
     }
 
+    @Invokable
     public void removeVisitor(Character character) {
         this.visitors.remove(character);
     }
@@ -50,14 +50,17 @@ public abstract class WorldObject extends PlayerOwnable implements Comparable<Wo
         return 0;
     }
 
+    @Invokable
     public String getName() {
         return this.name;
     }
 
+    @Invokable
     public String getCustomName() {
         return this.customName;
     }
 
+    @Invokable
     public void setCustomName(String customName) {
         this.customName = customName;
     }

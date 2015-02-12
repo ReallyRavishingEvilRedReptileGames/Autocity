@@ -83,6 +83,7 @@ public class World {
         this.settlements.add(settlement);
     }
 
+    @Invokable
     public HashSet<Settlement> getSettlements() {
         return this.settlements;
     }
@@ -103,6 +104,7 @@ public class World {
         return this.deconstructions;
     }
 
+    @Invokable
     public void placeWorldObject(WorldObject o, Tile t) {
         int originX = t.getX();
         int originY = t.getY();
@@ -123,12 +125,14 @@ public class World {
         }
     }
 
+    @Invokable
     public void buildConstruction(Construction c, Tile t) {
         GenericConstruction con = new GenericConstruction(c);
         placeWorldObject(con, t);
         addToConstructionList(con);
     }
 
+    @Invokable
     public void placeConstruction(Construction c, Tile t) {
         placeWorldObject(c, t);
     }
@@ -139,6 +143,7 @@ public class World {
         }
     }
 
+    @Invokable
     public void removeConstruction(Construction c) {
         HashSet<Tile> tmp = c.getTiles();
         GenericConstruction gc = new GenericConstruction(c, true);

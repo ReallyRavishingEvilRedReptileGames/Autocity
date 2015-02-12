@@ -20,18 +20,22 @@ public abstract class Character implements Comparable<Character> {
         this.name = new GenericPersonName(this).getFullName();
     }
 
+    @Invokable
     public Sex getSex() {
         return sex;
     }
 
+    @Invokable
     public void setSex(Sex sex) {
         this.sex = sex;
     }
 
+    @Invokable
     public String getName() {
         return name;
     }
 
+    @Invokable
     public void setName(String name) {
         this.name = name;
     }

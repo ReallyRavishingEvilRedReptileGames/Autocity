@@ -33,6 +33,7 @@ public class PathBuilder {
         }
     }
 
+    @Invokable
     public void generate(Tile startTile, Tile targetTile) {
         aStarPathFinder f = new aStarPathFinder(world, defaultMaxSearchDistance);
         try {

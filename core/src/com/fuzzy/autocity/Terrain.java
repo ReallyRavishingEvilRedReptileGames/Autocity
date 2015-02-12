@@ -17,6 +17,7 @@ public abstract class Terrain {
         return this.texture;
     }
 
+    @Invokable
     public double getRandomEntitySpawnRate() {
         return this.randomEntitySpawnRate;
     }
