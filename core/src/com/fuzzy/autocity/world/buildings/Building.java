@@ -11,8 +11,6 @@ import java.util.ArrayList;
 public class Building extends Construction {
 
     protected EBuildingStyle style = EBuildingStyle.Generic;
-    protected int width = 3;
-    protected int height = 2;
     protected Settlement settlement;
     protected Character owner;
     //protected EArchetype archetype;
@@ -24,8 +22,8 @@ public class Building extends Construction {
 
     public Building(Building b) {
         this.name = b.getName();
-        this.width = b.getWidth();
         this.height = b.getHeight();
+        this.width = b.getWidth();
         this.character = b.getCharacter();
         this.constructionDuration = b.getConstructionDuration();
         //this.archetype = b.archetype;
