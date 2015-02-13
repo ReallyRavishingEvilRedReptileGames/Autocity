@@ -2,6 +2,7 @@ package com.fuzzy.autocity.world;
 
 import com.fuzzy.autocity.*;
 import com.fuzzy.autocity.Character;
+import com.fuzzy.autocity.enumeration.EDirection;
 import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 
 import java.util.HashSet;
@@ -12,6 +13,7 @@ public abstract class WorldObject extends PlayerOwnable implements Comparable<Wo
     protected String customName;
     protected String name = "Unknown World Object";
     protected char character = '!';
+    protected EDirection orientation = EDirection.North;
 
     protected HashSet<Character> visitors = new HashSet<>();
     protected HashSet<Tile> tiles = new HashSet<>();
@@ -67,6 +69,16 @@ public abstract class WorldObject extends PlayerOwnable implements Comparable<Wo
 
     public char getCharacter() {
         return this.character;
+    }
+
+    @Invokable
+    public EDirection getOrientation() {
+        return this.orientation;
+    }
+
+    @Invokable
+    public void rotate() {
+        this.orientation = orientation.getClockwiseRotation();
     }
 
     public String toString() {
