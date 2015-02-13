@@ -63,6 +63,7 @@ public class DevelopmentMode {
             }
         } catch (Exception e) {
             System.out.println("Invalid command @" + e.toString());
+            e.printStackTrace();
         }
     }
 
@@ -77,17 +78,9 @@ public class DevelopmentMode {
                     } else if (invokable.getParameterTypes()[x].equals(Integer.TYPE)) {
                         args[x] = Integer.valueOf(command[x + 2]);
                     } else if (invokable.getParameterTypes()[x].equals(Tile.class)) {
-                        if (command[0].contains("Pathbuilder")) { // Pathbuilder has to be handled differently
-                            int i = x + 2;
-                            int j = x + 3;
-                            if (x != 0) { // Array offsetting stuff to get correct index
-                                i++;
-                                j++;
-                            }
-                            args[x] = this.game.getWorld().getTile(Integer.valueOf(command[i]), Integer.valueOf(command[j]));
-                        } else {
-                            args[x] = this.game.getWorld().getTile(this.cursor.getX(), this.cursor.getY());
-                        }
+                        String[] coords = command[x + 2].split(",");
+                        System.out.println(Arrays.toString(coords));
+                        args[x] = this.game.getWorld().getTile(Integer.valueOf(coords[0]), Integer.valueOf(coords[1]));
                         // Can't create any world objects that have spaces in their name right now.
                     } else if (invokable.getParameterTypes()[x].equals(Construction.class)) {
                         args[x] = new WorldObjectFactory().createWorldObject(command[x + 2]);
