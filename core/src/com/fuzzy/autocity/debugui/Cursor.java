@@ -6,6 +6,7 @@ import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 import com.fuzzy.autocity.exceptions.WorldObjectConflictException;
 import com.fuzzy.autocity.factories.WorldObjectFactory;
 import com.fuzzy.autocity.world.WorldObject;
+import com.fuzzy.autocity.world.buildings.Building;
 import com.fuzzy.autocity.world.buildings.Construction;
 
 import java.awt.event.KeyEvent;
@@ -13,7 +14,7 @@ import java.lang.Character;
 import java.util.HashMap;
 import java.util.Map;
 
-@Invokable
+
 public class Cursor {
     private int x = 0, y = 0;
     private int width = 1, height = 1;
@@ -22,14 +23,16 @@ public class Cursor {
     WorldObject o = null;
     private char character = '#';
     private Map<Character, String> keyCodes;
+    private Tile[] tiles;
 
     //TODO: Make it so the cursor can have a displayed width and height like buildings,
 //TODO: so we can preview where the building is going to be placed before placing it.
     public Cursor(Game game) {
         this.game = game;
+        this.tiles = new Tile[2];
         keyCodes = new HashMap<>();
         keyCodes.put('r', "road");
-        keyCodes.put('h', "hut");
+        keyCodes.put('h', "Hut");
         keyCodes.put('t', "pine tree");
     }
 
@@ -70,7 +73,7 @@ public class Cursor {
         this.character = character;
     }
 
-    public Tile getSelectedTile() {
+    public Tile getTileAtCursor() {
         return this.game.getWorld().getTile(x, y);
     }
 
@@ -88,9 +91,35 @@ public class Cursor {
         }
     }
 
+    public void selectTile() {
+        if (tiles[0] == null) {
+            tiles[0] = this.game.getWorld().getTile(this.x, this.y);
+        } else {
+            tiles[1] = this.game.getWorld().getTile(this.x, this.y);
+        }
+        if (tiles[0] != null && tiles[1] != null) {
+            int width = (tiles[1].getX() - tiles[0].getX()) + 1;
+            int height = (tiles[1].getY() - tiles[0].getY()) + 1;
+            System.out.println("Dimensions: \n X:" + width + "\n Y:" + height);
+            PlacementValidator p = new PlacementValidator(this.game.getWorld());
+            this.o = new Building(width, height);
+            try {
+                p.validateWorldObject(o, tiles[0].getX(), tiles[0].getY());
+                this.game.getWorld().placeWorldObject(o, tiles[0]);
+            } catch (WorldObjectConflictException | TileOutOfBoundsException | TerrainConflictException ignored) {
+            }
+            clearSelectedTiles();
+        }
+    }
+
+    public void clearSelectedTiles() {
+        tiles[0] = null;
+        tiles[1] = null;
+    }
+
     public void Place(KeyEvent e) {
         PlacementValidator p = new PlacementValidator(this.game.getWorld());
-        Tile tile = getSelectedTile();
+        Tile tile = getTileAtCursor();
         WorldObjectFactory wof = new WorldObjectFactory();
         if (e.getKeyCode() == KeyEvent.VK_UP
                 || e.getKeyCode() == KeyEvent.VK_DOWN
@@ -115,7 +144,7 @@ public class Cursor {
     }
 
     public void deConstruct() {
-        WorldObject wo = getSelectedTile().getOccupyingObject();
+        WorldObject wo = getTileAtCursor().getOccupyingObject();
         if (wo instanceof Construction) {
             this.game.getWorld().removeConstruction((Construction) wo);
         }

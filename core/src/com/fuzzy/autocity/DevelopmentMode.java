@@ -63,7 +63,6 @@ public class DevelopmentMode {
             }
         } catch (Exception e) {
             System.out.println("Invalid command @" + e.toString());
-            e.printStackTrace();
         }
     }
 
@@ -79,10 +78,9 @@ public class DevelopmentMode {
                         args[x] = Integer.valueOf(command[x + 2]);
                     } else if (invokable.getParameterTypes()[x].equals(Tile.class)) {
                         String[] coords = command[x + 2].split(",");
-                        System.out.println(Arrays.toString(coords));
                         args[x] = this.game.getWorld().getTile(Integer.valueOf(coords[0]), Integer.valueOf(coords[1]));
-                        // Can't create any world objects that have spaces in their name right now.
                     } else if (invokable.getParameterTypes()[x].equals(Construction.class)) {
+                        // Can't create any world objects that have spaces in their name right now.
                         args[x] = new WorldObjectFactory().createWorldObject(command[x + 2]);
                     } else if (invokable.getParameterTypes()[x].equals(WorldObject.class)) {
                         args[x] = new WorldObjectFactory().createWorldObject(command[x + 2]);

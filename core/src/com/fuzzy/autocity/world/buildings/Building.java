@@ -21,6 +21,13 @@ public class Building extends Construction {
 
     }
 
+    public Building(int width, int height) {
+        this.name = "Test sizeable building";
+        this.width = width;
+        this.height = height;
+        this.character = '*';
+    }
+
     public Building(Building b) {
         this.name = b.getName();
         this.height = b.getHeight();
