@@ -23,7 +23,7 @@ public class PathBuilder {
     }
 
     public void generate(Tile startTile, Tile targetTile, int maxSearchDistance) {
-        aStarPathFinder f = new aStarPathFinder(this.world, maxSearchDistance);
+        aStarPathFinder f = new aStarPathFinder(this.world, maxSearchDistance, false);
         try {
             for (Tile t : f.findPath(startTile.getX(), startTile.getY(), targetTile.getX(), targetTile.getY())) {
                 this.world.buildConstruction((Construction) wof.createWorldObject("road"), t);
@@ -35,7 +35,7 @@ public class PathBuilder {
 
     @Invokable
     public void generate(Tile startTile, Tile targetTile) {
-        aStarPathFinder f = new aStarPathFinder(world, defaultMaxSearchDistance);
+        aStarPathFinder f = new aStarPathFinder(world, defaultMaxSearchDistance, false);
         try {
             for (Tile t : f.findPath(startTile.getX(), startTile.getY(), targetTile.getX(), targetTile.getY())) {
                 if (t.getOccupyingObject() == null) {

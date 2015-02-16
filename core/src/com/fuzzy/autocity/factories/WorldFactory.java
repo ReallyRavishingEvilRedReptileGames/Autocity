@@ -2,11 +2,14 @@ package com.fuzzy.autocity.factories;
 
 import com.fuzzy.autocity.*;
 import com.fuzzy.autocity.exceptions.PlacementAttemptsExceededException;
+import com.fuzzy.autocity.generators.aStarPathFinder;
 import com.fuzzy.autocity.generators.fractals.DiamondSquareFractal;
 import com.fuzzy.autocity.terrain.Grass;
 import com.fuzzy.autocity.terrain.Sand;
 import com.fuzzy.autocity.terrain.Water;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 //TODO create anonymous functions to reduce copypasted nested for loops
@@ -33,6 +36,7 @@ public class WorldFactory {
 
         this.generateHeight();
         this.generateTerrain();
+        this.generateRivers();
         this.generateFoliage();
         try {
             this.generateSettlements();
@@ -84,6 +88,40 @@ public class WorldFactory {
             }
         }
 
+    }
+
+    private void generateRivers() {
+        Random rand = new Random();
+        aStarPathFinder generator = new aStarPathFinder(this.world, 1000, true);
+        List<Tile> source = new ArrayList<>();
+        List<Tile> target = new ArrayList<>();
+        for (int x = 0; x < 5; x++) { // 5 chances to create source tiles for rivers, then abort.
+            Tile tile = world.getTile(rand.nextInt(world.getWidth()), rand.nextInt(world.getHeight()));
+            if (tile.getHeight() > 64 && !source.contains(tile)) {
+                source.add(tile);
+            }
+        }
+
+        while (target.size() != source.size()) { // Match target list amount with source list amount.
+            Tile tile = world.getTile(rand.nextInt(world.getWidth()), rand.nextInt(world.getHeight()));
+            if (tile.getHeight() < 16 && !target.contains(tile)) {
+                target.add(tile);
+            }
+        }
+
+        for (int i = 0; i < source.size(); i++) {
+            Tile sourceTile = source.get(i);
+            Tile targetTile = target.get(i);
+            try {
+                for (Tile t : generator.findPath(sourceTile.getX(), sourceTile.getY(), targetTile.getX(), targetTile.getY())) {
+                    if (!(t.getTerrain() instanceof Water)) {
+                        t.setTerrain(new Water());
+                    }
+                }
+            } catch (NullPointerException n) {
+                System.out.println("No river generated! (wait how?)");
+            }
+        }
     }
 
     private void generateFoliage() {

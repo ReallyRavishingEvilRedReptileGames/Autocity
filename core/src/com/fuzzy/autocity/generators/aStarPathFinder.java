@@ -79,12 +79,14 @@ public class aStarPathFinder {
     private World world;
     private Node[][] nodes;
     private Boolean[][] visitedTiles;
+    private boolean rivergen;
 
-    public aStarPathFinder(World world, int maxSearchDistance) {
+    public aStarPathFinder(World world, int maxSearchDistance, boolean rivergen) {
         this.world = world;
         this.maxSearchDistance = maxSearchDistance;
         visitedTiles = new Boolean[world.getWidth()][world.getHeight()];
         nodes = new Node[world.getWidth()][world.getHeight()];
+        this.rivergen = rivergen;
 
         for (int x = 0; x < world.getWidth(); x++) {
             for (int y = 0; y < world.getHeight(); y++) {
@@ -95,10 +97,10 @@ public class aStarPathFinder {
 
     public ArrayList<Tile> findPath(int startX, int startY, int targetX, int targetY) {
 
-            if (isBlockedTile(world.getTile(targetX, targetY))) {
+        if (isBlockedTile(world.getTile(targetX, targetY))) {
 
-                return null;
-            }
+            return null;
+        }
 
         nodes[startX][startY].cost = 0;
         nodes[startX][startY].depth = 0;
@@ -157,13 +159,13 @@ public class aStarPathFinder {
             return null;
         }
         ArrayList<Tile> t;
-            t = new ArrayList<>();
-            Node target = nodes[targetX][targetY];
-            while (target != nodes[startX][startY]) {
-                t.add(0, world.getTile(target.x, target.y));
-                target = target.parent;
-            }
-            t.add(0, world.getTile(startX, startY));
+        t = new ArrayList<>();
+        Node target = nodes[targetX][targetY];
+        while (target != nodes[startX][startY]) {
+            t.add(0, world.getTile(target.x, target.y));
+            target = target.parent;
+        }
+        t.add(0, world.getTile(startX, startY));
         return t;
     }
 
@@ -197,7 +199,12 @@ public class aStarPathFinder {
     }
 
     private boolean isBlockedTile(Tile tile) {
-        return tile.getOccupyingObject() != null && !isPath(tile) || tile.getTerrain() instanceof Water;
+        if (rivergen) {
+            // Nothing to do here right now.
+            return false;
+        } else {
+            return tile.getOccupyingObject() != null && !isPath(tile) || tile.getTerrain() instanceof Water;
+        }
     }
 
     boolean isValidLocation(int startX, int startY, int x, int y) {
@@ -217,7 +224,11 @@ public class aStarPathFinder {
 
         Tile current = world.getTile(x, y);
         Tile target = world.getTile(targetX, targetY);
-        if (current.getTerrain() instanceof Grass) {
+        if (rivergen) {
+            if (target.getHeight() < current.getHeight()) {
+                return 1.0f;
+            }
+        } else if (current.getTerrain() instanceof Grass) {
             if (target.getTerrain() instanceof Grass) {
                 return 1.0f;
             } else {
