@@ -1,12 +1,11 @@
 package com.fuzzy.autocity;
 
 import com.fuzzy.autocity.terrain.*;
-import com.fuzzy.autocity.world.WorldObject;
-import com.fuzzy.autocity.world.buildings.Building;
+import com.fuzzy.autocity.world.buildings.WorldObject;
 
 public class Tile {
     protected char character;
-    private WorldObject occupyingObject;
+    private com.fuzzy.autocity.world.WorldObject occupyingObject;
     private Terrain terrain;
     private int x;
     private int y;
@@ -44,16 +43,16 @@ public class Tile {
     }
 
     @Invokable
-    public WorldObject getOccupyingObject() {
+    public com.fuzzy.autocity.world.WorldObject getOccupyingObject() {
         return occupyingObject;
     }
 
-    public void setOccupyingObject(WorldObject occupyingObject) {
+    public void setOccupyingObject(com.fuzzy.autocity.world.WorldObject occupyingObject) {
         this.occupyingObject = occupyingObject;
     }
 
     @Invokable
-    public void placeBuilding(Building b) {
+    public void placeBuilding(WorldObject b) {
         if (this.occupyingObject != null) {
             this.occupyingObject.destroy();
         }

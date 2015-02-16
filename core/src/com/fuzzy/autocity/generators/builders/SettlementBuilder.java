@@ -6,7 +6,7 @@ import com.fuzzy.autocity.enumeration.EDirection;
 import com.fuzzy.autocity.exceptions.TerrainConflictException;
 import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 import com.fuzzy.autocity.exceptions.WorldObjectConflictException;
-import com.fuzzy.autocity.world.buildings.Building;
+import com.fuzzy.autocity.world.buildings.WorldObject;
 
 /**
  * A builder class designed to
@@ -23,9 +23,9 @@ public class SettlementBuilder {
     /**
      * Automatically place a building in a settlement.
      *
-     * @param building
+     * @param worldObject
      */
-    public void placeBuilding(Building building) {
+    public void placeBuilding(WorldObject worldObject) {
         // In a spiral fashion, find the best place for this building.
         int spiralStep = 0;
         int spiralSteps = 1;
@@ -37,11 +37,11 @@ public class SettlementBuilder {
         PlacementValidator validator = new PlacementValidator(this.settlement.getWorld());
 
         while (!placed) {
-            System.out.printf("Test placement of %s at %s,%s\n", building, targetX, targetY);
+            System.out.printf("Test placement of %s at %s,%s\n", worldObject, targetX, targetY);
 
             try {
-                validator.validateBuilding(building, targetX, targetY);
-                this.settlement.getWorld().placeConstruction(building, this.settlement.getWorld().getTileSafe(targetX, targetY));
+                validator.validateBuilding(worldObject, targetX, targetY);
+                this.settlement.getWorld().placeConstruction(worldObject, this.settlement.getWorld().getTileSafe(targetX, targetY));
                 placed = true;
             } catch (TileOutOfBoundsException e) {
                 System.out.println("Building out of map range.");

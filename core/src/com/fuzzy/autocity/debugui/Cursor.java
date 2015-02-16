@@ -5,8 +5,7 @@ import com.fuzzy.autocity.exceptions.TerrainConflictException;
 import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 import com.fuzzy.autocity.exceptions.WorldObjectConflictException;
 import com.fuzzy.autocity.factories.WorldObjectFactory;
-import com.fuzzy.autocity.world.WorldObject;
-import com.fuzzy.autocity.world.buildings.Building;
+import com.fuzzy.autocity.world.buildings.WorldObject;
 import com.fuzzy.autocity.world.buildings.Construction;
 
 import java.awt.event.KeyEvent;
@@ -20,7 +19,7 @@ public class Cursor {
     private int width = 1, height = 1;
     private boolean buildingSelected = false;
     private Game game;
-    WorldObject o = null;
+    com.fuzzy.autocity.world.WorldObject o = null;
     private char character = '#';
     private Map<Character, String> keyCodes;
     private Tile[] tiles;
@@ -102,7 +101,7 @@ public class Cursor {
             int height = (tiles[1].getY() - tiles[0].getY()) + 1;
             System.out.println("Dimensions: \n X:" + width + "\n Y:" + height);
             PlacementValidator p = new PlacementValidator(this.game.getWorld());
-            this.o = new Building(width, height);
+            this.o = new WorldObject(width, height);
             try {
                 p.validateWorldObject(o, tiles[0].getX(), tiles[0].getY());
                 this.game.getWorld().placeWorldObject(o, tiles[0]);
@@ -144,7 +143,7 @@ public class Cursor {
     }
 
     public void deConstruct() {
-        WorldObject wo = getTileAtCursor().getOccupyingObject();
+        com.fuzzy.autocity.world.WorldObject wo = getTileAtCursor().getOccupyingObject();
         if (wo instanceof Construction) {
             this.game.getWorld().removeConstruction((Construction) wo);
         }

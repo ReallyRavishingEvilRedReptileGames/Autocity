@@ -5,8 +5,7 @@ import com.fuzzy.autocity.exceptions.TerrainConflictException;
 import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 import com.fuzzy.autocity.exceptions.WorldObjectConflictException;
 import com.fuzzy.autocity.terrain.Water;
-import com.fuzzy.autocity.world.WorldObject;
-import com.fuzzy.autocity.world.buildings.Building;
+import com.fuzzy.autocity.world.buildings.WorldObject;
 
 public class PlacementValidator {
     private World world;
@@ -22,10 +21,10 @@ public class PlacementValidator {
                 try {
                     Tile tile = world.getTileSafe(i, j);
 
-                    WorldObject worldObject = tile.getOccupyingObject();
+                    com.fuzzy.autocity.world.WorldObject worldObject = tile.getOccupyingObject();
 
-                    if (worldObject != null && worldObject instanceof Building) {
-                        throw new BuildingConflictException((Building) worldObject);
+                    if (worldObject != null && worldObject instanceof WorldObject) {
+                        throw new BuildingConflictException((WorldObject) worldObject);
                     }
 
                     if (tile.getTerrain() instanceof Water) {
@@ -38,7 +37,7 @@ public class PlacementValidator {
         }
     }
 
-    public void validateWorldObject(WorldObject worldObject, int x, int y) throws WorldObjectConflictException, TileOutOfBoundsException, TerrainConflictException {
+    public void validateWorldObject(com.fuzzy.autocity.world.WorldObject worldObject, int x, int y) throws WorldObjectConflictException, TileOutOfBoundsException, TerrainConflictException {
         int width = worldObject.getWidth();
         int height = worldObject.getHeight();
 
@@ -53,7 +52,7 @@ public class PlacementValidator {
         }
     }
 
-    public void validateBuilding(Building building, int x, int y) throws WorldObjectConflictException, TileOutOfBoundsException, TerrainConflictException {
-        this.validateWorldObject(building, x, y);
+    public void validateBuilding(WorldObject worldObject, int x, int y) throws WorldObjectConflictException, TileOutOfBoundsException, TerrainConflictException {
+        this.validateWorldObject(worldObject, x, y);
     }
 }

@@ -1,14 +1,12 @@
 {
-  "resources": [
-    {
-      "class": "com.fuzzy.autocity.world.resources.prefabs.Tree",
-      "name": "Pine Tree",
-      "character": "T"
-    },
-    {
-      "class": "com.fuzzy.autocity.world.resources.prefabs.Tree",
-      "name": "Palm Tree",
-      "character": "P"
-    }
-  ]
+  "Pine Tree": {
+    "class": "com.fuzzy.autocity.world.resources.prefabs.Tree",
+    "name": "Pine Tree",
+    "character": "T"
+  },
+  "Palm Tree": {
+    "class": "com.fuzzy.autocity.world.resources.prefabs.Tree",
+    "name": "Palm Tree",
+    "character": "P"
+  }
 }

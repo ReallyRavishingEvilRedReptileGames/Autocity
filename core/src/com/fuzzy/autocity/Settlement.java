@@ -3,13 +3,13 @@ package com.fuzzy.autocity;
 import com.fuzzy.autocity.civilians.prefabs.Villager;
 import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 import com.fuzzy.autocity.simulation.Population;
-import com.fuzzy.autocity.world.buildings.Building;
+import com.fuzzy.autocity.world.buildings.WorldObject;
 import com.fuzzy.autocity.world.buildings.EArchetype;
 
 import java.util.HashSet;
 
 public class Settlement extends PlayerOwnable {
-    private HashSet<Building> buildings;
+    private HashSet<WorldObject> worldObjects;
     private HashSet<Villager> citizens;
     private World world;
     private int originX;
@@ -36,7 +36,7 @@ public class Settlement extends PlayerOwnable {
 
     private void initialize(World world) {
         this.world = world;
-        this.buildings = new HashSet<>();
+        this.worldObjects = new HashSet<>();
         this.citizens = new HashSet<>();
         this.population = new Population(this);
     }
@@ -44,7 +44,7 @@ public class Settlement extends PlayerOwnable {
     private void initialize(World world, Player player) {
         this.world = world;
         this.player = player;
-        this.buildings = new HashSet<>();
+        this.worldObjects = new HashSet<>();
         this.citizens = new HashSet<>();
         this.population = new Population(this);
     }
@@ -65,16 +65,16 @@ public class Settlement extends PlayerOwnable {
         return this.citizens;
     }
 
-    public void addBuilding(Building building) {
-        this.buildings.add(building);
+    public void addBuilding(WorldObject worldObject) {
+        this.worldObjects.add(worldObject);
     }
 
-    public void removeBuilding(Building building) {
-        this.buildings.remove(building);
+    public void removeBuilding(WorldObject worldObject) {
+        this.worldObjects.remove(worldObject);
     }
 
-    public HashSet<Building> getBuildings() {
-        return this.buildings;
+    public HashSet<WorldObject> getWorldObjects() {
+        return this.worldObjects;
     }
 
     public Player getPlayer() {
@@ -86,7 +86,7 @@ public class Settlement extends PlayerOwnable {
     }
 
     private void setBuildingPlayer(Player player) {
-        for (Building b : buildings) {
+        for (WorldObject b : worldObjects) {
             b.setPlayer(player);
         }
     }
@@ -118,9 +118,9 @@ public class Settlement extends PlayerOwnable {
     public int getPopulationCapacity() {
         int capacity = 0;
 
-        for (Building building : this.buildings) {
-            if (building.hasArchetype(EArchetype.Residential)) {
-                capacity += building.getBaseCapacity();
+        for (WorldObject worldObject : this.worldObjects) {
+            if (worldObject.hasArchetype(EArchetype.Residential)) {
+                capacity += worldObject.getBaseCapacity();
             }
         }
 

@@ -5,14 +5,14 @@ import com.fuzzy.autocity.Player;
 import com.fuzzy.autocity.Settlement;
 import com.fuzzy.autocity.World;
 import com.fuzzy.autocity.civilians.prefabs.Villager;
-import com.fuzzy.autocity.dictionary.Buildings;
+import com.fuzzy.autocity.dictionary.WorldObjects;
 import com.fuzzy.autocity.exceptions.BuildingConflictException;
 import com.fuzzy.autocity.exceptions.PlacementAttemptsExceededException;
 import com.fuzzy.autocity.exceptions.TerrainConflictException;
 import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 import com.fuzzy.autocity.generators.builders.PathBuilder;
 import com.fuzzy.autocity.generators.builders.SettlementBuilder;
-import com.fuzzy.autocity.world.buildings.Building;
+import com.fuzzy.autocity.world.buildings.WorldObject;
 
 import java.util.Random;
 
@@ -30,7 +30,7 @@ public class SettlementFactory {
 
     public Settlement generate(World world, Player p) throws PlacementAttemptsExceededException {
         settlement = new Settlement(world, p);
-        Buildings bf = Buildings.getInstance();
+        WorldObjects bf = WorldObjects.getInstance();
 
         place();
         addRoads();
@@ -70,7 +70,7 @@ public class SettlementFactory {
                 System.out.println("Placed settlement at (" + settlement.getOriginX() + "," + settlement.getOriginY() + ")");
                 break;
             } catch (BuildingConflictException e) {
-                System.out.println("Settlement conflicts with " + e.getBuilding());
+                System.out.println("Settlement conflicts with " + e.getWorldObject());
                 // Settlement placement will conflict with a building
             } catch (TerrainConflictException e) {
                 System.out.println("Settlement cannot be placed on " + e.getTerrain());
@@ -93,16 +93,16 @@ public class SettlementFactory {
         }
     }
 
-    private void addBuilding(Building building) {
-        System.out.println("Adding building " + building);
+    private void addBuilding(WorldObject worldObject) {
+        System.out.println("Adding building " + worldObject);
 
-        this.settlement.addBuilding(building);
+        this.settlement.addBuilding(worldObject);
 
-        building.setSettlement(this.settlement);
+        worldObject.setSettlement(this.settlement);
 
         SettlementBuilder settlementBuilder = new SettlementBuilder(this.settlement);
 
-        settlementBuilder.placeBuilding(building);
+        settlementBuilder.placeBuilding(worldObject);
     }
 
     private void addPopulation() {

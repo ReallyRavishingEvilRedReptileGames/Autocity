@@ -1,22 +1,22 @@
 package com.fuzzy.autocity;
 
 import com.fuzzy.autocity.enumeration.EThoughtType;
-import com.fuzzy.autocity.world.buildings.Building;
+import com.fuzzy.autocity.world.buildings.WorldObject;
 
 public class Thought {
     private EThoughtType type;
-    private Building building;
+    private WorldObject worldObject;
     private Character character;
 
-    public Thought(EThoughtType type, Building building, Character character) {
+    public Thought(EThoughtType type, WorldObject worldObject, Character character) {
         this.type = type;
-        this.building = building;
+        this.worldObject = worldObject;
         this.character = character;
     }
 
-    public Thought(EThoughtType type, Building building) {
+    public Thought(EThoughtType type, WorldObject worldObject) {
         this.type = type;
-        this.building = building;
+        this.worldObject = worldObject;
     }
 
     public Thought(EThoughtType type, Character character) {
@@ -29,7 +29,7 @@ public class Thought {
     }
 
     public String toString() {
-        return String.format(this.getFormatString(this.type), this.building, this.character);
+        return String.format(this.getFormatString(this.type), this.worldObject, this.character);
     }
 
     public String getFormatString(EThoughtType type) {

@@ -5,11 +5,8 @@ import com.fuzzy.autocity.Invokable;
 import com.fuzzy.autocity.Settlement;
 import com.fuzzy.autocity.Tile;
 import com.fuzzy.autocity.enumeration.EBuildingStyle;
-import com.fuzzy.autocity.enumeration.EDirection;
 
-import java.util.ArrayList;
-
-public class Building extends Construction {
+public class WorldObject extends Construction {
 
     protected EBuildingStyle style = EBuildingStyle.Generic;
     protected Settlement settlement;
@@ -17,18 +14,18 @@ public class Building extends Construction {
     //protected EArchetype archetype;
     //protected int baseCapacity;
 
-    public Building() {
+    public WorldObject() {
 
     }
 
-    public Building(int width, int height) {
+    public WorldObject(int width, int height) {
         this.name = "Test sizeable building";
         this.width = width;
         this.height = height;
         this.character = '*';
     }
 
-    public Building(Building b) {
+    public WorldObject(WorldObject b) {
         this.name = b.getName();
         this.height = b.getHeight();
         this.width = b.getWidth();

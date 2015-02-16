@@ -1,39 +1,37 @@
 {
-  "buildings": {
-    "Hut": {
-      "width": 2,
-      "height": 2,
-      "name": "Hut",
-      "character": "^",
-      "constructionDuration": 5
-    },
-    "Town Hall": {
-      "name": "Town Hall",
-      "width": 3,
-      "height": 2,
-      "character": "H",
-      "constructionDuration": 10
-    },
-    "Alchemist Lab": {
-      "width": 2,
-      "height": 2,
-      "name": "Alchemist Lab",
-      "character": "@",
-      "constructionDuration": 20
-    },
-    "Smithy": {
-      "width": 2,
-      "height": 2,
-      "name": "Smithy",
-      "character": "?",
-      "constructionDuration": 20
-    },
-    "Outpost": {
-      "name": "Outpost",
-      "width": 1,
-      "height": 1,
-      "character": "+",
-      "constructionDuration": 5
-    }
+  "Hut": {
+    "width": 2,
+    "height": 2,
+    "name": "Hut",
+    "character": "^",
+    "constructionDuration": 5
+  },
+  "Town Hall": {
+    "name": "Town Hall",
+    "width": 3,
+    "height": 2,
+    "character": "H",
+    "constructionDuration": 10
+  },
+  "Alchemist Lab": {
+    "width": 2,
+    "height": 2,
+    "name": "Alchemist Lab",
+    "character": "@",
+    "constructionDuration": 20
+  },
+  "Smithy": {
+    "width": 2,
+    "height": 2,
+    "name": "Smithy",
+    "character": "?",
+    "constructionDuration": 20
+  },
+  "Outpost": {
+    "name": "Outpost",
+    "width": 1,
+    "height": 1,
+    "character": "+",
+    "constructionDuration": 5
   }
 }

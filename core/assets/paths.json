@@ -1,10 +1,8 @@
 {
-  "paths": [
-    {
-      "class": "com.fuzzy.autocity.world.paths.prefabs.Path",
-      "name": "Road",
-      "character": "=",
-      "constructionDuration": 1
-    }
-  ]
+  "Road": {
+    "class": "com.fuzzy.autocity.world.paths.prefabs.Path",
+    "name": "Road",
+    "character": "=",
+    "constructionDuration": 1
+  }
 }

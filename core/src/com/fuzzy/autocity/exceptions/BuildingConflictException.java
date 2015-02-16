@@ -1,15 +1,15 @@
 package com.fuzzy.autocity.exceptions;
 
-import com.fuzzy.autocity.world.buildings.Building;
+import com.fuzzy.autocity.world.buildings.WorldObject;
 
 public class BuildingConflictException extends Exception {
-    private Building building;
+    private WorldObject worldObject;
 
-    public BuildingConflictException(Building building) {
-        this.building = building;
+    public BuildingConflictException(WorldObject worldObject) {
+        this.worldObject = worldObject;
     }
 
-    public Building getBuilding() {
-        return building;
+    public WorldObject getWorldObject() {
+        return worldObject;
     }
 }
