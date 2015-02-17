@@ -80,7 +80,7 @@ public class WorldFactory {
 
                 if (height >= 250) {
                     tile.setTerrain(new Mountain());
-                } else if (height >= 64) {
+                } else if (height >= 32) {
                     tile.setTerrain(new Grass());
                 } else if (height >= 16) {
                     tile.setTerrain(new Sand());
@@ -94,7 +94,7 @@ public class WorldFactory {
 
     private void generateRivers() {
         Random rand = new Random();
-        aStarPathFinder generator = new aStarPathFinder(this.world, 1000, true);
+        aStarPathFinder generator = new aStarPathFinder(this.world, 256, true);
         List<Tile> source = new ArrayList<>();
         int failCount = 0;
         int maxTries = rand.nextInt(100);
@@ -108,25 +108,32 @@ public class WorldFactory {
         }
 
         for (Tile sourceTile : source) {
+            Tile last = null;
+            List<Tile> visited = new ArrayList<>();
             try {
                 for (Tile t : generator.generateRiver(sourceTile.getX(), sourceTile.getY())) {
-                    if (!(t.getTerrain() instanceof River)) {
+                    setFlowDirection(last, t);
+                    if (!(t.getTerrain() instanceof Water)) {
                         t.setTerrain(new River());
-                        if (t.getTerrain() instanceof Water) {
-                            // don't change height
-                        } else {
-                            t.setHeight(t.getHeight() - 5);
-                            for (Tile neighbor : world.getNeighboringTiles(t)) {
+                    }
+                    // Erosion or some such nonsense
+                    if ((t.getTerrain() instanceof River)) {
+                        t.setHeight(t.getHeight() - 5);
+                        for (Tile neighbor : world.getNeighboringTiles(t)) {
+                            if (!(neighbor.getTerrain() instanceof Water)) { // Don't modify water tile's height
                                 neighbor.setHeight(neighbor.getHeight() - 1);
-                                if (neighbor.getHeight() < t.getHeight()) {
-                                    if (neighbor.getOccupyingObject() != null) {
-                                        neighbor.setOccupyingObject(null);
-                                    }
-                                    neighbor.setTerrain(new River());
-                                }
                             }
+                            if (neighbor.getHeight() < t.getHeight() && !(neighbor.getTerrain() instanceof Water) && !visited.contains(neighbor)) {
+                                if (neighbor.getOccupyingObject() != null) {
+                                    neighbor.setOccupyingObject(null);
+                                }
+                                visited.add(neighbor);
+                                neighbor.setTerrain(new RiverBank());
+                            }
+                            visited.clear();
                         }
                     }
+                    last = t;
                 }
                 System.out.println("River generated!");
             } catch (NullPointerException n) {
@@ -139,6 +146,10 @@ public class WorldFactory {
         }
 
         System.out.println(failCount + " rivers failed to generate.");
+    }
+
+    private void setFlowDirection(Tile last, Tile current) {
+        // Todo.
     }
 
     private void generateFoliage() {

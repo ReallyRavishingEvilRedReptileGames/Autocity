@@ -4,7 +4,7 @@
       "width": 2,
       "height": 2,
       "name": "Hut",
-      "character": "^",
+      "character": "\u25B2",
       "constructionDuration": 5
     },
     "Town Hall": {

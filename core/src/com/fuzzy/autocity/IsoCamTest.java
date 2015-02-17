@@ -84,9 +84,9 @@ public class IsoCamTest extends AutocityGDX implements InputProcessor {
                 } else if (tile.getTerrain() instanceof Water) {
                     terrainTiles[x][z] = new Sprite(waterTexture);
                     terrainTiles[x][z].setColor(heightTint, heightTint, heightTint, 0.9f);
-                } else if (tile.getTerrain() instanceof River) {
-                    terrainTiles[x][z] = new Sprite(riverTexture);
-                    terrainTiles[x][z].setColor(heightTint, heightTint, heightTint, 0.9f);
+//                } else if (tile.getTerrain() instanceof River) {
+//                    terrainTiles[x][z] = new Sprite(riverTexture);
+//                    terrainTiles[x][z].setColor(heightTint, heightTint, heightTint, 0.9f);
                 } else if (tile.getTerrain() instanceof Mountain) {
                     terrainTiles[x][z] = new Sprite(stoneTexture);
                 } else {

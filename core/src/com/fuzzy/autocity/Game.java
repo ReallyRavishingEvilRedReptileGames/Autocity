@@ -44,7 +44,7 @@ public class Game extends Thread {
         System.out.println(getPlayer());
         System.out.println("Generating world...");
         WorldFactory builder = new WorldFactory();
-        this.world = builder.generate(256, 256);
+        this.world = builder.generate(128, 128);
         this.simulation = new Simulation(this);
         this.cursor = new Cursor(this);
         this.dev = new DevelopmentMode(this, this.cursor);
