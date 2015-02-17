@@ -5,6 +5,7 @@ import com.fuzzy.autocity.world.WorldObject;
 import com.fuzzy.autocity.world.buildings.Construction;
 import com.fuzzy.autocity.world.buildings.GenericConstruction;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 public class World {
@@ -77,6 +78,24 @@ public class World {
         }
 
         return this.tiles[x][y];
+    }
+
+    @Invokable
+    public ArrayList<Tile> getNeighboringTiles(Tile sourceTile) {
+        ArrayList<Tile> neighbors = new ArrayList<>();
+        for (int x = -1; x < 2; x++) {
+            for (int y = -1; y < 2; y++) {
+                Tile t = getTile(sourceTile.getX() + x, sourceTile.getY() + y);
+                if (x == 0 && y == 0) {
+                    continue; // Can't be its own neighbor.
+                }
+                if (t != null) {
+                    System.out.println(t.getX() + "," + t.getY());
+                    neighbors.add(t);
+                }
+            }
+        }
+        return neighbors;
     }
 
     public void addSettlement(Settlement settlement) {

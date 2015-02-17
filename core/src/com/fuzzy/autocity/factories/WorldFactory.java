@@ -60,7 +60,7 @@ public class WorldFactory {
 
     private void generateHeight() {
         DiamondSquareFractal diamondSquareFractal = new DiamondSquareFractal();
-        diamondSquareFractal.setRoughness(0.03);
+        diamondSquareFractal.setRoughness(-0.01);
         diamondSquareFractal.setSize(Math.max(sizeX, sizeY));
 
         Double[][] map = diamondSquareFractal.generate();
@@ -103,7 +103,7 @@ public class WorldFactory {
             Tile tile = world.getTile(rand.nextInt(world.getWidth()), rand.nextInt(world.getHeight()));
             if (!(tile.getTerrain() instanceof Mountain) && tile.getHeight() > 164) {
                 source.add(tile);
-                maxTries--;
+//                maxTries--;
             }
         }
 

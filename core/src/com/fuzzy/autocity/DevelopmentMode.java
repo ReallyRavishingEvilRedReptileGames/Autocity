@@ -67,9 +67,7 @@ public class DevelopmentMode {
     }
 
     private void invokeCommand(Method invokable, Object invokingObject, String[] command) throws InvocationTargetException, IllegalAccessException {
-
-        if (invokable.getReturnType().equals(Void.TYPE)) {
-            if (invokable.getParameterCount() != 0) {
+        if (invokable.getParameterCount() != 0) {
                 Object[] args = new Object[invokable.getParameterCount()];
                 for (int x = 0; x < invokable.getParameterCount(); x++) {
                     if (invokable.getParameterTypes()[x].equals(Boolean.TYPE)) {
@@ -93,10 +91,8 @@ public class DevelopmentMode {
                 System.out.println(Arrays.toString(invokable.getParameterTypes()));
                 System.out.println(Arrays.toString(args));
                 invokable.invoke(invokingObject, args);
-            } else { // Void functions without params are simple, we just run them
-                invokable.invoke(invokingObject);
-            }
-        } else { // Just print out the returned info.
+
+        } else { // if it doesn't have params then we just invoke and print.
             System.out.println(invokable.getName() + " " + invokable.invoke(invokingObject));
         }
     }
