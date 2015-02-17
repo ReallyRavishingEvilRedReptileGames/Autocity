@@ -90,7 +90,6 @@ public class World {
                     continue; // Can't be its own neighbor.
                 }
                 if (t != null) {
-                    System.out.println(t.getX() + "," + t.getY());
                     neighbors.add(t);
                 }
             }

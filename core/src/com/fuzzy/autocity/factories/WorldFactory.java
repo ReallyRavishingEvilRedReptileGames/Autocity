@@ -96,17 +96,16 @@ public class WorldFactory {
         Random rand = new Random();
         aStarPathFinder generator = new aStarPathFinder(this.world, 1000, true);
         List<Tile> source = new ArrayList<>();
-        int sourceCount = 0;
-        int maxTries = 50;
+        int failCount = 0;
+        int maxTries = rand.nextInt(100);
 
-        for (int x = 0; x < maxTries; x++) {
+        while (source.size() < maxTries) {
             Tile tile = world.getTile(rand.nextInt(world.getWidth()), rand.nextInt(world.getHeight()));
-            if (!(tile.getTerrain() instanceof Mountain) && tile.getHeight() > 164) {
+            if (!(tile.getTerrain() instanceof Mountain) && tile.getHeight() > 240) {
                 source.add(tile);
-//                maxTries--;
+                maxTries--;
             }
         }
-
 
         for (Tile sourceTile : source) {
             try {
@@ -117,20 +116,29 @@ public class WorldFactory {
                             // don't change height
                         } else {
                             t.setHeight(t.getHeight() - 5);
+                            for (Tile neighbor : world.getNeighboringTiles(t)) {
+                                neighbor.setHeight(neighbor.getHeight() - 1);
+                                if (neighbor.getHeight() < t.getHeight()) {
+                                    if (neighbor.getOccupyingObject() != null) {
+                                        neighbor.setOccupyingObject(null);
+                                    }
+                                    neighbor.setTerrain(new River());
+                                }
+                            }
                         }
-                        System.out.println(t.getHeight());
                     }
                 }
                 System.out.println("River generated!");
             } catch (NullPointerException n) {
-                System.out.println("River generation failed! @" + sourceCount);
-
+                failCount++;
             }
-            sourceCount++;
+
         }
         if (source.size() == 0) {
             System.out.println("No rivers generated.");
         }
+
+        System.out.println(failCount + " rivers failed to generate.");
     }
 
     private void generateFoliage() {

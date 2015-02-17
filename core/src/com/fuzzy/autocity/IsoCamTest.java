@@ -77,12 +77,16 @@ public class IsoCamTest extends AutocityGDX implements InputProcessor {
 
                 if (tile.getTerrain() instanceof Grass) {
                     terrainTiles[x][z] = new Sprite(grassTexture);
+                    terrainTiles[x][z].setColor(heightTint, heightTint, heightTint, 0.9f);
                 } else if (tile.getTerrain() instanceof Sand) {
                     terrainTiles[x][z] = new Sprite(sandTexture);
+                    terrainTiles[x][z].setColor(heightTint, heightTint, heightTint, 0.9f);
                 } else if (tile.getTerrain() instanceof Water) {
                     terrainTiles[x][z] = new Sprite(waterTexture);
+                    terrainTiles[x][z].setColor(heightTint, heightTint, heightTint, 0.9f);
                 } else if (tile.getTerrain() instanceof River) {
                     terrainTiles[x][z] = new Sprite(riverTexture);
+                    terrainTiles[x][z].setColor(heightTint, heightTint, heightTint, 0.9f);
                 } else if (tile.getTerrain() instanceof Mountain) {
                     terrainTiles[x][z] = new Sprite(stoneTexture);
                 } else {
@@ -90,7 +94,7 @@ public class IsoCamTest extends AutocityGDX implements InputProcessor {
                 }
                 terrainTiles[x][z].setPosition(x, z);
                 terrainTiles[x][z].setSize(1, 1);
-                terrainTiles[x][z].setColor(heightTint, heightTint, heightTint, 1.0f);
+
                 if (tile.getOccupyingObject() != null) {
                     if (tile.getOccupyingObject() instanceof Tree) {
                         worldObjectTiles[x][z] = new Sprite(testTreeTexture);
@@ -103,10 +107,7 @@ public class IsoCamTest extends AutocityGDX implements InputProcessor {
             }
         }
 
-        batch = new
-
-                SpriteBatch();
-
+        batch = new SpriteBatch();
         Gdx.input.setInputProcessor(this);
     }
 
