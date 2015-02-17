@@ -60,7 +60,7 @@ public class WorldFactory {
 
     private void generateHeight() {
         DiamondSquareFractal diamondSquareFractal = new DiamondSquareFractal();
-        diamondSquareFractal.setRoughness(0.02);
+        diamondSquareFractal.setRoughness(0.03);
         diamondSquareFractal.setSize(Math.max(sizeX, sizeY));
 
         Double[][] map = diamondSquareFractal.generate();
@@ -78,7 +78,7 @@ public class WorldFactory {
                 Tile tile = world.getTile(x, y);
                 int height = tile.getHeight();
 
-                if (height >= 220) {
+                if (height >= 250) {
                     tile.setTerrain(new Mountain());
                 } else if (height >= 64) {
                     tile.setTerrain(new Grass());
@@ -99,13 +99,13 @@ public class WorldFactory {
         int sourceCount = 0;
         int maxTries = 50;
 
-            for (int x = 0; x < maxTries; x++) {
-                Tile tile = world.getTile(rand.nextInt(world.getWidth()), rand.nextInt(world.getHeight()));
-                if (!(tile.getTerrain() instanceof Mountain) && tile.getHeight() > 164) {
-                    source.add(tile);
-                    maxTries--;
-                }
+        for (int x = 0; x < maxTries; x++) {
+            Tile tile = world.getTile(rand.nextInt(world.getWidth()), rand.nextInt(world.getHeight()));
+            if (!(tile.getTerrain() instanceof Mountain) && tile.getHeight() > 164) {
+                source.add(tile);
+                maxTries--;
             }
+        }
 
 
         for (Tile sourceTile : source) {
@@ -113,6 +113,12 @@ public class WorldFactory {
                 for (Tile t : generator.generateRiver(sourceTile.getX(), sourceTile.getY())) {
                     if (!(t.getTerrain() instanceof River)) {
                         t.setTerrain(new River());
+                        if (t.getTerrain() instanceof Water) {
+                            // don't change height
+                        } else {
+                            t.setHeight(t.getHeight() - 5);
+                        }
+                        System.out.println(t.getHeight());
                     }
                 }
                 System.out.println("River generated!");

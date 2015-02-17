@@ -42,16 +42,17 @@ public class IsoCamTest extends AutocityGDX implements InputProcessor {
         game.start();
 
         // Configure the camera
-        cam = new OrthographicCamera(75, 75 * ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth()));
+        cam = new OrthographicCamera(100, 100 * ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth()));
         effectiveViewportWidth = cam.viewportWidth * cam.zoom;
         effectiveViewportHeight = cam.viewportHeight * cam.zoom;
         cam.zoom = MathUtils.clamp(cam.zoom, 0.1f, 100 / cam.viewportWidth);
         cam.position.x = MathUtils.clamp(cam.position.x, effectiveViewportWidth / 2f, 100 - effectiveViewportWidth / 2f);
         cam.position.y = MathUtils.clamp(cam.position.y, effectiveViewportHeight / 2f, 100 - effectiveViewportHeight / 2f);
-
+        cam.position.z = 100;
         cam.direction.set(-1, -1, -1);
         cam.near = 1;
-        cam.far = 100;
+        cam.far = 1000;
+        cam.update();
 
 
         terrainTiles = new Sprite[game.getWorld().getWidth()][game.getWorld().getHeight()];
@@ -178,6 +179,34 @@ public class IsoCamTest extends AutocityGDX implements InputProcessor {
 
     @Override
     public boolean keyTyped(char chr) {
+        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+            cam.zoom += 0.02;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
+            cam.zoom -= 0.02;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            cam.translate(-3, 0, 0);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            cam.translate(3, 0, 0);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            cam.translate(0, -3, 0);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            cam.translate(0, 3, 0);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.R)) {
+            cam.position.set(0, 0, 100);
+        }
+        effectiveViewportWidth = cam.viewportWidth * cam.zoom;
+        effectiveViewportHeight = cam.viewportHeight * cam.zoom;
+        cam.zoom = MathUtils.clamp(cam.zoom, 0.1f, 100 / cam.viewportWidth);
+        cam.position.x = MathUtils.clamp(cam.position.x, effectiveViewportWidth / 2f, 100 - effectiveViewportWidth / 2f);
+        cam.position.y = MathUtils.clamp(cam.position.y, effectiveViewportHeight / 2f, 100 - effectiveViewportHeight / 2f);
+
+        cam.update();
         return false;
     }
 

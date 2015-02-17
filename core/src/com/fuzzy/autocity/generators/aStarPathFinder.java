@@ -131,7 +131,7 @@ public class aStarPathFinder {
                     int xp = x + current.x;
                     int yp = y + current.y;
 
-                    if (isValidLocation(startX, startY, xp, yp)) {
+                    if (isValidLocation(current.x, current.y, xp, yp)) {
                         float nextStepCost = current.cost + getTilePathCost(current.x, current.y, xp, yp);
                         Node neighbor = nodes[xp][yp];
                         setVisitedTile(xp, yp);
@@ -156,13 +156,11 @@ public class aStarPathFinder {
 
         ArrayList<Tile> t;
         t = new ArrayList<>();
-//        Node target = nodes[targetX][targetY];
         while (target != nodes[startX][startY]) {
             t.add(0, world.getTile(target.x, target.y));
             target = target.parent;
         }
         t.add(0, world.getTile(startX, startY));
-        System.out.println(maxDepth);
         return t;
     }
 
@@ -277,11 +275,15 @@ public class aStarPathFinder {
         }
     }
 
-    boolean isValidLocation(int startX, int startY, int x, int y) {
-        boolean invalid = (x < 0) || (y < 0) || (x >= world.getWidth()) || (y >= world.getHeight());
-
-        if ((!invalid) && ((startX != x) || (startY != y))) {
-            return !isBlockedTile(world.getTile(x, y));
+    boolean isValidLocation(int sourceX, int sourceY, int targetX, int targetY) {
+        boolean invalid = (targetX < 0) || (targetY < 0) || (targetX >= world.getWidth()) || (targetY >= world.getHeight());
+        if (rivergen) {
+            if (world.getTile(sourceX, sourceY).getHeight() < world.getTile(targetX, targetY).getHeight()) {
+                return false;
+            }
+        }
+        if ((!invalid) && ((sourceX != targetX) || (sourceY != targetY))) {
+            return !isBlockedTile(world.getTile(targetX, targetY));
         }
         return !invalid;
     }
