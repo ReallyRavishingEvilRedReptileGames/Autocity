@@ -37,7 +37,7 @@ public class SettlementBuilder {
         PlacementValidator validator = new PlacementValidator(this.settlement.getWorld());
 
         while (!placed) {
-            System.out.printf("Test placement of %s at %s,%s\n", building, targetX, targetY);
+//            System.out.printf("Test placement of %s at %s,%s\n", building, targetX, targetY);
 
             try {
                 validator.validateBuilding(building, targetX, targetY);
@@ -48,7 +48,7 @@ public class SettlementBuilder {
             } catch (TerrainConflictException e) {
                 System.out.println("Building conflicts with invalid terrain.");
             } catch (WorldObjectConflictException e) {
-                System.out.println("Building conflicts with other world object.");
+//                System.out.println("Building conflicts with other world object.");
             }
 
             spiralStep++;

@@ -3,6 +3,7 @@ package com.fuzzy.autocity.generators;
 import com.fuzzy.autocity.Tile;
 import com.fuzzy.autocity.World;
 import com.fuzzy.autocity.terrain.Grass;
+import com.fuzzy.autocity.terrain.River;
 import com.fuzzy.autocity.terrain.Water;
 import com.fuzzy.autocity.world.paths.prefabs.Path;
 
@@ -95,6 +96,75 @@ public class aStarPathFinder {
         }
     }
 
+    public ArrayList<Tile> generateRiver(int startX, int startY) {
+
+        nodes[startX][startY].cost = 0;
+        nodes[startX][startY].depth = 0;
+        closed.clear();
+        open.clear();
+        open.add(nodes[startX][startY]);
+        Node target = null;
+        int maxDepth = 0;
+
+        while ((maxDepth < maxSearchDistance) && (open.size() != 0)) {
+            Node current = getFirstInOpen();
+            if (world.getTile(current.x, current.y).getTerrain() instanceof Water
+                    || world.getTile(current.x, current.y).getTerrain() instanceof River) {
+                target = current;
+                break;
+            }
+
+            removeFromOpen(current);
+            addToClosed(current);
+
+            for (int x = -1; x < 2; x++) {
+                for (int y = -1; y < 2; y++) {
+                    if (x == 0 && y == 0) {
+                        continue;
+                    }
+
+                    if (x != 0 && y != 0) { // No diagonal movement.
+                        continue;
+                    }
+
+                    int xp = x + current.x;
+                    int yp = y + current.y;
+
+                    if (isValidLocation(startX, startY, xp, yp)) {
+                        float nextStepCost = current.cost + getTilePathCost(current.x, current.y, xp, yp);
+                        Node neighbor = nodes[xp][yp];
+                        setVisitedTile(xp, yp);
+
+                        if (nextStepCost < neighbor.cost) {
+                            if (inOpenList((neighbor))) {
+                                removeFromOpen(neighbor);
+                            }
+                            if (inClosedList(neighbor)) {
+                                removeFromClosed(neighbor);
+                            }
+                        }
+                        if (!inOpenList(neighbor) && !inClosedList(neighbor)) {
+                            neighbor.cost = nextStepCost;
+                            maxDepth = Math.max(maxDepth, neighbor.setParent(current));
+                            addToOpen(neighbor);
+                        }
+                    }
+                }
+            }
+        }
+
+        ArrayList<Tile> t;
+        t = new ArrayList<>();
+//        Node target = nodes[targetX][targetY];
+        while (target != nodes[startX][startY]) {
+            t.add(0, world.getTile(target.x, target.y));
+            target = target.parent;
+        }
+        t.add(0, world.getTile(startX, startY));
+        System.out.println(maxDepth);
+        return t;
+    }
+
     public ArrayList<Tile> findPath(int startX, int startY, int targetX, int targetY) {
 
         if (isBlockedTile(world.getTile(targetX, targetY))) {
@@ -125,9 +195,9 @@ public class aStarPathFinder {
                         continue;
                     }
 
-//                    if (x !=0 && y != 0) { // No diagonal movement.
-//                        continue;
-//                    }
+                    if (x != 0 && y != 0) { // No diagonal movement.
+                        continue;
+                    }
 
                     int xp = x + current.x;
                     int yp = y + current.y;
@@ -201,7 +271,7 @@ public class aStarPathFinder {
     private boolean isBlockedTile(Tile tile) {
         if (rivergen) {
             // Nothing to do here right now.
-            return false;
+            return tile.getOccupyingObject() != null;
         } else {
             return tile.getOccupyingObject() != null && !isPath(tile) || tile.getTerrain() instanceof Water;
         }
@@ -227,6 +297,8 @@ public class aStarPathFinder {
         if (rivergen) {
             if (target.getHeight() < current.getHeight()) {
                 return 1.0f;
+            } else if (target.getTerrain() instanceof Water || target.getTerrain() instanceof River) {
+                return 2.0f;
             }
         } else if (current.getTerrain() instanceof Grass) {
             if (target.getTerrain() instanceof Grass) {

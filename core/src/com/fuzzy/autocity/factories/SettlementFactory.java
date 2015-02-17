@@ -70,10 +70,10 @@ public class SettlementFactory {
                 System.out.println("Placed settlement at (" + settlement.getOriginX() + "," + settlement.getOriginY() + ")");
                 break;
             } catch (BuildingConflictException e) {
-                System.out.println("Settlement conflicts with " + e.getBuilding());
+//                System.out.println("Settlement conflicts with " + e.getBuilding());
                 // Settlement placement will conflict with a building
             } catch (TerrainConflictException e) {
-                System.out.println("Settlement cannot be placed on " + e.getTerrain());
+//                System.out.println("Settlement cannot be placed on " + e.getTerrain());
             }
         }
 

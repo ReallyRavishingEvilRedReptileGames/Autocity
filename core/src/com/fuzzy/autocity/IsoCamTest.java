@@ -1,20 +1,30 @@
 package com.fuzzy.autocity;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.math.collision.Ray;
+import com.fuzzy.autocity.terrain.Grass;
+import com.fuzzy.autocity.terrain.River;
+import com.fuzzy.autocity.terrain.Sand;
+import com.fuzzy.autocity.terrain.Water;
 
 public class IsoCamTest extends AutocityGDX implements InputProcessor {
-    Texture texture;
+    Texture grassTexture;
+    Texture sandTexture;
+    Texture waterTexture;
+    Texture riverTexture;
     Texture testBuildingTexture;
     OrthographicCamera cam;
     SpriteBatch batch;
     Sprite[][] terrainTiles;
     Sprite[][] worldObjectTiles;
+    float effectiveViewportWidth;
+    float effectiveViewportHeight;
 
     final Matrix4 terrainMatrix = new Matrix4();
     final Matrix4 worldObjectMatrix = new Matrix4();
@@ -32,29 +42,49 @@ public class IsoCamTest extends AutocityGDX implements InputProcessor {
         game.start();
 
         // Configure the camera
-        cam = new OrthographicCamera(20, 20 * (Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth()));
-        cam.position.set(5, 5, 10);
+        cam = new OrthographicCamera(75, 75 * ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth()));
+        effectiveViewportWidth = cam.viewportWidth * cam.zoom;
+        effectiveViewportHeight = cam.viewportHeight * cam.zoom;
+        cam.zoom = MathUtils.clamp(cam.zoom, 0.1f, 100 / cam.viewportWidth);
+        cam.position.x = MathUtils.clamp(cam.position.x, effectiveViewportWidth / 2f, 100 - effectiveViewportWidth / 2f);
+        cam.position.y = MathUtils.clamp(cam.position.y, effectiveViewportHeight / 2f, 100 - effectiveViewportHeight / 2f);
+
         cam.direction.set(-1, -1, -1);
         cam.near = 1;
         cam.far = 100;
 
+
         terrainTiles = new Sprite[game.getWorld().getWidth()][game.getWorld().getHeight()];
         worldObjectTiles = new Sprite[game.getWorld().getWidth()][game.getWorld().getHeight()];
 
-        texture = new Texture(Gdx.files.internal("dev_grass.png"));
+        grassTexture = new Texture(Gdx.files.internal("dev_grass.png"));
+        waterTexture = new Texture(Gdx.files.internal("dev_water.png"));
+        sandTexture = new Texture(Gdx.files.internal("dev_sand.png"));
+        riverTexture = new Texture(Gdx.files.internal("dev_river.png"));
         testBuildingTexture = new Texture(Gdx.files.internal("blue_cube.png"));
 
-        terrainMatrix.setToRotation(new Vector3(1, 0, 0), 90);
+        terrainMatrix.setToRotation(new Vector3(-1, 0, 0), 90);
         worldObjectMatrix.setToRotation(new Vector3(), 0);
 
         for (int z = 0; z < game.getWorld().getHeight(); z++) {
             for (int x = 0; x < game.getWorld().getWidth(); x++) {
-                terrainTiles[x][z] = new Sprite(texture);
+                Tile tile = game.getWorld().getTile(x, z);
+                float heightTint = Math.max(tile.getHeight(), 1);
+
+                if (tile.getTerrain() instanceof Grass) {
+                    terrainTiles[x][z] = new Sprite(grassTexture);
+                } else if (tile.getTerrain() instanceof Sand) {
+                    terrainTiles[x][z] = new Sprite(sandTexture);
+                } else if (tile.getTerrain() instanceof Water) {
+                    terrainTiles[x][z] = new Sprite(waterTexture);
+                } else if (tile.getTerrain() instanceof River) {
+                    terrainTiles[x][z] = new Sprite(riverTexture);
+                } else {
+                    terrainTiles[x][z] = new Sprite(grassTexture); // Fallback for new terrain types
+                }
                 terrainTiles[x][z].setPosition(x, z);
                 terrainTiles[x][z].setSize(1, 1);
-
-                Tile tile = game.getWorld().getTile(x, z);
-
+                terrainTiles[x][z].setColor(heightTint, heightTint, heightTint, 1.0f);
                 if (tile.getOccupyingObject() != null) {
                     worldObjectTiles[x][z] = new Sprite(testBuildingTexture);
                     worldObjectTiles[x][z].setPosition(x, z);
@@ -77,8 +107,8 @@ public class IsoCamTest extends AutocityGDX implements InputProcessor {
         batch.setTransformMatrix(terrainMatrix);
         batch.begin();
 
-        for(int z = 0; z < game.getWorld().getHeight(); z++) {
-            for(int x = 0; x < game.getWorld().getWidth(); x++) {
+        for (int z = 0; z < game.getWorld().getHeight(); z++) {
+            for (int x = 0; x < game.getWorld().getWidth(); x++) {
                 terrainTiles[x][z].draw(batch);
 
                 if (worldObjectTiles[x][z] != null) {
@@ -88,20 +118,19 @@ public class IsoCamTest extends AutocityGDX implements InputProcessor {
         }
 
 
-
         batch.end();
 
-        checkTileTouched();
+//        checkTileTouched();
     }
 
     private void checkTileTouched() {
-        if(Gdx.input.justTouched()) {
+        if (Gdx.input.justTouched()) {
             Ray pickRay = cam.getPickRay(Gdx.input.getX(), Gdx.input.getY());
             Intersector.intersectRayPlane(pickRay, xzPlane, intersection);
-            int x = (int)intersection.x;
-            int z = (int)intersection.z;
-            if(x >= 0 && x < game.getWorld().getWidth() && z >= 0 && z < game.getWorld().getHeight()) {
-                if(lastSelectedTile != null) lastSelectedTile.setColor(1, 1, 1, 1);
+            int x = (int) intersection.x;
+            int z = (int) intersection.z;
+            if (x >= 0 && x < game.getWorld().getWidth() && z >= 0 && z < game.getWorld().getHeight()) {
+                if (lastSelectedTile != null) lastSelectedTile.setColor(1, 1, 1, 1);
                 Sprite sprite = terrainTiles[x][z];
                 sprite.setColor(1, 0, 0, 1);
                 lastSelectedTile = sprite;
@@ -109,11 +138,12 @@ public class IsoCamTest extends AutocityGDX implements InputProcessor {
         }
     }
 
-    @Override public boolean touchDragged (int x, int y, int pointer) {
+    @Override
+    public boolean touchDragged(int x, int y, int pointer) {
         Ray pickRay = cam.getPickRay(x, y);
         Intersector.intersectRayPlane(pickRay, xzPlane, curr);
 
-        if(!(last.x == -1 && last.y == -1 && last.z == -1)) {
+        if (!(last.x == -1 && last.y == -1 && last.z == -1)) {
             pickRay = cam.getPickRay(last.x, last.y);
             Intersector.intersectRayPlane(pickRay, xzPlane, delta);
             delta.sub(curr);
@@ -123,33 +153,40 @@ public class IsoCamTest extends AutocityGDX implements InputProcessor {
         return false;
     }
 
-    @Override public boolean touchUp(int x, int y, int pointer, int button) {
+    @Override
+    public boolean touchUp(int x, int y, int pointer, int button) {
         last.set(-1, -1, -1);
         return false;
     }
 
-    @Override public boolean touchDown(int x, int y, int pointer, int button) {
+    @Override
+    public boolean touchDown(int x, int y, int pointer, int button) {
         last.set(-1, -1, -1);
         return false;
     }
 
-    @Override public boolean keyTyped(char chr) {
+    @Override
+    public boolean keyTyped(char chr) {
         return false;
     }
 
-    @Override public boolean keyUp(int e) {
+    @Override
+    public boolean keyUp(int e) {
         return false;
     }
 
-    @Override public boolean keyDown(int e) {
+    @Override
+    public boolean keyDown(int e) {
         return false;
     }
 
-    @Override public boolean mouseMoved(int e, int t) {
+    @Override
+    public boolean mouseMoved(int e, int t) {
         return false;
     }
 
-    @Override public boolean scrolled(int e) {
+    @Override
+    public boolean scrolled(int e) {
         return false;
     }
 }
