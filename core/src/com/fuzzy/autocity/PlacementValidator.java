@@ -4,6 +4,7 @@ import com.fuzzy.autocity.exceptions.BuildingConflictException;
 import com.fuzzy.autocity.exceptions.TerrainConflictException;
 import com.fuzzy.autocity.exceptions.TileOutOfBoundsException;
 import com.fuzzy.autocity.exceptions.WorldObjectConflictException;
+import com.fuzzy.autocity.terrain.Mountain;
 import com.fuzzy.autocity.terrain.Water;
 import com.fuzzy.autocity.world.WorldObject;
 import com.fuzzy.autocity.world.buildings.Building;
@@ -28,7 +29,7 @@ public class PlacementValidator {
                         throw new BuildingConflictException((Building) worldObject);
                     }
 
-                    if (tile.getTerrain() instanceof Water) {
+                    if (tile.getTerrain() instanceof Water || tile.getTerrain() instanceof Mountain) {
                         throw new TerrainConflictException(tile.getTerrain());
                     }
                 } catch (TileOutOfBoundsException expected) {

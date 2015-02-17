@@ -34,18 +34,17 @@ public class SettlementFactory {
 
         place();
         addRoads();
-        addBuilding(bf.create("Town Hall"));
+        addBuilding(bf.create("Town Hall"), p);
 
         // Add 2-4 huts
         int hutCount = new Random().nextInt(2) + 2;
 
         for (int i = 0; i < hutCount; i++) {
-            addBuilding(bf.create("Hut"));
+            addBuilding(bf.create("Hut"), p);
 
         }
 
         addPopulation();
-
         return settlement;
     }
 
@@ -93,8 +92,9 @@ public class SettlementFactory {
         }
     }
 
-    private void addBuilding(Building building) {
-        System.out.println("Adding building " + building);
+    private void addBuilding(Building building, Player p) {
+        building.setPlayer(p);
+        System.out.println("Adding building " + building + " for " + building.getPlayer());
 
         this.settlement.addBuilding(building);
 

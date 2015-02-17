@@ -77,20 +77,6 @@ public class Settlement extends PlayerOwnable {
         return this.buildings;
     }
 
-    public Player getPlayer() {
-        return this.player;
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-
-    private void setBuildingPlayer(Player player) {
-        for (Building b : buildings) {
-            b.setPlayer(player);
-        }
-    }
-
     public int getOriginX() {
         return originX;
     }

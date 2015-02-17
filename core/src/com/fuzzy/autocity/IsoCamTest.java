@@ -8,17 +8,17 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.math.collision.Ray;
-import com.fuzzy.autocity.terrain.Grass;
-import com.fuzzy.autocity.terrain.River;
-import com.fuzzy.autocity.terrain.Sand;
-import com.fuzzy.autocity.terrain.Water;
+import com.fuzzy.autocity.terrain.*;
+import com.fuzzy.autocity.world.resources.prefabs.Tree;
 
 public class IsoCamTest extends AutocityGDX implements InputProcessor {
     Texture grassTexture;
     Texture sandTexture;
     Texture waterTexture;
     Texture riverTexture;
+    Texture stoneTexture;
     Texture testBuildingTexture;
+    Texture testTreeTexture;
     OrthographicCamera cam;
     SpriteBatch batch;
     Sprite[][] terrainTiles;
@@ -61,7 +61,10 @@ public class IsoCamTest extends AutocityGDX implements InputProcessor {
         waterTexture = new Texture(Gdx.files.internal("dev_water.png"));
         sandTexture = new Texture(Gdx.files.internal("dev_sand.png"));
         riverTexture = new Texture(Gdx.files.internal("dev_river.png"));
+        stoneTexture = new Texture(Gdx.files.internal("dev_stone.png"));
         testBuildingTexture = new Texture(Gdx.files.internal("blue_cube.png"));
+        testTreeTexture = new Texture(Gdx.files.internal("green_cube.png"));
+
 
         terrainMatrix.setToRotation(new Vector3(-1, 0, 0), 90);
         worldObjectMatrix.setToRotation(new Vector3(), 0);
@@ -79,6 +82,8 @@ public class IsoCamTest extends AutocityGDX implements InputProcessor {
                     terrainTiles[x][z] = new Sprite(waterTexture);
                 } else if (tile.getTerrain() instanceof River) {
                     terrainTiles[x][z] = new Sprite(riverTexture);
+                } else if (tile.getTerrain() instanceof Mountain) {
+                    terrainTiles[x][z] = new Sprite(stoneTexture);
                 } else {
                     terrainTiles[x][z] = new Sprite(grassTexture); // Fallback for new terrain types
                 }
@@ -86,14 +91,20 @@ public class IsoCamTest extends AutocityGDX implements InputProcessor {
                 terrainTiles[x][z].setSize(1, 1);
                 terrainTiles[x][z].setColor(heightTint, heightTint, heightTint, 1.0f);
                 if (tile.getOccupyingObject() != null) {
-                    worldObjectTiles[x][z] = new Sprite(testBuildingTexture);
+                    if (tile.getOccupyingObject() instanceof Tree) {
+                        worldObjectTiles[x][z] = new Sprite(testTreeTexture);
+                    } else {
+                        worldObjectTiles[x][z] = new Sprite(testBuildingTexture);
+                    }
                     worldObjectTiles[x][z].setPosition(x, z);
                     worldObjectTiles[x][z].setSize(1, 1);
                 }
             }
         }
 
-        batch = new SpriteBatch();
+        batch = new
+
+                SpriteBatch();
 
         Gdx.input.setInputProcessor(this);
     }

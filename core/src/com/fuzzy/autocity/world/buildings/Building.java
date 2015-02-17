@@ -1,9 +1,7 @@
 package com.fuzzy.autocity.world.buildings;
 
+import com.fuzzy.autocity.*;
 import com.fuzzy.autocity.Character;
-import com.fuzzy.autocity.Invokable;
-import com.fuzzy.autocity.Settlement;
-import com.fuzzy.autocity.Tile;
 import com.fuzzy.autocity.enumeration.EBuildingStyle;
 import com.fuzzy.autocity.enumeration.EDirection;
 

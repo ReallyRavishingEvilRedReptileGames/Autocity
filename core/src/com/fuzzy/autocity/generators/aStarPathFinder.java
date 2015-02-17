@@ -3,6 +3,7 @@ package com.fuzzy.autocity.generators;
 import com.fuzzy.autocity.Tile;
 import com.fuzzy.autocity.World;
 import com.fuzzy.autocity.terrain.Grass;
+import com.fuzzy.autocity.terrain.Mountain;
 import com.fuzzy.autocity.terrain.River;
 import com.fuzzy.autocity.terrain.Water;
 import com.fuzzy.autocity.world.paths.prefabs.Path;
@@ -270,8 +271,7 @@ public class aStarPathFinder {
 
     private boolean isBlockedTile(Tile tile) {
         if (rivergen) {
-            // Nothing to do here right now.
-            return tile.getOccupyingObject() != null;
+            return tile.getOccupyingObject() != null || tile.getTerrain() instanceof Mountain;
         } else {
             return tile.getOccupyingObject() != null && !isPath(tile) || tile.getTerrain() instanceof Water;
         }
