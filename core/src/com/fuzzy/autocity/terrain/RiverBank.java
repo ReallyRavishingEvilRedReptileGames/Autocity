@@ -7,6 +7,7 @@ public class RiverBank extends Sand {
     public RiverBank() {
         this.name = "River Bank";
         this.character = ',';
+        this.randomEntitySpawnRate = -1;
     }
 
     @Override

@@ -75,7 +75,7 @@ public class aStarPathFinder {
         }
     }
 
-    private ArrayList<Node> closed = new ArrayList<Node>();
+    private ArrayList<Node> closed = new ArrayList<>();
     private SortedList open = new SortedList();
     private int maxSearchDistance;
     private World world;
@@ -106,18 +106,16 @@ public class aStarPathFinder {
         open.add(nodes[startX][startY]);
         Node target = null;
         int maxDepth = 0;
-
+        Node current = getFirstInOpen();
         while ((maxDepth < maxSearchDistance) && (open.size() != 0)) {
-            Node current = getFirstInOpen();
+            current = getFirstInOpen();
             if (world.getTile(current.x, current.y).getTerrain() instanceof Water
                     || world.getTile(current.x, current.y).getTerrain() instanceof River) {
-                target = current;
                 break;
             }
 
             removeFromOpen(current);
             addToClosed(current);
-
             for (int x = -1; x < 2; x++) {
                 for (int y = -1; y < 2; y++) {
                     if (x == 0 && y == 0) {
@@ -135,7 +133,6 @@ public class aStarPathFinder {
                         float nextStepCost = current.cost + getTilePathCost(current.x, current.y, xp, yp);
                         Node neighbor = nodes[xp][yp];
                         setVisitedTile(xp, yp);
-
                         if (nextStepCost < neighbor.cost) {
                             if (inOpenList((neighbor))) {
                                 removeFromOpen(neighbor);
@@ -153,7 +150,7 @@ public class aStarPathFinder {
                 }
             }
         }
-
+        target = current;
         ArrayList<Tile> t;
         t = new ArrayList<>();
         while (target != nodes[startX][startY]) {
@@ -271,7 +268,7 @@ public class aStarPathFinder {
         if (rivergen) {
             return tile.getOccupyingObject() != null || tile.getTerrain() instanceof Mountain;
         } else {
-            return tile.getOccupyingObject() != null && !isPath(tile) || tile.getTerrain() instanceof Water;
+            return ((tile.getOccupyingObject() != null) && !isPath(tile)) || (tile.getTerrain() instanceof Water);
         }
     }
 
@@ -298,8 +295,8 @@ public class aStarPathFinder {
         Tile target = world.getTile(targetX, targetY);
         if (rivergen) {
             if (target.getHeight() < current.getHeight()) {
-                return 1.0f;
-            } else if (target.getTerrain() instanceof Water || target.getTerrain() instanceof River) {
+                return 1.0f + (target.getErosionResistance() * 10);
+            } else if (target.getTerrain() instanceof Water) {
                 return 2.0f;
             }
         } else if (current.getTerrain() instanceof Grass) {

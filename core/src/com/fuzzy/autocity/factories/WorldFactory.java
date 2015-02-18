@@ -34,6 +34,7 @@ public class WorldFactory {
         this.sizeY = sizeY;
         System.out.println("... Generating Terrain...");
         this.generateHeight();
+        this.generateErosionMap();
         this.generateTerrain();
         System.out.println("... Generating Vegetation...");
         this.generateFoliage();
@@ -61,7 +62,7 @@ public class WorldFactory {
 
     private void generateHeight() {
         DiamondSquareFractal diamondSquareFractal = new DiamondSquareFractal();
-        diamondSquareFractal.setRoughness(-0.01);
+        diamondSquareFractal.setRoughness(0.01);
         diamondSquareFractal.setSize(Math.max(sizeX, sizeY));
 
         Double[][] map = diamondSquareFractal.generate();
@@ -69,6 +70,20 @@ public class WorldFactory {
         for (int x = 0; x < world.getWidth(); x++) {
             for (int y = 0; y < world.getHeight(); y++) {
                 world.getTile(x, y).setHeight((int) (map[x][y] * 255));
+            }
+        }
+    }
+
+    private void generateErosionMap() {
+        DiamondSquareFractal diamondSquareFractal = new DiamondSquareFractal();
+        diamondSquareFractal.setRoughness(0.01);
+        diamondSquareFractal.setSize(Math.max(sizeX, sizeY));
+
+        Double[][] map = diamondSquareFractal.generate();
+
+        for (int x = 0; x < world.getWidth(); x++) {
+            for (int y = 0; y < world.getHeight(); y++) {
+                world.getTile(x, y).setErosionResistance((int) (map[x][y] * 255));
             }
         }
     }
@@ -81,9 +96,9 @@ public class WorldFactory {
 
                 if (height >= 250) {
                     tile.setTerrain(new Mountain());
-                } else if (height >= 32) {
-                    tile.setTerrain(new Grass());
                 } else if (height >= 16) {
+                    tile.setTerrain(new Grass());
+                } else if (height >= 8) {
                     tile.setTerrain(new Sand());
                 } else {
                     tile.setTerrain(new Water());
@@ -150,10 +165,12 @@ public class WorldFactory {
     }
 
     private void setFlowDirection(Tile last, Tile current) {
-        // 0, -1 North
-        // -1, 0 West
-        // +1, 0 East
-        // 0, +1 South
+        /*
+        0, -1 North
+        -1, 0 West
+        +1, 0 East
+        0, +1 South
+        */
         if (world.getTile(current.getX(), current.getY() - 1).equals(last)) {
             River r = (River) last.getTerrain();
             r.setFlowDirection(EDirection.South);
@@ -167,7 +184,6 @@ public class WorldFactory {
             River r = (River) last.getTerrain();
             r.setFlowDirection(EDirection.West);
         }
-        // Todo.
     }
 
     private void generateFoliage() {

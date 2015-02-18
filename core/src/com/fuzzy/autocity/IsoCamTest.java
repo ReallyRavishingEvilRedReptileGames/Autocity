@@ -73,25 +73,27 @@ public class IsoCamTest extends AutocityGDX implements InputProcessor {
         for (int z = 0; z < game.getWorld().getHeight(); z++) {
             for (int x = 0; x < game.getWorld().getWidth(); x++) {
                 Tile tile = game.getWorld().getTile(x, z);
-                float heightTint = Math.max(tile.getHeight(), 1);
+                float heightTint = Math.max(((float) tile.getHeight() / 255), 0.1f);
+                float erosionTint = Math.max((float)tile.getErosionResistance() / 255, 0.1f);
+
 
                 if (tile.getTerrain() instanceof Grass) {
                     terrainTiles[x][z] = new Sprite(grassTexture);
-                    terrainTiles[x][z].setColor(heightTint, heightTint, heightTint, 0.9f);
                 } else if (tile.getTerrain() instanceof Sand) {
                     terrainTiles[x][z] = new Sprite(sandTexture);
-                    terrainTiles[x][z].setColor(heightTint, heightTint, heightTint, 0.9f);
                 } else if (tile.getTerrain() instanceof Water) {
                     terrainTiles[x][z] = new Sprite(waterTexture);
-                    terrainTiles[x][z].setColor(heightTint, heightTint, heightTint, 0.9f);
 //                } else if (tile.getTerrain() instanceof River) {
 //                    terrainTiles[x][z] = new Sprite(riverTexture);
-//                    terrainTiles[x][z].setColor(heightTint, heightTint, heightTint, 0.9f);
                 } else if (tile.getTerrain() instanceof Mountain) {
                     terrainTiles[x][z] = new Sprite(stoneTexture);
                 } else {
                     terrainTiles[x][z] = new Sprite(grassTexture); // Fallback for new terrain types
                 }
+                // Uncomment to view the height fractal applied on the map
+//                terrainTiles[x][z].setColor(heightTint, heightTint, heightTint, 0.99f);
+                // Uncomment to view the erosion resistance applied on the map
+//                terrainTiles[x][z].setColor(erosionTint, erosionTint, erosionTint, 0.99f);
                 terrainTiles[x][z].setPosition(x, z);
                 terrainTiles[x][z].setSize(1, 1);
 

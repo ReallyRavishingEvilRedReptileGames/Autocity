@@ -7,7 +7,7 @@ public class Mountain extends Terrain {
     public Mountain() {
         this.name = "Mountain";
         this.character = '/';
-        this.randomEntitySpawnRate = 0.1;
+        this.randomEntitySpawnRate = -1;
     }
 
     @Override

@@ -4,6 +4,8 @@ import com.fuzzy.autocity.terrain.*;
 import com.fuzzy.autocity.world.WorldObject;
 import com.fuzzy.autocity.world.buildings.Building;
 
+import java.util.Random;
+
 public class Tile {
     protected char character;
     private WorldObject occupyingObject;
@@ -11,6 +13,7 @@ public class Tile {
     private int x;
     private int y;
     private int height;
+    private int erosionResistance;
 
     public Tile(int x, int y) {
         this.x = x;
@@ -66,6 +69,14 @@ public class Tile {
 
     public int getY() {
         return y;
+    }
+
+    public void setErosionResistance(int resistance) {
+        this.erosionResistance = resistance;
+    }
+
+    public int getErosionResistance() {
+        return erosionResistance;
     }
 
     @Invokable
