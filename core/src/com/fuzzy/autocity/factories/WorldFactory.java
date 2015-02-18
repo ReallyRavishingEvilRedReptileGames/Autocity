@@ -1,6 +1,7 @@
 package com.fuzzy.autocity.factories;
 
 import com.fuzzy.autocity.*;
+import com.fuzzy.autocity.enumeration.EDirection;
 import com.fuzzy.autocity.exceptions.PlacementAttemptsExceededException;
 import com.fuzzy.autocity.generators.aStarPathFinder;
 import com.fuzzy.autocity.generators.fractals.DiamondSquareFractal;
@@ -149,6 +150,23 @@ public class WorldFactory {
     }
 
     private void setFlowDirection(Tile last, Tile current) {
+        // 0, -1 North
+        // -1, 0 West
+        // +1, 0 East
+        // 0, +1 South
+        if (world.getTile(current.getX(), current.getY() - 1).equals(last)) {
+            River r = (River) last.getTerrain();
+            r.setFlowDirection(EDirection.South);
+        } else if (world.getTile(current.getX(), current.getY() + 1).equals(last)) {
+            River r = (River) last.getTerrain();
+            r.setFlowDirection(EDirection.North);
+        } else if (world.getTile(current.getX() - 1, current.getY()).equals(last)) {
+            River r = (River) last.getTerrain();
+            r.setFlowDirection(EDirection.East);
+        } else if (world.getTile(current.getX() + 1, current.getY()).equals(last)) {
+            River r = (River) last.getTerrain();
+            r.setFlowDirection(EDirection.West);
+        }
         // Todo.
     }
 

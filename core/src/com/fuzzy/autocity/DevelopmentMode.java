@@ -90,7 +90,10 @@ public class DevelopmentMode {
                 }
                 System.out.println(Arrays.toString(invokable.getParameterTypes()));
                 System.out.println(Arrays.toString(args));
-                invokable.invoke(invokingObject, args);
+                if (invokable.getReturnType().equals(Void.TYPE)) {
+                    invokable.invoke(invokingObject, args);
+                }
+            System.out.println(invokable.invoke(invokingObject, args));
 
         } else { // if it doesn't have params then we just invoke and print.
             System.out.println(invokable.getName() + " " + invokable.invoke(invokingObject));
