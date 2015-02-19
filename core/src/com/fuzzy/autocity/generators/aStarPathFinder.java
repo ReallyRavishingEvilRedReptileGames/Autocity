@@ -275,11 +275,11 @@ public class aStarPathFinder {
 
     boolean isValidLocation(int sourceX, int sourceY, int targetX, int targetY) {
         boolean invalid = (targetX < 0) || (targetY < 0) || (targetX >= world.getWidth()) || (targetY >= world.getHeight());
-        if (rivergen) {
-            return (world.getTile(targetX, targetY).getHeight() - world.getTile(sourceX, sourceY).getHeight()) < 5;
-        }
         if ((!invalid) && ((sourceX != targetX) || (sourceY != targetY))) {
             return !isBlockedTile(world.getTile(targetX, targetY));
+        }
+        if (rivergen) {
+            return (world.getTile(targetX, targetY).getHeight() - world.getTile(sourceX, sourceY).getHeight()) < 5;
         }
         return !invalid;
     }

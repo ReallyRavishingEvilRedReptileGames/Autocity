@@ -4,6 +4,7 @@ import com.fuzzy.autocity.*;
 import com.fuzzy.autocity.enumeration.EDirection;
 import com.fuzzy.autocity.exceptions.PlacementAttemptsExceededException;
 import com.fuzzy.autocity.generators.aStarPathFinder;
+import com.fuzzy.autocity.generators.builders.RiverBuilder;
 import com.fuzzy.autocity.generators.fractals.DiamondSquareFractal;
 import com.fuzzy.autocity.terrain.*;
 
@@ -17,6 +18,7 @@ public class WorldFactory {
     private int sizeY;
     private World world;
     private int regenAttempts = 0;
+    private int riverRegenAttempts = 0;
 
     private double foliageRequiredFractalValue = 0.4;
 
@@ -39,8 +41,8 @@ public class WorldFactory {
         System.out.println("... Generating Vegetation...");
         this.generateFoliage();
         System.out.println("... Generating Rivers...");
-        this.generateRivers();
         try {
+            this.generateRivers();
             this.generateSettlements();
         } catch (PlacementAttemptsExceededException e) {
             generate(sizeX, sizeY);
@@ -96,9 +98,9 @@ public class WorldFactory {
 
                 if (height >= 250) {
                     tile.setTerrain(new Mountain());
-                } else if (height >= 16) {
+                } else if (height >= 32) {
                     tile.setTerrain(new Grass());
-                } else if (height >= 8) {
+                } else if (height >= 16) {
                     tile.setTerrain(new Sand());
                 } else {
                     tile.setTerrain(new Water());
@@ -108,12 +110,12 @@ public class WorldFactory {
 
     }
 
-    private void generateRivers() {
+    private void generateRivers() throws PlacementAttemptsExceededException{
+        RiverBuilder rb = new RiverBuilder(this.world);
         Random rand = new Random();
-        aStarPathFinder generator = new aStarPathFinder(this.world, 256, true);
         List<Tile> source = new ArrayList<>();
         int failCount = 0;
-        int maxTries = rand.nextInt(100);
+        int maxTries = rand.nextInt(100) + 1;
 
         while (source.size() < maxTries) {
             Tile tile = world.getTile(rand.nextInt(world.getWidth()), rand.nextInt(world.getHeight()));
@@ -123,73 +125,21 @@ public class WorldFactory {
             maxTries--;
         }
 
-        for (Tile sourceTile : source) {
-            Tile last = null;
-            List<Tile> visited = new ArrayList<>();
-            try {
-                for (Tile t : generator.generateRiver(sourceTile.getX(), sourceTile.getY())) {
-
-                    setFlowDirection(last, t);
-                    if (!(t.getTerrain() instanceof Water)) {
-                        t.setTerrain(new River());
-                    }
-                    if (last != null && last.getHeight() < t.getHeight()) {
-                        t.setHeight(last.getHeight());
-                    }
-                    // Erosion or some such nonsense
-                    if ((t.getTerrain() instanceof River)) {
-                        for (Tile neighbor : world.getNeighboringTiles(t)) {
-                            if (!(neighbor.getTerrain() instanceof Water)) { // Don't modify water tile's height
-                                neighbor.setHeight(neighbor.getHeight() - 1);
-                            }
-                            if (neighbor.getHeight() < t.getHeight()
-                                    && !(neighbor.getTerrain() instanceof Water)
-                                    && !visited.contains(neighbor)) {
-                                if (neighbor.getOccupyingObject() != null) {
-                                    neighbor.setOccupyingObject(null);
-                                }
-                                visited.add(neighbor);
-                                neighbor.setTerrain(new RiverBank());
-                            }
-                            visited.clear();
-                        }
-                    }
-                    last = t;
-                }
-                System.out.println("River generated!");
-            } catch (NullPointerException n) {
-                failCount++;
-            }
-
+        for (Tile t : source) {
+            rb.generate(t);
         }
-        if (source.size() == 0) {
+
+        if (source.size() == 0 || (failCount == source.size())) {
             System.out.println("No rivers generated.");
-        }
-
-        System.out.println(failCount + " rivers failed to generate.");
-    }
-
-    private void setFlowDirection(Tile last, Tile current) {
-        /*
-        0, -1 North
-        -1, 0 West
-        +1, 0 East
-        0, +1 South
-        */
-        if (world.getTile(current.getX(), current.getY() - 1).equals(last)) {
-            River r = (River) last.getTerrain();
-            r.setFlowDirection(EDirection.South);
-        } else if (world.getTile(current.getX(), current.getY() + 1).equals(last)) {
-            River r = (River) last.getTerrain();
-            r.setFlowDirection(EDirection.North);
-        } else if (world.getTile(current.getX() - 1, current.getY()).equals(last)) {
-            River r = (River) last.getTerrain();
-            r.setFlowDirection(EDirection.East);
-        } else if (world.getTile(current.getX() + 1, current.getY()).equals(last)) {
-            River r = (River) last.getTerrain();
-            r.setFlowDirection(EDirection.West);
+            if (riverRegenAttempts > 5) {
+                riverRegenAttempts++;
+                generateRivers();
+            } else {
+                throw new PlacementAttemptsExceededException();
+            }
         }
     }
+
 
     private void generateFoliage() {
         DiamondSquareFractal diamondSquareFractal = new DiamondSquareFractal();

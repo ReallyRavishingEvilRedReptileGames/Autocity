@@ -2,7 +2,9 @@ package com.fuzzy.autocity;
 
 import com.fuzzy.autocity.debugui.Cursor;
 import com.fuzzy.autocity.factories.WorldObjectFactory;
+import com.fuzzy.autocity.generators.aStarPathFinder;
 import com.fuzzy.autocity.generators.builders.PathBuilder;
+import com.fuzzy.autocity.generators.builders.RiverBuilder;
 import com.fuzzy.autocity.world.WorldObject;
 import com.fuzzy.autocity.world.buildings.Construction;
 
@@ -40,6 +42,9 @@ public class DevelopmentMode {
                 return;
             case "World":
                 commandLookup(command, this.game.getWorld());
+                return;
+            case "Riverbuilder":
+                commandLookup(command, new RiverBuilder(this.game.getWorld()));
                 return;
             case "Help":
                 System.out.println("Usage: \"[module] Help\" \n Example: \"Game Help\"");
