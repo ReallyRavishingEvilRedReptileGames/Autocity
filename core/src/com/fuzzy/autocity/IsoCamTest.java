@@ -74,7 +74,7 @@ public class IsoCamTest extends AutocityGDX implements InputProcessor {
             for (int x = 0; x < game.getWorld().getWidth(); x++) {
                 Tile tile = game.getWorld().getTile(x, z);
                 float heightTint = Math.max(((float) tile.getHeight() / 255), 0.1f);
-                float erosionTint = Math.max((float)tile.getErosionResistance() / 255, 0.1f);
+                float erosionTint = Math.max((float)tile.getErosionResistance() / 255, 0.5f);
 
 
                 if (tile.getTerrain() instanceof Grass) {

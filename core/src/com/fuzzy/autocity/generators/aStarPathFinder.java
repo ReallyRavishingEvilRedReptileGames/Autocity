@@ -1,5 +1,6 @@
 package com.fuzzy.autocity.generators;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.fuzzy.autocity.Tile;
 import com.fuzzy.autocity.World;
 import com.fuzzy.autocity.terrain.Grass;
@@ -98,7 +99,6 @@ public class aStarPathFinder {
     }
 
     public ArrayList<Tile> generateRiver(int startX, int startY) {
-
         nodes[startX][startY].cost = 0;
         nodes[startX][startY].depth = 0;
         closed.clear();
@@ -106,11 +106,12 @@ public class aStarPathFinder {
         open.add(nodes[startX][startY]);
         Node target = null;
         int maxDepth = 0;
-        Node current = getFirstInOpen();
+
         while ((maxDepth < maxSearchDistance) && (open.size() != 0)) {
-            current = getFirstInOpen();
-            if (world.getTile(current.x, current.y).getTerrain() instanceof Water
-                    || world.getTile(current.x, current.y).getTerrain() instanceof River) {
+            Node current = getFirstInOpen();
+            if (world.getTile(current.x, current.y).getTerrain() instanceof Water) {
+                System.out.println("Body of water found: " + world.getTile(current.x, current.y).getTerrain());
+                target = current;
                 break;
             }
 
@@ -150,7 +151,7 @@ public class aStarPathFinder {
                 }
             }
         }
-        target = current;
+
         ArrayList<Tile> t;
         t = new ArrayList<>();
         while (target != nodes[startX][startY]) {
@@ -275,9 +276,7 @@ public class aStarPathFinder {
     boolean isValidLocation(int sourceX, int sourceY, int targetX, int targetY) {
         boolean invalid = (targetX < 0) || (targetY < 0) || (targetX >= world.getWidth()) || (targetY >= world.getHeight());
         if (rivergen) {
-            if (world.getTile(sourceX, sourceY).getHeight() < world.getTile(targetX, targetY).getHeight()) {
-                return false;
-            }
+            return (world.getTile(targetX, targetY).getHeight() - world.getTile(sourceX, sourceY).getHeight()) < 5;
         }
         if ((!invalid) && ((sourceX != targetX) || (sourceY != targetY))) {
             return !isBlockedTile(world.getTile(targetX, targetY));
@@ -294,10 +293,10 @@ public class aStarPathFinder {
         Tile current = world.getTile(x, y);
         Tile target = world.getTile(targetX, targetY);
         if (rivergen) {
-            if (target.getHeight() < current.getHeight()) {
-                return 1.0f + (target.getErosionResistance() * 10);
-            } else if (target.getTerrain() instanceof Water) {
-                return 2.0f;
+            if (target.getTerrain() instanceof Water) {
+                return 256f;
+            } else {
+                return target.getErosionResistance();
             }
         } else if (current.getTerrain() instanceof Grass) {
             if (target.getTerrain() instanceof Grass) {

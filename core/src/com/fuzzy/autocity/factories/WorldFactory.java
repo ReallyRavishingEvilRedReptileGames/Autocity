@@ -75,15 +75,15 @@ public class WorldFactory {
     }
 
     private void generateErosionMap() {
-        DiamondSquareFractal diamondSquareFractal = new DiamondSquareFractal();
-        diamondSquareFractal.setRoughness(0.01);
-        diamondSquareFractal.setSize(Math.max(sizeX, sizeY));
-
-        Double[][] map = diamondSquareFractal.generate();
+//        DiamondSquareFractal diamondSquareFractal = new DiamondSquareFractal();
+//        diamondSquareFractal.setRoughness(0.007);
+//        diamondSquareFractal.setSize(Math.max(sizeX, sizeY));
+//
+//        Double[][] map = diamondSquareFractal.generate();
 
         for (int x = 0; x < world.getWidth(); x++) {
             for (int y = 0; y < world.getHeight(); y++) {
-                world.getTile(x, y).setErosionResistance((int) (map[x][y] * 255));
+                world.getTile(x, y).setErosionResistance(new Random().nextInt(255));
             }
         }
     }
@@ -119,8 +119,8 @@ public class WorldFactory {
             Tile tile = world.getTile(rand.nextInt(world.getWidth()), rand.nextInt(world.getHeight()));
             if (!(tile.getTerrain() instanceof Mountain) && tile.getHeight() > 240) {
                 source.add(tile);
-                maxTries--;
             }
+            maxTries--;
         }
 
         for (Tile sourceTile : source) {
@@ -128,18 +128,23 @@ public class WorldFactory {
             List<Tile> visited = new ArrayList<>();
             try {
                 for (Tile t : generator.generateRiver(sourceTile.getX(), sourceTile.getY())) {
+
                     setFlowDirection(last, t);
                     if (!(t.getTerrain() instanceof Water)) {
                         t.setTerrain(new River());
                     }
+                    if (last != null && last.getHeight() < t.getHeight()) {
+                        t.setHeight(last.getHeight());
+                    }
                     // Erosion or some such nonsense
                     if ((t.getTerrain() instanceof River)) {
-                        t.setHeight(t.getHeight() - 5);
                         for (Tile neighbor : world.getNeighboringTiles(t)) {
                             if (!(neighbor.getTerrain() instanceof Water)) { // Don't modify water tile's height
                                 neighbor.setHeight(neighbor.getHeight() - 1);
                             }
-                            if (neighbor.getHeight() < t.getHeight() && !(neighbor.getTerrain() instanceof Water) && !visited.contains(neighbor)) {
+                            if (neighbor.getHeight() < t.getHeight()
+                                    && !(neighbor.getTerrain() instanceof Water)
+                                    && !visited.contains(neighbor)) {
                                 if (neighbor.getOccupyingObject() != null) {
                                     neighbor.setOccupyingObject(null);
                                 }
