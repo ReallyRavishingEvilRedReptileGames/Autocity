@@ -4,20 +4,16 @@ import com.fuzzy.autocity.Invokable;
 import com.fuzzy.autocity.Tile;
 import com.fuzzy.autocity.World;
 import com.fuzzy.autocity.enumeration.EDirection;
-import com.fuzzy.autocity.exceptions.PlacementAttemptsExceededException;
 import com.fuzzy.autocity.generators.aStarPathFinder;
-import com.fuzzy.autocity.terrain.Mountain;
 import com.fuzzy.autocity.terrain.River;
 import com.fuzzy.autocity.terrain.RiverBank;
 import com.fuzzy.autocity.terrain.Water;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class RiverBuilder {
 
-    private int riverRegenAttempts;
     private World world;
 
     public RiverBuilder(World world) {
@@ -36,11 +32,6 @@ public class RiverBuilder {
         List<Tile> visited = new ArrayList<>();
         try {
             for (Tile t : generator.generateRiver(startX, startY)) {
-                // Band-aid fix related to Issue #
-                if (t.getOccupyingObject() != null) {
-                    t.setOccupyingObject(null);
-                }
-
                 setFlowDirection(last, t);
                 if (!(t.getTerrain() instanceof Water)) {
                     t.setTerrain(new River());
@@ -48,11 +39,15 @@ public class RiverBuilder {
                 if (last != null && last.getHeight() < t.getHeight()) {
                     t.setHeight(last.getHeight());
                 }
-                // Erosion or some such nonsense
+                // Eroding the river's banks
+                int lowestTile = t.getHeight();
                 if ((t.getTerrain() instanceof River)) {
                     for (Tile neighbor : world.getNeighboringTiles(t)) {
                         if (!(neighbor.getTerrain() instanceof Water)) { // Don't modify water tile's height
                             neighbor.setHeight(neighbor.getHeight() - 1);
+                            if (neighbor.getHeight() < lowestTile) {
+                                lowestTile = neighbor.getHeight();
+                            }
                         }
                         if (neighbor.getHeight() < t.getHeight()
                                 && !(neighbor.getTerrain() instanceof Water)
@@ -66,6 +61,7 @@ public class RiverBuilder {
                         visited.clear();
                     }
                 }
+                t.setHeight( lowestTile - 1);
                 last = t;
             }
             System.out.println("River generated!");
@@ -78,9 +74,10 @@ public class RiverBuilder {
     private void setFlowDirection(Tile last, Tile current) {
         /*
         0, -1 North
+        0, +1 South
         -1, 0 West
         +1, 0 East
-        0, +1 South
+        Then we set it as the opposite.
         */
         if (world.getTile(current.getX(), current.getY() - 1).equals(last)) {
             River r = (River) last.getTerrain();
